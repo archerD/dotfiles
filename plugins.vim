@@ -20,6 +20,7 @@ Plugin 'tpope/vim-surround'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+set encoding=utf-8           " for YouCompleteMe in docker
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
