@@ -55,4 +55,6 @@ set wildmenu
 
 " ensures that there is context around the current line
 set scrolloff=2
+" wrap at words instead of characters
+set linebreak
 
