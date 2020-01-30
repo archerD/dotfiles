@@ -12,6 +12,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+" YCM has a compiled component, for install direction, see
+" https://github.com/ycm-core/YouCompleteMe#installation
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'tpope/vim-repeat'
