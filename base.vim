@@ -33,6 +33,8 @@ nnoremap K i<Cr><Esc>
 " and for plugins that are filetype specific.
 filetype indent plugin on
 
+" colorscheme
+:colorscheme slate
 " Enable syntax highlighting
 syntax enable
 set autoindent
