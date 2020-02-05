@@ -24,9 +24,6 @@ Plugin 'tpope/vim-obsession'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-set encoding=utf-8           " for YouCompleteMe in docker
-" add fugitive status line to default status line
-set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -38,3 +35,9 @@ set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+" for YouCompleteMe in docker
+set encoding=utf-8 
+" add fugitive status line to default status line
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+
