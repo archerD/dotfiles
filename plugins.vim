@@ -40,4 +40,12 @@ filetype plugin indent on    " required
 set encoding=utf-8 
 " add fugitive status line to default status line
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+" Add a language server for Haskell
+let g:ycm_language_server = [
+  \   { 'name': 'haskell',
+  \     'filetypes': [ 'haskell', 'hs', 'lhs' ],
+  \     'cmdline': [ 'hie-wrapper', '--lsp' ],
+  \     'project_root_files': [ '.stack.yaml', 'cabal.config', 'package.yaml' ]
+  \   }
+  \ ]
 
