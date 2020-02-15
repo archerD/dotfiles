@@ -33,8 +33,12 @@ nnoremap K i<Cr><Esc>
 " and for plugins that are filetype specific.
 filetype indent plugin on
 
-" colorscheme
-:colorscheme slate
+" colorscheme, using slate for dark, and morning for light mode on gui.
+if has('gui_running')
+    colorscheme morning
+else
+    colorscheme slate
+endif
 " Enable syntax highlighting
 syntax enable
 set autoindent
