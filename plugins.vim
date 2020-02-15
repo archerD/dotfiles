@@ -12,15 +12,18 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" YCM has a compiled component, for install direction, see
-" https://github.com/ycm-core/YouCompleteMe#installation
-Plugin 'ycm-core/YouCompleteMe'
-Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
-Plugin 'vim-latex/vim-latex'
+"Plugin 'vim-latex/vim-latex'
+Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'lervag/vimtex'
+Plugin 'gi1242/vim-tex-autoclose'
+" YCM has a compiled component, for install direction, see
+" https://github.com/ycm-core/YouCompleteMe#installation
+Plugin 'ycm-core/YouCompleteMe'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -52,5 +55,11 @@ let g:ycm_language_server = [
 
 " add the problem and solution latex environments to the list of things
 " folded by vim-latex
-let g:Tex_FoldedEnvironments = 'solution,'
-
+"let g:Tex_FoldedEnvironments = 'solution,'
+" Let ycm use vimtex to perform autocomplete in tex files
+if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+endif
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
+" set completions from vimtex to include closing brace
+let g:vimtex_complete_close_braces = 1
