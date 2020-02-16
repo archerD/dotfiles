@@ -16,10 +16,10 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-commentary'
 "Plugin 'vim-latex/vim-latex'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'lervag/vimtex'
-Plugin 'gi1242/vim-tex-autoclose'
 " YCM has a compiled component, for install direction, see
 " https://github.com/ycm-core/YouCompleteMe#installation
 Plugin 'ycm-core/YouCompleteMe'
