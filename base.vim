@@ -26,7 +26,12 @@ nnoremap <C-L> :nohl<CR><C-L>
 nnoremap Y y$
 " Changes K from open help to split line at cursor (mirrors J[oin])
 nnoremap K i<Cr><Esc>
+" and remap default K functionality to mapleader K or mapleader k
+nnoremap <leader>K K
+nnoremap <leader>k K
 
+" map :W to :w, due to typos.
+command! W w
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
