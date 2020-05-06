@@ -30,6 +30,15 @@ nnoremap K i<Cr><Esc>
 nnoremap <leader>K K
 nnoremap <leader>k K
 
+" gq and gw originally mapped to a reformatting keybind.
+" gW wasn't mapped, and gQ was a special way to enter Ex mode.
+" these mappings change gq(gQ) and gw(gW) to quit and write (by force), respectively.
+nnoremap gq <C-W>q
+nnoremap gQ <C-W>:q!
+" testing: a mapping for gw to :w
+nnoremap gw :w
+nnoremap gW :w!
+
 " map :W to :w, due to typos (:W is nothing).
 command! W w
 
