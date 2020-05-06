@@ -22,15 +22,15 @@ set backspace=indent,eol,start
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
-" Modify Y behavior to align with C and D behavior
+" Modify Y behavior to align with C and D behavior (defaults to yy behavior)
 nnoremap Y y$
 " Changes K from open help to split line at cursor (mirrors J[oin])
 nnoremap K i<Cr><Esc>
-" and remap default K functionality to mapleader K or mapleader k
+" and remap default K functionality (open help) to mapleader K or mapleader k
 nnoremap <leader>K K
 nnoremap <leader>k K
 
-" map :W to :w, due to typos.
+" map :W to :w, due to typos (:W is nothing).
 command! W w
 
 " Attempt to determine the type of a file based on its name and possibly its
