@@ -24,6 +24,9 @@ Plugin 'lervag/vimtex'
 " https://github.com/ycm-core/YouCompleteMe#installation
 Plugin 'ycm-core/YouCompleteMe'
 
+" Plugin for cmus remote control integration.
+" see keybindings below.
+Plugin 'azadkuh/vim-cmus'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -68,4 +71,12 @@ let g:vimtex_complete_close_braces = 1
 let g:vimtex_compiler_latexmk = {
     \ 'build_dir' : './vimtex-output',
     \}
+
+" cmus controls
+nnoremap <leader>i :CmusCurrent<cr>
+nnoremap <leader>z :CmusPrevious<cr>
+nnoremap <leader>x :CmusPlay<cr>
+nnoremap <leader>c :CmusPause<cr>
+nnoremap <leader>v :CmusStop<cr>
+nnoremap <leader>b :CmusNext<cr>
 
