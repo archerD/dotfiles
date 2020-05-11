@@ -60,6 +60,12 @@ let g:ycm_language_server = [
 if !exists('g:ycm_semantic_triggers')
     let g:ycm_semantic_triggers = {}
 endif
+
 au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
 " set completions from vimtex to include closing brace
 let g:vimtex_complete_close_braces = 1
+" set the directory for vimtex to put the build files
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir' : './vimtex-output',
+    \}
+
