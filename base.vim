@@ -18,6 +18,9 @@ set smartcase
 " Allow backspacing over autoindent, linebreaks and start of insert action
 set backspace=indent,eol,start
 
+" Set the mapleader and the local map leader to ' '(space bar)
+let mapleader = " "
+let maplocalleader = " "
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
