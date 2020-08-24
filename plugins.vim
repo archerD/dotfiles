@@ -63,6 +63,8 @@ let g:ycm_language_server = [
 if !exists('g:ycm_semantic_triggers')
     let g:ycm_semantic_triggers = {}
 endif
+" get rid of warning for vimtex tex flavor
+let g:tex_flavor = 'latex'
 
 au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
 " set completions from vimtex to include closing brace
