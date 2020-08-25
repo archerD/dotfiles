@@ -8,6 +8,10 @@
 " Enable modern Vim features not compatible with Vi spec.
 set nocompatible
 
+" Set the mapleader and the local map leader to ' '(space bar)
+let mapleader = " "
+let maplocalleader = " "
+
 " highlight all matches as you type
 set incsearch
 set hlsearch
