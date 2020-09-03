@@ -22,6 +22,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 " easy commenting
 Plugin 'tpope/vim-commentary'
+" local vimrc files for per project config
+Plugin 'embear/vim-localvimrc'
 " very large latex plugin
 "Plugin 'vim-latex/vim-latex'
 " live preview of latex files
