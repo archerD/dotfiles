@@ -12,14 +12,23 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+" allow . to repeat some plugin actions
 Plugin 'tpope/vim-repeat'
+" do stuff with surrounding brackets and such
 Plugin 'tpope/vim-surround'
+" git integration
 Plugin 'tpope/vim-fugitive'
+" allow saving vim state
 Plugin 'tpope/vim-obsession'
+" easy commenting
 Plugin 'tpope/vim-commentary'
+" very large latex plugin
 "Plugin 'vim-latex/vim-latex'
+" live preview of latex files
 Plugin 'xuhdev/vim-latex-live-preview'
+" full featured vim plugin
 Plugin 'lervag/vimtex'
+" language server and completion thing...
 " YCM has a compiled component, for install direction, see
 " https://github.com/ycm-core/YouCompleteMe#installation
 Plugin 'ycm-core/YouCompleteMe'
