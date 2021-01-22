@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ "$(whoami)" == "archerd" ]; then
+    autorandr -c # force monitor configuration
+
+    # tray for applets and application notifications
+    trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 63 --tint 0x145A32 --heighttype request --margin 3 --padding 3 &
+
+    # applets (sleep to force desired order)
+    xfce4-power-manager &
+    sleep 0.010
+    nm-applet --sm-disable &
+    sleep 0.010
+    blueman-applet &
+    sleep 0.500
+    pasystray &
+    sleep 0.400
+    kdeconnect-indicator &
+    sleep 0.010
+    yubioath-desktop &
+    sleep 0.010
+    redshift-gtk &
+
+    # background and screensaver/lockscreen
+    feh --bg-scale /home/archerd/bitma2p.png &
+    xscreensaver -no-splash &
+    # set numlock on by default
+    /usr/bin/numlockx on
+
+    # start xmonad
+    exec xmonad
+fi
+
