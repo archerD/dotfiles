@@ -26,6 +26,10 @@ set backspace=indent,eol,start
 let mapleader = " "
 let maplocalleader = " "
 
+" swap the f/t repeat search keys
+nnoremap ; ,
+nnoremap , ;
+
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
