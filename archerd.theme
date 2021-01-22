@@ -1,0 +1,55 @@
+##### Common User Interface Components #########################################
+# Default text color
+set color_win_fg=default
+
+# Overall background color
+set color_win_bg=black
+
+# Section separator color
+set color_separator=yellow
+
+# Command-line colors
+set color_cmdline_bg=default
+set color_cmdline_fg=default
+set color_error=lightred
+set color_info=lightyellow
+
+# Bottom status line
+set color_statusline_bg=gray
+set color_statusline_fg=black
+
+# Bottom title line
+set color_titleline_bg=green
+set color_titleline_fg=white
+
+# Top title area
+set color_win_title_bg=green
+set color_win_title_fg=white
+
+
+##### Playing File Colors ######################################################
+# Unselected currently playing track's text
+set color_win_cur=blue
+
+# Active selection for currently playing track
+set color_win_cur_sel_bg=green
+set color_win_cur_sel_fg=lightblue
+
+# Inactive selection for currently playing track
+set color_win_inactive_cur_sel_bg=gray
+set color_win_inactive_cur_sel_fg=lightblue
+
+
+##### Non-Playing File Colors ##################################################
+# Active selection
+set color_win_sel_bg=green
+set color_win_sel_fg=gray
+
+# Inactive selection
+set color_win_inactive_sel_bg=gray
+set color_win_inactive_sel_fg=black
+
+
+##### File Browser View Colors #################################################
+# Directory listing color
+set color_win_dir=lightgreen
