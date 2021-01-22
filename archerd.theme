@@ -1,3 +1,6 @@
+# Theme for cmus, a command line music player.
+# Should be linked to from .config/cmus
+
 ##### Common User Interface Components #########################################
 # Default text color
 set color_win_fg=default
