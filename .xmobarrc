@@ -13,6 +13,9 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-15-*-*-*-*-*-*-*"
                     ]
        , sepChar = "%"
        , alignSep = "{}"
-       , template = "%StdinReader% { <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action> } <fc=#44cc44>%mpris2%</fc> [<fc=#ffff00>%locks%</fc>] %cpu% | %memory% (%default:Master%) %trayerpad%"
+       , template = "%StdinReader% {\
+            \ <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action> }\
+            \<action=`playerctl -p playerctld play-pause` button=1><action=`playerctl -p playerctld next` button=5><action=`playerctl -p playerctld previous` button=4><action=`playerctld shift` button=3><fc=#44cc44>%mpris2%</fc></action></action></action></action>\
+            \ [<fc=#ffff00>%locks%</fc>] %cpu% | %memory% (%default:Master%) %trayerpad%"
        }
 

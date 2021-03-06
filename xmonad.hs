@@ -33,14 +33,16 @@ myModMask = modMask def -- defaults to the alt key, mod3Mask.
 
 myKeys =
     [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
-    , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 5))
-    , ((0, xF86XK_AudioRaiseVolume), void (raiseVolume 5))
+    , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 4))
+    , ((0, xF86XK_AudioRaiseVolume), void (raiseVolume 4))
     , ((0, xF86XK_AudioPlay), spawn "playerctl -p playerctld play-pause")
     , ((0, xF86XK_AudioPrev), spawn "playerctl -p playerctld previous")
     , ((0, xF86XK_AudioNext), spawn "playerctl -p playerctld next")
     , ((myModMask, xK_r), spawn "playerctld shift")
     , ((myModMask, xK_u), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
     , ((myModMask, xK_f), sendMessage ToggleStruts)
+    , ((0, xK_Print), spawn "gnome-screenshot --interactive")
+    , ((myModMask .|. shiftMask, xK_m), windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
     ]
     ++
     -- set the numpad to be usable for workspace management
@@ -82,7 +84,7 @@ myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Fu
         -- settings
         nmaster = 1
         ratio   = 1/2
-        delta   = 3/100
+        delta   = 2/100
 
 main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar /home/archerd/.xmobarrc"
           xmonad $ docks def
@@ -95,5 +97,7 @@ main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar /home/archerd/.xm
             , mouseBindings = myMouse
             , terminal = "x-terminal-emulator"
             } `additionalKeys` myKeys
-              `removeKeys` [ (myModMask, xK_t) ]
+              `removeKeys` [ (myModMask, xK_t)
+                           , (myModMask, xK_m)
+                           ]
 
