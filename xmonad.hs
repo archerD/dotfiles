@@ -4,6 +4,7 @@ import qualified XMonad.StackSet as W
 
 -- xmonad-contrib imports
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys,removeKeys)
@@ -86,8 +87,12 @@ myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Fu
         ratio   = 1/2
         delta   = 2/100
 
+-- should this be hooks instead?
+configModifiers :: XConfig a -> XConfig a
+configModifiers = docks . ewmh
+
 main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar /home/archerd/.xmobarrc"
-          xmonad $ docks def
+          xmonad $ configModifiers def
             { layoutHook = myLayoutHook
             , logHook = dynamicLogWithPP xmobarPP
                             { ppOutput = hPutStrLn xmproc
