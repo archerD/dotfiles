@@ -20,7 +20,7 @@ if [ "$(whoami)" == "archerd" ]; then
     redshift-gtk &
 
     # background and screensaver/lockscreen
-    feh --bg-scale /home/archerd/bitma2p.png &
+    feh --bg-scale /home/archerd/.wallpaper.png &
     xscreensaver -no-splash &
     # set numlock on by default
     /usr/bin/numlockx on
