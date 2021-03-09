@@ -8,6 +8,8 @@ The main repository for the .vim files is [archerD/.vim](https://github.com/arch
 To install the dotfiles using dotbot on a machine, clone this repository (git clone ...), then run the install script inside it.
 This should install the configuration, using the instal.conf.yaml file as a guide.
 
+To update the dotbot version, run git submodule update --remote dotbot, and commit.
+
 ## Dealing with the .vim files
 Changing the .vim files can be done as before, though it would be wise to make seperate commits for changes to the .vim files and changes to other files.
 
