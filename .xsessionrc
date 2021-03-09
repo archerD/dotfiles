@@ -1,8 +1,6 @@
 #!/bin/bash
 
 if [ "$(whoami)" == "archerd" ]; then
-    autorandr -c # force monitor configuration
-
     # tray for applets and application notifications
     trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 63 --tint 0x145A32 --heighttype request --margin 3 --padding 3 &
 
@@ -22,10 +20,12 @@ if [ "$(whoami)" == "archerd" ]; then
     redshift-gtk &
 
     # background and screensaver/lockscreen
-    feh --bg-scale /home/archerd/bitma2p.png &
+    feh --bg-scale /home/archerd/.wallpaper.png &
     xscreensaver -no-splash &
     # set numlock on by default
     /usr/bin/numlockx on
+
+    autorandr -c # force monitor configuration
 
     # start xmonad
     exec xmonad

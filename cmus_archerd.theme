@@ -1,5 +1,6 @@
 # Theme for cmus, a command line music player.
 # Should be linked to from .config/cmus
+# Not currently used, using night theme instead
 
 ##### Common User Interface Components #########################################
 # Default text color
