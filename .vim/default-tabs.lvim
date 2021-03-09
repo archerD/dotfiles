@@ -1,0 +1,6 @@
+" Reset options relating to tab indenting.
+" This file should only be sourced if the default tab behavior is desired.
+set noexpandtab
+set shiftwidth=8
+set softtabstop=0
+
