@@ -1,4 +1,4 @@
-Config { font = "xft:Tlwg Mono Regular-14"
+Config { font = "xft:Tlwg Mono:size=13:bold:antialias=true"
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 100
