@@ -10,9 +10,9 @@
 - clean: ['~/.config', '~/.xmonad']
 
 - link:
-    ~/.tmux.conf: .tmux.conf
-    ~/.vim: .vim
-    ~/.bash_aliases: .bash_aliases
+    ~/.tmux.conf: tmux.conf
+    ~/.vim: vim
+    ~/.bash_aliases: bash_aliases
     ~/.config/cmus/archerd.theme: cmus_archerd.theme
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.wallpaper.png: bitma2p.png
@@ -28,7 +28,7 @@
       if: ' xmonad --version '
 
 - link:
-    ~/.xsessionrc: .xsessionrc
+    ~/.xsessionrc: xsessionrc
     ~/.xmonad/xmonad.hs: xmonad.hs
-    ~/.xmobarrc: .xmobarrc
-    ~/.xscreensaver: .xscreensaver
+    ~/.xmobarrc: xmobarrc
+    ~/.xscreensaver: xscreensaver
