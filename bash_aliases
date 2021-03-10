@@ -10,7 +10,7 @@ alias bat='batcat'
 alias phone='$HOME/repos/executables/gnirehtet-rust-linux64-v2.5/gnirehtet-rust-linux64/gnirehtet autorun'
 
 # alias for unison
-alias unison='$HOME/repos/executables/unison-v2.51.3+ocaml-4.11.1+x86_64.linux/bin/unison-gtk2'
+# alias unison='$HOME/bin/unison/bin/unison-gtk2'
 
 # alias for bpytop, related to bashtop
 alias btop='bpytop'

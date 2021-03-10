@@ -17,6 +17,7 @@
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.wallpaper.png: bitma2p.png
     ~/.ssh/config: ssh_config
+    ~/.dotfiles: ""
 
     # can only be installed when the script is run with sudo
     /etc/logid.cfg: mxmaster3mouse.cfg

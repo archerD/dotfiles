@@ -26,8 +26,5 @@ if [ "$(whoami)" == "archerd" ]; then
     /usr/bin/numlockx on
 
     autorandr -c # force monitor configuration
-
-    # start xmonad
-    exec xmonad
 fi
 
