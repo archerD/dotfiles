@@ -14,6 +14,6 @@ To update the dotbot version, run git submodule update --remote dotbot, and comm
 Changing the .vim files can be done as before, though it would be wise to make seperate commits for changes to the .vim files and changes to other files.
 
 To sync up with the main repository for the .vim files, the following commands can be used:
-* git subtree push -P vim/ git@github.com:archerD/.vim main
 * git subtree pull -P vim/ git@github.com:archerD/.vim main
+* git subtree push -P vim/ git@github.com:archerD/.vim main
 

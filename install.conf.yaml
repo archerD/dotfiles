@@ -26,7 +26,7 @@
     link:
       relink: true
       create: true
-      if: ' xmonad --version '
+      if: ' type xmonad '
 
 - link:
     ~/.xsessionrc: xsessionrc
