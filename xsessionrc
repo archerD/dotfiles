@@ -18,6 +18,7 @@ if [ "$(whoami)" == "archerd" ]; then
     yubioath-desktop &
     sleep 0.010
     redshift-gtk &
+    gnome-pie &
 
     # background and screensaver/lockscreen
     feh --bg-scale /home/archerd/.dotfiles/wallpaper.png &
