@@ -1,19 +1,31 @@
 #!/bin/bash
+# Script comes from https://davidltran.com/blog/check-tmux-session-exists-script/
 
 # Session name
 session="Background"
 
-tmux new-session -d -s $session
-tmux send-keys 'btop' C-m
-tmux split-window -h -b
-tmux send-keys 'cmus' C-m
+# Check if the session exists, discarding output
+# We can check $? for the exit status (zero for success, non-zero for failure)
+tmux has-session -t $session 2>/dev/null
 
-tmux new-window
-tmux send-keys 'phone' C-m
+if [ $? != 0 ]; then
+    # Set up main window
+    tmux new-session -d -s $session
+    tmux send-keys 'cmus' C-m
+    tmux split-window -h
+    tmux send-keys 'bpytop'
 
-tmux new-window
-tmux send-keys 'compton'
+    # Set up other windows
+    tmux new-window
+    tmux send-keys 'phone' C-m
 
-tmux next-window
-tmux attach-session -d
+    tmux new-window
+    tmux send-keys 'compton'
+
+    # Return to first window
+    tmux next-window
+fi
+
+# Attach to created session
+tmux attach-session -t $session
 
