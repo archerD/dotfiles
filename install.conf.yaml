@@ -16,6 +16,7 @@
     ~/.config/cmus/archerd.theme: cmus_archerd.theme
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.ssh/config: ssh_config
+    ~/bin/background_window: background_window.sh
     ~/.dotfiles: ""
 
     # can only be installed when the script is run with sudo
