@@ -16,3 +16,7 @@ alias btop='bpytop'
 alias mv='mv -i'
 alias cp='cp -i'
 
+# aliases for running the factor listener
+alias factor-listener="factorcode -run=listener"
+alias factor-ui="factorcode -run=ui.tools"
+
