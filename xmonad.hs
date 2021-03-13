@@ -32,6 +32,9 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 myModMask = modMask def -- defaults to the alt key, mod3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
 
+defaultLauncher = spawn "$(yeganesh -x)"
+secondaryLauncher = spawn "dmenu_run"
+
 myKeys =
     [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
     , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 4))
@@ -40,7 +43,8 @@ myKeys =
     , ((0, xF86XK_AudioPrev), spawn "playerctl -p playerctld previous")
     , ((0, xF86XK_AudioNext), spawn "playerctl -p playerctld next")
     , ((myModMask, xK_r), spawn "playerctld shift")
-    , ((myModMask, xK_u), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
+    , ((myModMask, xK_u), defaultLauncher)
+    , ((myModMask .|. shiftMask, xK_u), secondaryLauncher)
     , ((myModMask, xK_f), sendMessage ToggleStruts)
     , ((0, xK_Print), spawn "gnome-screenshot --interactive")
     , ((myModMask .|. shiftMask, xK_m), windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
@@ -104,5 +108,7 @@ main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar"
             } `additionalKeys` myKeys
               `removeKeys` [ (myModMask, xK_t)
                            , (myModMask, xK_m)
+                           , (myModMask, xK_p)
+                           , (myModMask .|. shiftMask, xK_p)
                            ]
 

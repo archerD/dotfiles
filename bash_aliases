@@ -12,3 +12,7 @@ alias phone='gnirehtet autorun'
 # alias for bpytop, related to bashtop
 alias btop='bpytop'
 
+# add protection against clobering files
+alias mv='mv -i'
+alias cp='cp -i'
+
