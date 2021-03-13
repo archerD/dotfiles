@@ -15,8 +15,11 @@
     ~/.bash_aliases: bash_aliases
     ~/.config/cmus/archerd.theme: cmus_archerd.theme
     ~/.config/autorandr/postswitch: autorandr_postswitch
+    ~/.config/gnome-pie/themes/Adwatary: gnome-pie_theme
     ~/.ssh/config: ssh_config
     ~/bin/background_window: background_window.sh
+
+    # self link
     ~/.dotfiles: ""
 
     # can only be installed when the script is run with sudo
