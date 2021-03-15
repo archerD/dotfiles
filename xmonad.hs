@@ -6,6 +6,7 @@ import qualified XMonad.StackSet as W
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Util.Paste
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys,removeKeys)
 import XMonad.Config.Gnome
@@ -39,6 +40,7 @@ myKeys =
     [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
     , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 4))
     , ((0, xF86XK_AudioRaiseVolume), void (raiseVolume 4))
+    , ((0, xF86XK_AudioMute), void (toggleMute))
     , ((0, xF86XK_AudioPlay), spawn "playerctl -p playerctld play-pause")
     , ((0, xF86XK_AudioPrev), spawn "playerctl -p playerctld previous")
     , ((0, xF86XK_AudioNext), spawn "playerctl -p playerctld next")
@@ -48,6 +50,7 @@ myKeys =
     , ((myModMask, xK_f), sendMessage ToggleStruts)
     , ((0, xK_Print), spawn "gnome-screenshot --interactive")
     , ((myModMask .|. shiftMask, xK_m), windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
+    , ((myModMask .|. shiftMask, xK_f), sendKey noModMask xF86XK_Forward)
     ]
     ++
     -- set the numpad to be usable for workspace management
@@ -78,8 +81,15 @@ myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
     , ((myModMask, button4), \w -> focus w >> withFocused (windows . W.sink))
     -- mod-button4 (scroll down), Send the window back into the tiling
     , ((myModMask, button5), \w -> focus w >> withFocused (windows . W.sink))
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
+
+    -- mod-button8 (back button), send the forward key instead of the back key
+    , ((myModMask, button8), sendKeyWindow noModMask xF86XK_Forward)
     ]
+  where
+    button6 = 6 -- scroll left
+    button7 = 7 -- scroll right
+    button8 = 8 -- back button
+    button9 = 9 -- forward button (currently not sent, because logiops redirects first)
 
 myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Full
     where
