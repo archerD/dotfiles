@@ -55,7 +55,7 @@ myKeys =
     ++
     -- set the numpad to be usable for workspace management
     [((m .|. myModMask, k), windows $ f i)
-        | (i, k) <- zip myWorkspaces (init numPadKeys)
+        | (i, k) <- zip myWorkspaces numPadKeys
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
     ]
     ++
@@ -112,6 +112,7 @@ main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar"
                             { ppOutput = hPutStrLn xmproc
                             , ppTitle = xmobarColor "green" "" . shorten 50
                             }
+            , workspaces = myWorkspaces
             , modMask = myModMask
             , mouseBindings = myMouse
             , terminal = "x-terminal-emulator"
