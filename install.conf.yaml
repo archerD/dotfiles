@@ -38,3 +38,4 @@
     ~/.xmonad/xmonad.hs: xmonad.hs
     ~/.config/xmobar/xmobarrc: xmobarrc
     ~/.xscreensaver: xscreensaver
+    ~/.config/dunst/dunstrc: dunstrc
