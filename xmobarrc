@@ -7,7 +7,7 @@ Config { font = "xft:Tlwg Mono:size=12:bold:antialias=true"
                     , Run Date "(%a) %F T %R:%S%z (%Z)" "date" 10
                     , Run StdinReader
                     , Run Locks
-                    , Run Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
+                    , Run Com "/home/archerd/.dotfiles/padding-icon.sh" ["stalonetray"] "trayerpad" 10
                     , Run Volume "default" "Master" ["-t", "Vol: <volume>%"] 5
                     , Run Mpris2 "playerctld" [] 10
                     ]

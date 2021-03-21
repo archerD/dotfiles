@@ -12,7 +12,8 @@ if [ "$(whoami)" == "archerd" ]; then
     gnome-pie &
 
     # tray for applets and application notifications
-    trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 63 --tint 0x145A32 --heighttype request --margin 3 --padding 3 &
+    # trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 63 --tint 0x145A32 --heighttype request --margin 3 --padding 3 &
+    stalonetray --config /home/archerd/.dotfiles/stalonetrayrc &
 
     # applets (sleep to force desired order)
     xfce4-power-manager &

@@ -22,7 +22,8 @@
     # self link
     ~/.dotfiles: ""
 
-    # can only be installed when the script is run with sudo
+# can only be installed when the script is run with sudo
+- link:
     /etc/logid.cfg: mxmaster3mouse.cfg
 
 # before linking in the xmonad stuff, make sure xmonad is available.

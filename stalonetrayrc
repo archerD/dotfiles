@@ -1,0 +1,50 @@
+# vim:filetype=config:tw=80:et
+# 
+####################################################################
+# 
+# stalonetray understands following directives
+#
+####################################################################
+
+# background <color>         # color can be specified as an HTML hex triplet or
+                             # as a name from rgb.txt, note that '#' must be quoted
+# background "#32572C"
+background "#222222"
+
+# decorations <decspec>      # set trays window decorations; possible values for
+                             # decspec are: all, title, border, none
+decorations none
+
+# geometry <geometry>        # tray's geometry in standard X notation; width and
+                             # height are specified in slot_size multiples
+geometry 1x1-0+0
+
+# grow_gravity <gravity>     # one of N, S, E, W, NW, NE, SW, SE; tray will grow
+                             # in the direction opposite to one specified by
+							 # grow_gravity; if horizontal or vertical
+							 # direction is not specified, tray will not grow in
+							 # that direction
+grow_gravity NE
+
+# icon_gravity <gravity>     # icon placement gravity, one of NW, NE, SW, SE
+icon_gravity NE
+
+# icon_size <int>            # specifies dimensions of typical icon slot
+icon_size 32
+
+slot_size 36                 # specifies size of icon slot, defaults to
+                             # icon_size NEW in 0.8.
+
+# kludges kludge[,kludge]    # enable specific kludges to work around
+                             # non-conforming WMs and/or stalonetray bugs.
+                             # NEW in 0.8. Argument is a
+                             # comma-separated list of
+                             # * fix_window_pos - fix tray window position on
+                             #     erroneous moves by WM
+                             # * force_icon_size - ignore resize events on all
+                             #     icons; force their size to be equal to
+                             #     icon_size
+                             # * use_icon_hints - use icon window hints to
+                             #     dtermine icon size
+# kludges fix_window_pos
+
