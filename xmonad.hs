@@ -33,8 +33,8 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 myModMask = modMask def -- defaults to the alt key, mod3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
 
-defaultLauncher = spawn "$(yeganesh -x)"
-secondaryLauncher = spawn "dmenu_run"
+defaultLauncher = spawn "$(yeganesh -x -- -p \"$\")"
+secondaryLauncher = spawn "dmenu_run -p \"$\""
 
 myKeys =
     [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
@@ -120,6 +120,6 @@ main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar"
               `removeKeys` [ (myModMask, xK_t)
                            , (myModMask, xK_m)
                            , (myModMask, xK_p)
-                           , (myModMask .|. shiftMask, xK_p)
+                           , (myModMask .|. shiftMask, xK_c)
                            ]
 

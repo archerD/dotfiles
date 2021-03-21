@@ -1,7 +1,7 @@
 # User created file containing aliases I want.
 
 # alias for cmus so it is detachable
-alias cmus='screen -q -r cmus || screen -S cmus $(which cmus)'
+alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 
 # alias batcat to bat for ease of use
 alias bat='batcat'

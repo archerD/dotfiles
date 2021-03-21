@@ -16,6 +16,6 @@ Config { font = "xft:Tlwg Mono:size=12:bold:antialias=true"
        , template = "<action=`gnome-pie -o 232`>%StdinReader%</action> {\
             \ <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action> }\
             \<action=`playerctl -p playerctld play-pause` button=1><action=`playerctl -p playerctld next` button=5><action=`playerctl -p playerctld previous` button=4><action=`gnome-pie -o 353` button=3><fc=#44cc44>%mpris2%</fc></action></action></action></action>\
-            \ [<fc=#ffff00>%locks%</fc>] %cpu% | %memory% (%default:Master%) %trayerpad%"
+            \ [<fc=#ffff00>%locks%</fc>] %cpu% | %memory% (%default:Master%)|%trayerpad%"
        }
 
