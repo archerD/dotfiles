@@ -1,6 +1,16 @@
 #!/bin/bash
 
 if [ "$(whoami)" == "archerd" ]; then
+    # background and screensaver/lockscreen
+    feh --bg-scale /home/archerd/.dotfiles/wallpaper.png &
+    autorandr -c # force monitor configuration (uses script from feh to resize background)
+    xscreensaver -no-splash &
+    compton &
+    # set numlock on by default
+    /usr/bin/numlockx on
+    # start gnome-pie for graphical menus
+    gnome-pie &
+
     # tray for applets and application notifications
     trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 63 --tint 0x145A32 --heighttype request --margin 3 --padding 3 &
 
@@ -15,17 +25,15 @@ if [ "$(whoami)" == "archerd" ]; then
     sleep 0.400
     kdeconnect-indicator &
     sleep 0.010
-    yubioath-desktop &
-    sleep 0.010
     redshift-gtk &
-    gnome-pie &
+    sleep 0.010
 
-    # background and screensaver/lockscreen
-    feh --bg-scale /home/archerd/.dotfiles/wallpaper.png &
-    xscreensaver -no-splash &
-    # set numlock on by default
-    /usr/bin/numlockx on
-
-    autorandr -c # force monitor configuration
+    # software to be autostarted
+    if type yubioath-desktop; then
+        yubioath-desktop &
+    fi
+    if type slack; then
+        slack --startup &
+    fi
 fi
 
