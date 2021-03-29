@@ -33,7 +33,7 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 myModMask = modMask def -- defaults to the alt key, mod3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
 
-defaultLauncher = spawn "$(yeganesh -x -- -p \"$\")"
+defaultLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 secondaryLauncher = spawn "dmenu_run -p \"$\""
 
 myKeys =
@@ -116,10 +116,11 @@ main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar"
             , modMask = myModMask
             , mouseBindings = myMouse
             , terminal = "x-terminal-emulator"
-            } `additionalKeys` myKeys
-              `removeKeys` [ (myModMask, xK_t)
-                           , (myModMask, xK_m)
-                           , (myModMask, xK_p)
-                           , (myModMask .|. shiftMask, xK_c)
-                           ]
+            }
+            `removeKeys` [ (myModMask, xK_t)
+                         , (myModMask, xK_m)
+                         , (myModMask, xK_p)
+                         ]
+            `additionalKeys` myKeys
+
 
