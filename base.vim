@@ -31,8 +31,8 @@ nnoremap ; ,
 nnoremap , ;
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
+" next search, fix syntax highlighting, and update diffs
+nnoremap <C-L> :nohl<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-L>
 " Modify Y behavior to align with C and D behavior (defaults to yy behavior)
 nnoremap Y y$
 " Changes K from open help to split line at cursor (mirrors J[oin])
