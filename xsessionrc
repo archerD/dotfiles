@@ -24,9 +24,9 @@ if [ "$(whoami)" == "archerd" ]; then
     sleep 0.500
     pasystray &
     sleep 0.400
-    kdeconnect-indicator &
-    sleep 0.010
     redshift-gtk &
+    sleep 0.070
+    kdeconnect-indicator &
     sleep 0.010
 
     # software to be autostarted
