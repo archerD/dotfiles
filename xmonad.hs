@@ -105,7 +105,7 @@ myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Fu
 configModifiers :: XConfig a -> XConfig a
 configModifiers = docks . ewmh
 
-main = do xmproc <- spawnPipe "/home/archerd/.cabal/bin/xmobar"
+main = do xmproc <- spawnPipe "xmobar"
           xmonad $ configModifiers def
             { layoutHook = myLayoutHook
             , logHook = dynamicLogWithPP xmobarPP
