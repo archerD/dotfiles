@@ -3,6 +3,7 @@ import XMonad
 import qualified XMonad.StackSet as W
 
 -- xmonad-contrib imports
+import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -23,15 +24,16 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 
 -- from https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Some_keys_not_working, to enable numpad keys as number keys
-myWorkspaces = ["1","2","3","4","5","6","7","8","9","0"]
+extraWorkspaces = ["0"]
+myWorkspaces = workspaces def ++ extraWorkspaces
 -- Non-numeric num pad keys, sorted by number 
 numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
              , xK_KP_Left, xK_KP_Begin, xK_KP_Right     -- 4, 5, 6
              , xK_KP_Home, xK_KP_Up,    xK_KP_Page_Up   -- 7, 8, 9
              , xK_KP_Insert]                            -- 0
 
-myModMask = modMask def -- defaults to the alt key, mod3Mask.
--- myModMask = mod4Mask -- set the mod key to the super/windows key
+-- myModMask = modMask def -- defaults to the alt key, mod3Mask.
+myModMask = mod4Mask -- set the mod key to the super/windows key
 
 defaultLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 secondaryLauncher = spawn "dmenu_run -p \"$\""
@@ -51,11 +53,13 @@ myKeys =
     , ((0, xK_Print), spawn "gnome-screenshot --interactive")
     , ((myModMask .|. shiftMask, xK_m), windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
     , ((myModMask .|. shiftMask, xK_f), sendKey noModMask xF86XK_Forward)
+    , ((myModMask .|. shiftMask, xK_h), prevWS)
+    , ((myModMask .|. shiftMask, xK_l), nextWS)
     ]
     ++
     -- set the numpad to be usable for workspace management
     [((m .|. myModMask, k), windows $ f i)
-        | (i, k) <- zip myWorkspaces numPadKeys
+        | (i, k) <- zip extraWorkspaces [xK_0] ++ zip myWorkspaces numPadKeys
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
     ]
     ++
