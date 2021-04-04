@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# if [ "$(whoami)" == "archerd" ]; then
-# check if xmonad is running
-if pgrep xmonad; then
+if [ "$(whoami)" == "archerd" ]; then
     # background and screensaver/lockscreen
     feh --bg-scale /home/archerd/.dotfiles/wallpaper.png &
     autorandr -c # force monitor configuration (uses script from feh to resize background)
