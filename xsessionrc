@@ -36,7 +36,10 @@ if [ "$(whoami)" == "archerd" ]; then
         yubioath-desktop &
     fi
     if type slack; then
-        slack --startup &
+        slack --startup --silent &
+    fi
+    if type background_window; then
+        background_window &
     fi
 fi
 

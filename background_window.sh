@@ -19,9 +19,6 @@ if [ $? != 0 ]; then
     tmux new-window
     tmux send-keys 'phone' C-m
 
-    tmux new-window
-    tmux send-keys 'compton'
-
     # Return to first window
     tmux next-window
 fi
