@@ -55,6 +55,10 @@ myKeys =
     , ((myModMask .|. shiftMask, xK_f), sendKey noModMask xF86XK_Forward)
     , ((myModMask .|. shiftMask, xK_h), prevWS)
     , ((myModMask .|. shiftMask, xK_l), nextWS)
+    -- notification stuff
+    , ((myModMask, xK_n), spawn "dunstctl history-pop")
+    , ((myModMask .|. shiftMask, xK_n), spawn "dunstctl close")
+    , ((myModMask .|. controlMask, xK_n), spawn "dunstctl context")
     ]
     ++
     -- set the numpad to be usable for workspace management

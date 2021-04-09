@@ -6,6 +6,7 @@ if [ "$(whoami)" == "archerd" ]; then
     autorandr -c # force monitor configuration (uses script from feh to resize background)
     xscreensaver -no-splash &
     compton &
+    xsetroot -cursor_name left_ptr
     # set numlock on by default
     /usr/bin/numlockx on
     # start gnome-pie for graphical menus
