@@ -42,7 +42,7 @@ myKeys =
     [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
     , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 4))
     , ((0, xF86XK_AudioRaiseVolume), void (raiseVolume 4))
-    , ((0, xF86XK_AudioMute), void (toggleMute))
+    , ((0, xF86XK_AudioMute), void toggleMute)
     , ((0, xF86XK_AudioPlay), spawn "playerctl -p playerctld play-pause")
     , ((0, xF86XK_AudioPrev), spawn "playerctl -p playerctld previous")
     , ((0, xF86XK_AudioNext), spawn "playerctl -p playerctld next")

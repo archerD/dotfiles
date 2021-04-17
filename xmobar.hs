@@ -9,7 +9,7 @@ rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
                     \<action=`playerctl -p playerctld next` button=5>\
                         \<action=`playerctl -p playerctld previous` button=4>\
                             \<action=`gnome-pie -o 353` button=3>\
-                                \<fc=#44cc44>%mpris2%</fc>\
+                                \<fc=#44cc44>%mpris2%</fc> <fn=1>%playerstatus%</fn>\
                             \</action>\
                         \</action>\
                     \</action>\
@@ -19,6 +19,7 @@ rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
 config :: Config
 config = defaultConfig
        { font = "xft:Tlwg Mono:size=12:bold:antialias=true"
+       , additionalFonts = ["xft:Monospace Regular:size=10:antialias=true"]
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 100
@@ -29,7 +30,8 @@ config = defaultConfig
                     , Run $ Locks
                     , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
                     , Run $ Volume "default" "Master" ["-t", "Vol: <volume>%"] 5
-                    , Run $ Mpris2 "playerctld" [] 10
+                    , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", "..."] 10
+                    , Run $ Com "playerctl" ["-f", "{{emoji(status)}}", "status"] "playerstatus" 10
                     ]
        , sepChar = "%"
        , alignSep = "{}"
