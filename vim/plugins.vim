@@ -12,6 +12,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+
 " allow . to repeat some plugin actions
 Plugin 'tpope/vim-repeat'
 " do stuff with surrounding brackets and such
@@ -22,10 +23,24 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 " easy commenting
 Plugin 'tpope/vim-commentary'
+
+" plugin for text object support
+" see https://github.com/kana/vim-textobj-user/wiki for plugins using this
+Plugin 'kana/vim-textobj-user'
+" add az and iz text objects for folds
+Plugin 'kana/vim-textobj-fold'
+" add af and if text objects for functions
+"Plugin 'kana/vim-textobj-function'
+
+" matching brackets or other stuff
+"Plugin 'kana/vim-smartinput'
+" allows I and A to be used in all visual modes to get the effect of I and A
+" in visual block mode, in a nice way
+"Plugin 'kana/vim-niceblock'
+
 " local vimrc files for per project config
 Plugin 'embear/vim-localvimrc'
-" very large latex plugin
-"Plugin 'vim-latex/vim-latex'
+
 " live preview of latex files
 Plugin 'xuhdev/vim-latex-live-preview'
 " full featured vim plugin
@@ -38,6 +53,12 @@ Plugin 'ycm-core/YouCompleteMe'
 " Plugin for cmus remote control integration.
 " see keybindings below.
 Plugin 'azadkuh/vim-cmus'
+
+" Factor plugin, if the factor repository is already downloaded, space can be
+" saved by symlinking .vim/bundle/factor to the existing repo before install.
+Plugin 'factor/factor', { 'rtp': 'misc/vim' }
+" CSound plugin
+Plugin 'luisjure/csound-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
