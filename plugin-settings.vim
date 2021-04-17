@@ -25,8 +25,8 @@ set encoding=utf-8
 let g:ycm_language_server = [
   \   { 'name': 'haskell',
   \     'filetypes': [ 'haskell', 'hs', 'lhs' ],
-  \     'cmdline': [ 'hie-wrapper', '--lsp' ],
-  \     'project_root_files': [ '.stack.yaml', 'cabal.config', 'package.yaml' ]
+  \     'cmdline': [ 'haskell-language-server-wrapper', '--lsp' ],
+  \     'project_root_files': [ '*.cabal', 'stack.yaml', '.stack.yaml', 'cabal.config', 'cabal.project', 'package.yaml', 'hie.yaml' ]
   \   }
   \ ]
 
