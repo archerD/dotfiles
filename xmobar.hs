@@ -30,7 +30,7 @@ config = defaultConfig
                     , Run $ Locks
                     , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
                     , Run $ Volume "default" "Master" ["-t", "Vol: <volume>%"] 5
-                    , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", "..."] 10
+                    , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", ">"] 10
                     , Run $ Com "playerctl" ["-f", "{{emoji(status)}}", "status"] "playerstatus" 10
                     ]
        , sepChar = "%"
