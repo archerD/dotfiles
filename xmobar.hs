@@ -23,13 +23,13 @@ config = defaultConfig
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 100
-       , commands = [ Run $ Cpu ["-L","25","-H","75","--normal","green","--high","red"] 10
-                    , Run $ Memory ["-t","Mem: <usedratio>%"] 10
+       , commands = [ Run $ Cpu ["-L","25","-H","75","--normal","green","--high","red", "-t", "C: <total>%"] 10
+                    , Run $ Memory ["-t","M: <usedratio>%"] 10
                     , Run $ Date "(%a) %F T %R:%S%z (%Z)" "date" 10
-                    , Run $ StdinReader
-                    , Run $ Locks
+                    , Run   StdinReader
+                    , Run   Locks
                     , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
-                    , Run $ Volume "default" "Master" ["-t", "Vol: <volume>%"] 5
+                    , Run $ Volume "default" "Master" ["-t", "V: <volume>%"] 5
                     , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", ">"] 10
                     , Run $ Com "playerctl" ["-f", "{{emoji(status)}}", "status"] "playerstatus" 10
                     ]
