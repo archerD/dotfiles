@@ -1,7 +1,8 @@
 " add fugitive status line to default status line
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 " attempt at setting up comments for c and cpp files
-autocmd FileType c,cpp let b:commentary_format='//%s'
+autocmd FileType c,cpp  let b:commentary_format='//%s'
+autocmd FileType factor let b:commentary_format='! %s'
 
 " get rid of warning for vimtex tex flavor
 let g:tex_flavor = 'latex'
