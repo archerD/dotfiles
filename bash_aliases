@@ -1,7 +1,12 @@
 # User created file containing aliases I want.
 
 # alias for cmus so it is detachable
-alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+# tmux version
+#alias cmus='tmux new-session -A -D -s cmus "$(which cmus)"'
+#alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(which cmus)"'
+# in cmus: :bind -f common q shell tmux detach-client -s cmus
+# abduco version, uses ctrl-z to detach (can change by replacing ^z below)
+alias cmus='abduco -A -e ^z cmus "$(which cmus)"'
 
 # alias batcat to bat for ease of use
 alias bat='batcat'
