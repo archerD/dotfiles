@@ -46,6 +46,7 @@ myKeys =
     , ((0, xF86XK_AudioPlay), spawn "playerctl -p playerctld play-pause")
     , ((0, xF86XK_AudioPrev), spawn "playerctl -p playerctld previous")
     , ((0, xF86XK_AudioNext), spawn "playerctl -p playerctld next")
+    , ((0, xF86XK_AudioStop), spawn "playerctl -p playerctld stop")
     , ((myModMask, xK_r), spawn "playerctld shift")
     , ((myModMask, xK_u), defaultLauncher)
     , ((myModMask .|. shiftMask, xK_u), secondaryLauncher)
