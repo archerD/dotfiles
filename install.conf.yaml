@@ -12,7 +12,7 @@
 - link:
     ~/.tmux.conf: tmux.conf
     ~/.vim: vim
-    ~/.bash_aliases: bash_aliases
+    ~/.bash_aliases: shell_aliases
     ~/.config/cmus/archerd.theme: cmus_archerd.theme
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.config/gnome-pie: gnome-pie

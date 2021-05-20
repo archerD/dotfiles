@@ -32,6 +32,8 @@ if [ "$(whoami)" == "archerd" ]; then
     kdeconnect-indicator &
     sleep 0.010
 
+    # to get the aliases for some stuff.
+    /home/archerd/.dotfiles/aliases
     # software to be autostarted
     if type yubioath-desktop; then
         yubioath-desktop &
@@ -41,6 +43,9 @@ if [ "$(whoami)" == "archerd" ]; then
     fi
     if type background_window; then
         background_window &
+    fi
+    if type cmus; then
+        cmus &
     fi
 fi
 
