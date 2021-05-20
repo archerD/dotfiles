@@ -16,6 +16,7 @@
     ~/.config/cmus/archerd.theme: cmus_archerd.theme
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.config/gnome-pie: gnome-pie
+    ~/.config/kitty/kitty.conf: kitty.conf
     ~/.ssh/config: ssh_config
     ~/bin/background_window: background_window.sh
 

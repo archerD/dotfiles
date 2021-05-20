@@ -123,7 +123,8 @@ main = do xmproc <- spawnPipe "xmobar"
             , workspaces = myWorkspaces
             , modMask = myModMask
             , mouseBindings = myMouse
-            , terminal = "x-terminal-emulator"
+            -- , terminal = "x-terminal-emulator"
+            , terminal = "kitty"
             }
             `removeKeys` [ (myModMask, xK_t)
                          , (myModMask, xK_m)
