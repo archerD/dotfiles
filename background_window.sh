@@ -11,16 +11,7 @@ tmux has-session -t $session 2>/dev/null
 if [ $? != 0 ]; then
     # Set up main window
     tmux new-session -d -s $session
-    tmux send-keys 'cmus' C-m
-    tmux split-window -h
-    tmux send-keys 'bpytop'
-
-    # Set up other windows
-    tmux new-window
     tmux send-keys 'phone' C-m
-
-    # Return to first window
-    tmux next-window
 fi
 
 # Attach to created session
