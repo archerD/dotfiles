@@ -25,3 +25,6 @@ alias cp='cp -i'
 alias factor-listener="factorcode -run=listener"
 alias factor-ui="factorcode -run=ui.tools"
 
+# alias for kitty update/install
+alias kitty-update='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin'
+
