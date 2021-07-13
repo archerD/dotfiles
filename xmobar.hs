@@ -6,15 +6,16 @@ centerTemplate :: String
 centerTemplate = "<action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
 rightTemplate :: String
 rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
-                    \<action=`playerctl -p playerctld next` button=5>\
-                        \<action=`playerctl -p playerctld previous` button=4>\
-                            \<action=`gnome-pie -o 353` button=3>\
-                                \<fc=#44cc44>%mpris2%</fc> <fn=1>%playerstatus%</fn>\
+                    \<action=`gnome-pie -o 353` button=3>\
+                        \<action=`playerctl -p playerctld next` button=5>\
+                            \<action=`playerctl -p playerctld previous` button=4>\
+                                \<fc=#44cc44>%mpris2%</fc>\
                             \</action>\
                         \</action>\
+                        \ <fn=1>%playerstatus%</fn>\
                     \</action>\
                 \</action>\
-                \ [<fc=#ffff00>%locks%</fc>] %cpu% | %memory% (%default:Master%)|%trayerpad%"
+                \ [<fc=#ffff00>%locks%</fc>] (%cpu%, %memory%, %default:Master%) <box type=Left>%trayerpad%</box>"
 
 config :: Config
 config = defaultConfig
@@ -23,15 +24,15 @@ config = defaultConfig
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 100
-       , commands = [ Run $ Cpu ["-L","25","-H","75","--normal","green","--high","red", "-t", "C: <total>%"] 10
-                    , Run $ Memory ["-t","M: <usedratio>%"] 10
+       , commands = [ Run $ Cpu ["-L","25","-H","75","--normal","green","--high","red", "--ppad","2", "-t","C:<total>%"] 10
+                    , Run $ Memory ["-t","M:<usedratio>%"] 10
                     , Run $ Date "(%a) %F T %R:%S%z (%Z)" "date" 10
                     , Run   StdinReader
                     , Run   Locks
                     , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
-                    , Run $ Volume "default" "Master" ["-t", "V: <volume>%"] 5
+                    , Run $ Volume "default" "Master" ["-t", "V:<volume>%"] 5
                     , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", ">", "-t", "<artist>/<title>"] 10
-                    , Run $ Com "playerctl" ["-f", "{{emoji(status)}}", "status"] "playerstatus" 10
+                    , Run $ Com "playerctl" ["-f", "{{emoji(status)}}", "status", "-p", "playerctld"] "playerstatus" 10
                     ]
        , sepChar = "%"
        , alignSep = "{}"
