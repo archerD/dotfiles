@@ -39,7 +39,7 @@ defaultLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 secondaryLauncher = spawn "dmenu_run -p \"$\""
 
 myKeys =
-    [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock")
+    [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock && xset dpms force off")
     , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 4))
     , ((0, xF86XK_AudioRaiseVolume), void (raiseVolume 4))
     , ((0, xF86XK_AudioMute), void toggleMute)
