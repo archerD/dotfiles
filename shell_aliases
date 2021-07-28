@@ -28,3 +28,6 @@ alias factor-ui="factorcode -run=ui.tools"
 # alias for kitty update/install
 alias kitty-update='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin'
 
+# alias to copy kitty terminfo files when sshing
+alias kitty-ssh='kitty +kitten ssh'
+
