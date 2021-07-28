@@ -41,8 +41,8 @@ if [ "$(whoami)" == "archerd" ]; then
     if type slack; then
         slack --startup --silent &
     fi
-    if type background_window; then
-        background_window &
+    if type phone; then
+        phone &
     fi
     if type cmus; then
         cmus &
