@@ -32,6 +32,10 @@ config = defaultConfig
                     , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
                     , Run $ Volume "default" "Master" ["-t", "V:<volume>%"] 5
                     , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", ">", "-t", "<artist>/<title>"] 10
+                    -- , Run $ MarqueePipeReader "/tmp/.volume-pipe" (32, 5, "|") "playerinfo"
+                    -- this relies on the following running: playerctl -F -p playerctld -f "{{artist}} / {{title}}" metadata > /tmp/.volume-pipe
+                    -- the pipe can be created by running _volume_pipe=/tmp/.volume-pipe; [[ -S $_volume_pipe ]] || mkfifo $_volume_pipe
+
                     , Run $ Com "playerctl" ["-f", "{{emoji(status)}}", "status", "-p", "playerctld"] "playerstatus" 10
                     ]
        , sepChar = "%"
