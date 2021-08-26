@@ -13,13 +13,13 @@ Host shadowfax
 
 # local network computers
 Host laptop
-    HostName 192.168.1.39
+    HostName 10.0.0.21
     User archerd
     ForwardAgent yes
     ForwardX11Trusted yes
 
 Host desktop
-    HostName 192.168.1.216
+    HostName 10.0.0.95
     User archerd
     ForwardAgent yes
     ForwardX11Trusted yes
