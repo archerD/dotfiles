@@ -60,6 +60,9 @@ Plugin 'azadkuh/vim-cmus'
 " saved by symlinking .vim/bundle/factor to the existing repo before install.
 Plugin 'factor/factor', { 'rtp': 'misc/vim' }
 
+" Coq plugin.
+Plugin 'whonore/Coqtail'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
