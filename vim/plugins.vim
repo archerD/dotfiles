@@ -37,6 +37,8 @@ Plugin 'kana/vim-textobj-fold'
 " allows I and A to be used in all visual modes to get the effect of I and A
 " in visual block mode, in a nice way
 "Plugin 'kana/vim-niceblock'
+" Adding git hunk details to the sidebar
+"Plugin 'airblade/vim-gitgutter'
 
 " local vimrc files for per project config
 Plugin 'embear/vim-localvimrc'
@@ -57,8 +59,6 @@ Plugin 'azadkuh/vim-cmus'
 " Factor plugin, if the factor repository is already downloaded, space can be
 " saved by symlinking .vim/bundle/factor to the existing repo before install.
 Plugin 'factor/factor', { 'rtp': 'misc/vim' }
-" CSound plugin
-Plugin 'luisjure/csound-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
