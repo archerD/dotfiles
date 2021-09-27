@@ -11,6 +11,13 @@ Host shadowfax
     ForwardAgent yes
     ForwardX11Trusted yes
 
+# cu servers
+Host elra
+    HostName elra.cs.colorado.edu
+    User dafl1278
+    ForwardAgent yes
+    ForwardX11Trusted yes
+
 # local network computers
 Host laptop
     HostName 10.0.0.21
