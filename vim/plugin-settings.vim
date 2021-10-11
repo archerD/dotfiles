@@ -28,6 +28,10 @@ let g:ycm_language_server = [
   \     'filetypes': [ 'haskell', 'hs', 'lhs' ],
   \     'cmdline': [ 'haskell-language-server-wrapper', '--lsp' ],
   \     'project_root_files': [ '*.cabal', 'stack.yaml', '.stack.yaml', 'cabal.config', 'cabal.project', 'package.yaml', 'hie.yaml' ]
+  \   },
+  \   { 'name': 'ocaml',
+  \     'filetypes': [ 'ocaml', 'ml', 'mli' ],
+  \     'cmdline': [ 'ocamllsp' ]
   \   }
   \ ]
 
