@@ -35,11 +35,10 @@ let g:ycm_language_server = [
   \   }
   \ ]
 
-" cmus controls
-nnoremap <leader>i :CmusCurrent<cr>
-nnoremap <leader>z :CmusPrevious<cr>
-nnoremap <leader>x :CmusPlay<cr>
-nnoremap <leader>c :CmusPause<cr>
-nnoremap <leader>v :CmusStop<cr>
-nnoremap <leader>b :CmusNext<cr>
+" YouCompleteMe keybindings
+" <leader>d runs :YcmShowDetailedDiagnostic by default
+let g:ycm_key_detailed_diagnostics = '<leader>D'
+nmap <leader>d <plug>(YCMHover)
+" <C-Space> triggers the completion menu for semantic completion by default:
+"let g:ycm_key_invoke_completion = '<C-Space>'
 

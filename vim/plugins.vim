@@ -52,10 +52,6 @@ Plugin 'lervag/vimtex'
 " https://github.com/ycm-core/YouCompleteMe#installation
 Plugin 'ycm-core/YouCompleteMe'
 
-" Plugin for cmus remote control integration.
-" see keybindings below.
-Plugin 'azadkuh/vim-cmus'
-
 " Factor plugin, if the factor repository is already downloaded, space can be
 " saved by symlinking .vim/bundle/factor to the existing repo before install.
 Plugin 'factor/factor', { 'rtp': 'misc/vim' }
