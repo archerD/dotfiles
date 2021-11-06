@@ -3,7 +3,7 @@ import Xmobar
 leftTemplate :: String
 leftTemplate = "<action=`gnome-pie -o 232`>%StdinReader%</action>"
 centerTemplate :: String
-centerTemplate = "<action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
+centerTemplate = "   <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
 rightTemplate :: String
 rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
                     \<action=`gnome-pie -o 353` button=3>\
