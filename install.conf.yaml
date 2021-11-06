@@ -18,6 +18,8 @@
     ~/.config/gnome-pie: gnome-pie
     ~/.config/kitty/kitty.conf: kitty.conf
     ~/.ssh/config: ssh_config
+    ~/.gitconfig: git_config
+    ~/.gitignore_global: global_git_ignore
     ~/bin/background_window: background_window.sh
 
     # self link

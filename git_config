@@ -1,0 +1,12 @@
+[user]
+	email = dflores0818@gmail.com
+	name = David Flores
+[credential "https://git.overleaf.com"]
+	username = dflores0818@gmail.com
+
+[core]
+	excludesfile = /home/archerd/.gitignore_global
+[alias]
+	graph = log --graph --all
+[init]
+	defaultBranch = main
