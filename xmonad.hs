@@ -61,6 +61,7 @@ myKeys =
     , ((myModMask .|. shiftMask, xK_n), spawn "dunstctl close")
     , ((myModMask .|. controlMask, xK_n), spawn "dunstctl context")
     ]
+    -- TODO: add a bind (myModMask + '=' maybe) to open a terminal with some some repl (ipython or ghci probably) to do basic calculations.
     ++
     -- set the numpad to be usable for workspace management
     [((m .|. myModMask, k), windows $ f i)
