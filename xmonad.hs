@@ -65,8 +65,8 @@ myKeys =
     , ((myModMask .|. shiftMask, xK_n), spawn "dunstctl close")
     , ((myModMask .|. controlMask, xK_n), spawn "dunstctl context")
     -- random thing to try out.
-  , ((mod4Mask .|. controlMask,               xK_space), layoutSplitScreen 2 (TwoPane 0.5 0.5))
-  , ((mod4Mask .|. controlMask .|. shiftMask, xK_space), rescreen)
+    , ((myModMask .|. controlMask,               xK_space), layoutSplitScreen 2 (TwoPane 0.5 0.5))
+    , ((myModMask .|. controlMask .|. shiftMask, xK_space), rescreen)
     ]
     -- TODO: add a bind (myModMask + '=' maybe) to open a terminal with some some repl (ipython or ghci probably) to do basic calculations.
     ++
