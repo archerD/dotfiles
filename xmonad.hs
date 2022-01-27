@@ -13,6 +13,8 @@ import XMonad.Util.EZConfig(additionalKeys,removeKeys)
 import XMonad.Config.Gnome
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.NoBorders
+import XMonad.Layout.LayoutScreens
+import XMonad.Layout.TwoPane
 
 -- xmonad-extra imports
 import XMonad.Actions.Volume
@@ -60,6 +62,9 @@ myKeys =
     , ((myModMask, xK_n), spawn "dunstctl history-pop")
     , ((myModMask .|. shiftMask, xK_n), spawn "dunstctl close")
     , ((myModMask .|. controlMask, xK_n), spawn "dunstctl context")
+    -- random thing to try out.
+  , ((mod4Mask .|. controlMask,               xK_space), layoutSplitScreen 2 (TwoPane 0.5 0.5))
+  , ((mod4Mask .|. controlMask .|. shiftMask, xK_space), rescreen)
     ]
     ++
     -- set the numpad to be usable for workspace management
