@@ -35,8 +35,9 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 myModMask = modMask def -- defaults to the alt key, mod3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
 
-defaultLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
-secondaryLauncher = spawn "dmenu_run -p \"$\""
+defaultLauncher = spawn "rofi -show run"
+secondaryLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
+tertiaryLauncher = spawn "dmenu_run -p \"$\""
 
 myKeys =
     [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock && xset dpms force off")
@@ -49,7 +50,8 @@ myKeys =
     , ((0, xF86XK_AudioStop), spawn "playerctl -p playerctld stop")
     , ((myModMask, xK_r), spawn "playerctld shift")
     , ((myModMask, xK_u), defaultLauncher)
-    , ((myModMask .|. shiftMask, xK_u), secondaryLauncher)
+    , ((myModMask .|. mod4Mask, xK_u), secondaryLauncher)
+    , ((myModMask .|. shiftMask, xK_u), tertiaryLauncher)
     , ((myModMask, xK_f), sendMessage ToggleStruts)
     , ((0, xK_Print), spawn "gnome-screenshot --interactive")
     , ((myModMask .|. shiftMask, xK_m), windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
