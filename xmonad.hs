@@ -40,6 +40,7 @@ myModMask = modMask def -- defaults to the alt key, mod3Mask.
 defaultLauncher = spawn "rofi -show run"
 secondaryLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 tertiaryLauncher = spawn "dmenu_run -p \"$\""
+calculatorLauncher = spawn "rofi -modi \"calc:~/.dotfiles/rofi-scripts/rofi-calc.sh\" -show calc"
 
 myKeys =
     [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock && xset dpms force off")
@@ -52,6 +53,7 @@ myKeys =
     , ((0, xF86XK_AudioStop), spawn "playerctl -p playerctld stop")
     , ((myModMask, xK_r), spawn "playerctld shift")
     , ((myModMask, xK_u), defaultLauncher)
+    , ((myModMask, xK_equal), calculatorLauncher)
     , ((myModMask .|. mod4Mask, xK_u), secondaryLauncher)
     , ((myModMask .|. shiftMask, xK_u), tertiaryLauncher)
     , ((myModMask, xK_f), sendMessage ToggleStruts)
