@@ -31,3 +31,6 @@ alias kitty-update='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /d
 # alias to copy kitty terminfo files when sshing
 alias kitty-ssh='kitty +kitten ssh'
 
+# alias to display images in kitty
+alias icat='kitty +kitten icat'
+
