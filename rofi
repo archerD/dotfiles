@@ -1,6 +1,6 @@
 @theme "/usr/local/share/rofi/themes/fancy.rasi"
 configuration {
-	modi: "window,run,ssh,filebrowser,keys,drun,windowcd";
+	modi: "windowcd,window,filebrowser,run,drun,ssh,keys";
 	font: "JetBrains Mono 16";
 /*	location: 0;*/
 /*	yoffset: 0;*/
