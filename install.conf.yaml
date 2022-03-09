@@ -17,10 +17,11 @@
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.config/gnome-pie: gnome-pie
     ~/.config/kitty/kitty.conf: kitty.conf
+    ~/.config/ranger/rc.conf: ranger.conf
     ~/.ssh/config: ssh_config
     ~/.gitconfig: git_config
     ~/.gitignore_global: global_git_ignore
-    ~/bin/background_window: background_window.sh
+    ~/bin/light-control: philips-hue-control-lights.py
 
     # self link
     ~/.dotfiles: ""
