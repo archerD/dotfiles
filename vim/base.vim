@@ -89,3 +89,7 @@ set scrolloff=2
 " wrap at words instead of characters
 set linebreak
 
+" enable mouse support in all modes
+set mouse=a
+set mousemodel=extend
+
