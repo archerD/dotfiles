@@ -39,7 +39,7 @@
 
 - link:
     ~/.xsessionrc: xsessionrc
-    ~/.xmonad/xmonad.hs: xmonad.hs
+    ~/.config/xmonad/xmonad.hs: xmonad.hs
     ~/.config/xmobar/xmobar.hs: xmobar.hs
     ~/.xscreensaver: xscreensaver
     ~/.config/dunst/dunstrc: dunstrc
