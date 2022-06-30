@@ -1,3 +1,4 @@
+{-# LANGUAGE TupleSections #-}
 -- xmonad imports
 import XMonad
 import qualified XMonad.StackSet as W
@@ -5,16 +6,30 @@ import qualified XMonad.StackSet as W
 -- xmonad-contrib imports
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicProperty
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
+import XMonad.Hooks.UrgencyHook
+import XMonad.Util.ClickableWorkspaces
+import XMonad.Util.Dzen
+import qualified XMonad.Util.Hacks as Hacks
 import XMonad.Util.Paste
-import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys,removeKeys)
-import XMonad.Config.Gnome
+import XMonad.Util.NamedActions -- for future use
+import XMonad.Util.NamedWindows (getName)
+import XMonad.Util.SpawnOnce
+import XMonad.Util.WorkspaceCompare(getWsIndex)
+-- import XMonad.Util.Run(runInTerm)
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LayoutScreens
 import XMonad.Layout.TwoPane
+import XMonad.Layout.TwoPanePersistent
+-- import XMonad.Layout.Tabbed
+-- import XMonad.Layout.LayoutBuilder
 
 -- xmonad-extra imports
 import XMonad.Actions.Volume
@@ -34,7 +49,7 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
              , xK_KP_Home, xK_KP_Up,    xK_KP_Page_Up   -- 7, 8, 9
              , xK_KP_Insert]                            -- 0
 
-myModMask = modMask def -- defaults to the alt key, mod3Mask.
+myModMask = modMask def -- defaults to the alt key, mod1/3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
 
 defaultLauncher = spawn "rofi -show run"
@@ -43,7 +58,8 @@ tertiaryLauncher = spawn "dmenu_run -p \"$\""
 calculatorLauncher = spawn "rofi -modi \"calc:~/.dotfiles/rofi-scripts/rofi-calc.sh\" -show calc"
 
 myKeys =
-    [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock && xset dpms force off")
+    [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock && sleep 2s ; xset dpms force off")
+    , ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock && systemctl suspend")
     , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 4))
     , ((0, xF86XK_AudioRaiseVolume), void (raiseVolume 4))
     , ((0, xF86XK_AudioMute), void toggleMute)
@@ -111,6 +127,8 @@ myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
     button9 = 9 -- forward button (currently not sent, because logiops redirects first)
 
 myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Full
+    -- ||| ( (layoutN 1 (relBox 0 0 0.5 1) (Just $ relBox 0 0 1 1) tiled ) $ layoutAll (relBox 0.5 0 1 1) $ simpleTabbed )
+    ||| TwoPanePersistent Nothing delta ratio
     where
         -- base layouts
         tiled   = smartBorders $ Tall nmaster delta ratio
@@ -120,22 +138,103 @@ myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Fu
         ratio   = 1/2
         delta   = 2/100
 
--- should this be hooks instead?
-configModifiers :: XConfig a -> XConfig a
-configModifiers = docks . ewmh
+-- float the zoom popup windows
+-- from https://www.peterstuart.org/posts/2021-09-06-xmonad-zoom/
+manageZoomHook =
+  composeAll
+    [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat
+    -- , (className =? zoomClassName) <&&> shouldSink <$> title --> doSink
+    ]
+  where
+    zoomClassName = "zoom"
+    tileTitles =
+      [ "Zoom - Free Account", -- main window
+        "Zoom - Licensed Account", -- main window
+        "Zoom", -- meeting window on creation
+        "Zoom Meeting" -- meeting window shortly after creation
+      ]
+    shouldFloat title = title `notElem` tileTitles
+    -- shouldSink title = title `elem` tileTitles
+    -- doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
-main = do xmproc <- spawnPipe "xmobar"
-          xmonad $ configModifiers def
+newtype DunstUrgencyHook = DunstUrgencyHook { arguments :: [String] }
+    deriving (Read, Show)
+
+instance UrgencyHook DunstUrgencyHook where
+    urgencyHook DunstUrgencyHook { arguments = a } w = do
+        name <- getName w
+        ws <- gets windowset
+        wsIndexOf <- getWsIndex
+        let workspace = W.findTag w ws >>= \n -> fmap (n,) (wsIndexOf n)
+        whenJust workspace (flash name)
+      where flash name (workspaceName, workspaceIndex) =
+              -- consider some abstraction around dunstify (notify-send?) for sending notifications
+              spawn $ "$(dunstify --appname=xmonad 'Urgency Notification' --action='xdotool set_desktop " ++ show workspaceIndex ++ ",goto workspace' " ++ unwords a ++ " '" ++ show name ++ " requests your attention on workspace " ++ workspaceName ++ "')"
+
+-- enables kitty alerts to be caught by the urgency hook
+-- from: https://github.com/kovidgoyal/kitty/issues/1016#issuecomment-480472827
+fixSupportedAtoms :: X ()
+fixSupportedAtoms = withDisplay $ \dpy -> do
+    r <- asks theRoot
+    a <- getAtom "_NET_SUPPORTED"
+    c <- getAtom "ATOM"
+    supp <- mapM getAtom [ "_NET_WM_STATE"
+                         , "_NET_WM_STATE_DEMANDS_ATTENTION"
+                         ]
+    io $ changeProperty32 dpy r a c propModeAppend (fmap fromIntegral supp)
+
+myStartupHook :: X ()
+myStartupHook = fixSupportedAtoms >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/"
+
+myXmobarPP :: X PP
+myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is installed
+-- myXmobarPP = pure myBaseXmobarPP
+
+myBaseXmobarPP :: PP
+myBaseXmobarPP = def
+    { ppCurrent = yellow . wrap "[" "]"
+    , ppTitle = green . shorten 60
+    , ppVisible = wrap "(" ")"
+    , ppUrgent  = xmobarColor "red" "yellow"
+    , ppTitleSanitize = xmobarStrip
+    , ppRename = \workspaceName _ -> xmobarRaw workspaceName -- What is a WindowSpace, and what is it good for (the _ argument)
+    }
+  where
+    yellow = xmobarColor "yellow" ""
+    green = xmobarColor "green" ""
+
+myUrgencyHandler =
+        DunstUrgencyHook { arguments = [ "-i", "~/.dotfiles/images/xmonad-logo.svg" ] }
+        -- (dzenUrgencyHook { duration = seconds 5, args = ["-bg", "darkgreen", "-xs", "1"]})
+        -- Not to be obvious or anything, but the dzenUrgencyHook needs dzen2 installed
+
+-- should this be hooks instead?
+configModifiers = docks . ewmh
+    . withEasySB (statusBarProp "xmobar" myXmobarPP) defToggleStrutsKey
+    . withUrgencyHookC myUrgencyHandler
+        (urgencyConfig {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
+
+main = do xmonad $ configModifiers def
             { layoutHook = myLayoutHook
-            , logHook = dynamicLogWithPP xmobarPP
-                            { ppOutput = hPutStrLn xmproc
-                            , ppTitle = xmobarColor "green" "" . shorten 50
-                            }
             , workspaces = myWorkspaces
             , modMask = myModMask
             , mouseBindings = myMouse
+            , startupHook = myStartupHook
+            -- I have no idea what isDialog works on...
+            , manageHook = composeOne [ isDialog -?> doCenterFloat ] <+> manageZoomHook
+            , handleEventHook = Hacks.windowedFullscreenFixEventHook <+> dynamicTitle manageZoomHook
             -- , terminal = "x-terminal-emulator"
             , terminal = "kitty"
+            , focusFollowsMouse = True
+            , borderWidth = 2
+            -- , focusedBorderColor = "#ff0000"
+            -- , normalBorderColor = "#dddddd"
+            -- , focusedBorderColor = "#502c57"
+            -- , normalBorderColor = "#33572c"
+            -- , focusedBorderColor = "#680a7b"
+            -- , normalBorderColor = "#1d7b0a"
+            , focusedBorderColor = "#772388"
+            , normalBorderColor = "#348823"
             }
             `removeKeys` [ (myModMask, xK_t)
                          , (myModMask, xK_m)
