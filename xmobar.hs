@@ -5,8 +5,8 @@ leftTemplate = "<action=`gnome-pie -o 232`>%StdinReader%</action>"
 centerTemplate :: String
 centerTemplate = "   <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
 rightTemplate :: String
-rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
-                    \<action=`gnome-pie -o 353` button=3>\
+rightTemplate = "<action=`playerctl -p playerctld play-pause` button=3>\
+                    \<action=`gnome-pie -o 353` button=1>\
                         \<action=`playerctl -p playerctld next` button=5>\
                             \<action=`playerctl -p playerctld previous` button=4>\
                                 \<fc=#44cc44>%mpris2%</fc>\
@@ -36,7 +36,7 @@ config = defaultConfig
                     -- this relies on the following running: playerctl -F -p playerctld -f "{{artist}} / {{title}}" metadata > /tmp/.volume-pipe
                     -- the pipe can be created by running _volume_pipe=/tmp/.volume-pipe; [[ -S $_volume_pipe ]] || mkfifo $_volume_pipe
 
-                    , Run $ Com "playerctl" ["-f", "{{emoji(status)}}", "status", "-p", "playerctld"] "playerstatus" 10
+                    , Run $ ComX "playerctl" ["-f", "{{emoji(status)}}", "status", "-p", "playerctld"] "X" "playerstatus" 10
                     ]
        , sepChar = "%"
        , alignSep = "{}"
