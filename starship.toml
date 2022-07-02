@@ -1,0 +1,40 @@
+# for editor highlighting and whatnot
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# format = "$username$hostname $all$directory$character"
+format = "$directory$all$username$hostname$character"
+
+add_newline = true
+
+[cmd_duration]
+disabled = true
+show_notifications = false
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+
+[git_metrics]
+disabled = false
+
+[git_status]
+# Should consider changing the symbols to something I will recognize
+
+[username]
+show_always = true
+format = "[$user]($style)@"
+
+[hostname]
+ssh_only = false
+format = "[$ssh_symbol$hostname]($style)"
+
+# [[battery.display]]
+# threshold = 100
+# style = "green"
+
+[status]
+# disabled = false
+
+[time]
+# disabled = false
+

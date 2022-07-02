@@ -18,6 +18,8 @@
     ~/.config/gnome-pie: gnome-pie
     ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/ranger/rc.conf: ranger.conf
+    ~/.config/starship.toml: starship.toml
+    ~/.config/lsd/config.yaml: lsd.yaml
     ~/.ssh/config: ssh_config
     ~/.gitconfig: git_config
     ~/.gitignore_global: global_git_ignore
