@@ -18,6 +18,7 @@ import XMonad.Util.Dzen
 import qualified XMonad.Util.Hacks as Hacks
 import XMonad.Util.Paste
 import XMonad.Util.EZConfig(additionalKeys,removeKeys)
+import XMonad.Util.EZConfig(checkKeymap,mkNamedKeymap)
 import XMonad.Util.NamedActions -- for future use
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.SpawnOnce
@@ -44,10 +45,14 @@ import System.IO
 extraWorkspaces = ["0"]
 myWorkspaces = workspaces def ++ extraWorkspaces
 -- Non-numeric num pad keys, sorted by number 
-numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
-             , xK_KP_Left, xK_KP_Begin, xK_KP_Right     -- 4, 5, 6
-             , xK_KP_Home, xK_KP_Up,    xK_KP_Page_Up   -- 7, 8, 9
-             , xK_KP_Insert]                            -- 0
+numPadKeys = [ "<KP_1>", "<KP_2>", "<KP_3>"
+             , "<KP_4>", "<KP_5>", "<KP_6>"
+             , "<KP_7>", "<KP_8>", "<KP_9>"
+                       , "<KP_0>"]
+numPadKeys2 = [ "<KP_End>",  "<KP_Down>",  "<KP_Page_Down>" -- 1, 2, 3
+              , "<KP_Left>", "<KP_Begin>", "<KP_Right>"     -- 4, 5, 6
+              , "<KP_Home>", "<KP_Up>",    "<KP_Page_Up>"   -- 7, 8, 9
+              , "<KP_Insert>"]                            -- 0
 
 myModMask = modMask def -- defaults to the alt key, mod1/3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
@@ -57,48 +62,57 @@ secondaryLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 tertiaryLauncher = spawn "dmenu_run -p \"$\""
 calculatorLauncher = spawn "rofi -modi \"calc:~/.dotfiles/rofi-scripts/rofi-calc.sh\" -show calc"
 
-myKeys =
-    [ ((mod4Mask, xK_l), spawn "xscreensaver-command -lock && sleep 2s ; xset dpms force off")
-    , ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock && systemctl suspend")
-    , ((0, xF86XK_AudioLowerVolume), void (lowerVolume 4))
-    , ((0, xF86XK_AudioRaiseVolume), void (raiseVolume 4))
-    , ((0, xF86XK_AudioMute), void toggleMute)
-    , ((0, xF86XK_AudioPlay), spawn "playerctl -p playerctld play-pause")
-    , ((0, xF86XK_AudioPrev), spawn "playerctl -p playerctld previous")
-    , ((0, xF86XK_AudioNext), spawn "playerctl -p playerctld next")
-    , ((0, xF86XK_AudioStop), spawn "playerctl -p playerctld stop")
-    , ((myModMask, xK_r), spawn "playerctld shift")
-    , ((myModMask, xK_u), defaultLauncher)
-    , ((myModMask, xK_equal), calculatorLauncher)
-    , ((myModMask .|. mod4Mask, xK_u), secondaryLauncher)
-    , ((myModMask .|. shiftMask, xK_u), tertiaryLauncher)
-    , ((myModMask, xK_f), sendMessage ToggleStruts)
-    , ((0, xK_Print), spawn "gnome-screenshot --interactive")
-    , ((myModMask .|. shiftMask, xK_m), windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
-    , ((myModMask .|. shiftMask, xK_f), sendKey noModMask xF86XK_Forward)
-    , ((myModMask .|. shiftMask, xK_h), prevWS)
-    , ((myModMask .|. shiftMask, xK_l), nextWS)
+myKeysNamed :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
+myKeysNamed c =
+    -- partially borrowed from https://gitlab.com/dwt1/dotfiles/-/blob/master/.xmonad/xmonad.hs
+    let subKeys str ks = subtitle str : mkNamedKeymap c ks in
+    subKeys "Custom Stuff"
+    [ ("M4-l", addName "lock screen" $ spawn "xscreensaver-command -lock && sleep 2s ; xset dpms force off")
+    , ("M4-S-l", addName "lock and suspend" $ spawn "xscreensaver-command -lock && systemctl suspend")
+    ] ^++^
+    subKeys "Media Keys"
+    [ ("<XF86AudioLowerVolume>", addName "Volume down" $ void (lowerVolume 4))
+    , ("<XF86AudioRaiseVolume>", addName "Volume up" $ void (raiseVolume 4))
+    , ("<XF86AudioMute>", addName "Mute" $ void toggleMute)
+    , ("<XF86AudioPlay>", addName "Play/Pause" $ spawn "playerctl -p playerctld play-pause")
+    , ("<XF86AudioPrev>", addName "Previous" $ spawn "playerctl -p playerctld previous")
+    , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl -p playerctld next")
+    , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl -p playerctld stop")
+    , ("M-r", addName "Shift player" $ spawn "playerctld shift")
+    ] ^++^
+    subKeys "Launchers"
+    [
+      ("M-u", addName "Open Launcher" defaultLauncher)
+    , ("M-=", addName "Open Mini Calculator" calculatorLauncher)
+    , ("M-M4-u", addName "Open learning cmd line launcher" secondaryLauncher)
+    , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
+    , ("M-f", addName "Toggle status line" $ sendMessage ToggleStruts)
+    , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")
+    , ("M-S-m", addName "Focus master window" $ windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
+    , ("M-S-f", addName "Send the forward keystroke" $ sendKey noModMask xF86XK_Forward)
+    , ("M-S-h", addName "Go to previous workspace" prevWS)
+    , ("M-S-l", addName "Go to next workspace" nextWS)
     -- notification stuff
-    , ((myModMask, xK_n), spawn "dunstctl history-pop")
-    , ((myModMask .|. shiftMask, xK_n), spawn "dunstctl close")
-    , ((myModMask .|. controlMask, xK_n), spawn "dunstctl context")
+    , ("M-n", addName "Open notifications" $ spawn "dunstctl history-pop")
+    , ("M-S-n", addName "Close notifications" $ spawn "dunstctl close")
+    , ("M-C-n", addName "Open notification action menu" $ spawn "dunstctl context")
     -- random thing to try out.
-    , ((myModMask .|. controlMask,               xK_space), layoutSplitScreen 2 (TwoPane 0.5 0.5))
-    , ((myModMask .|. controlMask .|. shiftMask, xK_space), rescreen)
+    , ("M-C-<Space>", addName "Split screen" $ layoutSplitScreen 2 (TwoPane 0.5 0.5))
+    , ("M-C-S-<Space>", addName "Reset screen splits" rescreen)
+    ]
+    ^++^ subKeys "Numpad workspace management"
+    -- set the numpad to be usable for workspace management
+    [("M-" ++ m ++ k, addName (d ++ " workspace " ++ i) $ windows $ f i)
+        | (i, k) <- zip myWorkspaces numPadKeys2
+        , (f, m, d) <- [(W.greedyView, "", "Change to"), (W.shift, "S-", "Move window to")]
+    ]
+    ^++^ subKeys "Screen management"
+    -- add additional keybindings for moving between screens
+    [("M-" ++ m ++ key, addName (d ++ " screen "  ++ show sc) $ screenWorkspace sc >>= flip whenJust (windows . f))
+        | (key, sc) <- zip ["v", "z"] [1..]
+        , (f, m, d) <- [(W.view, "", "Change to"), (W.shift, "S-", "Move window to")]
     ]
     -- TODO: add a bind (myModMask + '=' maybe) to open a terminal with some some repl (ipython or ghci probably) to do basic calculations.
-    ++
-    -- set the numpad to be usable for workspace management
-    [((m .|. myModMask, k), windows $ f i)
-        | (i, k) <- zip extraWorkspaces [xK_0] ++ zip myWorkspaces numPadKeys
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
-    ]
-    ++
-    -- add additional keybindings for moving between screens
-    [((m .|. myModMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_v, xK_z] [1..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
-    ]
 
 myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
     -- mod-button1, Set the window to floating mode and move by dragging
@@ -127,12 +141,12 @@ myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
     button9 = 9 -- forward button (currently not sent, because logiops redirects first)
 
 myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Full
-    -- ||| ( (layoutN 1 (relBox 0 0 0.5 1) (Just $ relBox 0 0 1 1) tiled ) $ layoutAll (relBox 0.5 0 1 1) $ simpleTabbed )
     ||| TwoPanePersistent Nothing delta ratio
     where
         -- base layouts
         tiled   = smartBorders $ Tall nmaster delta ratio
         trifold = smartBorders $ ThreeColMid nmaster delta ratio
+        -- someLayout = ( (layoutN 1 (relBox 0 0 0.5 1) (Just $ relBox 0 0 1 1) tiled ) $ layoutAll (relBox 0.5 0 1 1) $ simpleTabbed )
         -- settings
         nmaster = 1
         ratio   = 1/2
@@ -211,10 +225,11 @@ myUrgencyHandler =
 -- should this be hooks instead?
 configModifiers = docks . ewmh
     . withEasySB (statusBarProp "xmobar" myXmobarPP) defToggleStrutsKey
+    . addDescrKeys ((myModMask, xK_r), xMessage) myKeysNamed
     . withUrgencyHookC myUrgencyHandler
         (urgencyConfig {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
 
-main = do xmonad $ configModifiers def
+myConfig = configModifiers def 
             { layoutHook = myLayoutHook
             , workspaces = myWorkspaces
             , modMask = myModMask
@@ -236,10 +251,12 @@ main = do xmonad $ configModifiers def
             , focusedBorderColor = "#772388"
             , normalBorderColor = "#348823"
             }
-            `removeKeys` [ (myModMask, xK_t)
-                         , (myModMask, xK_m)
-                         , (myModMask, xK_p)
-                         ]
-            `additionalKeys` myKeys
+            -- `removeKeys` [ (myModMask, xK_t)
+            --              , (myModMask, xK_m)
+            --              , (myModMask, xK_p)
+            --              ]
+            -- `additionalKeys` myKeys
 
+
+main = do xmonad myConfig
 
