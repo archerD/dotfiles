@@ -17,8 +17,8 @@ import XMonad.Util.ClickableWorkspaces
 import XMonad.Util.Dzen
 import qualified XMonad.Util.Hacks as Hacks
 import XMonad.Util.Paste
-import XMonad.Util.EZConfig(additionalKeys,removeKeys)
-import XMonad.Util.EZConfig(checkKeymap,mkNamedKeymap)
+import XMonad.Util.EZConfig
+    ( additionalKeys, removeKeys, checkKeymap, mkNamedKeymap )
 import XMonad.Util.NamedActions -- for future use
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.SpawnOnce
@@ -78,27 +78,31 @@ myKeysNamed c =
     , ("<XF86AudioPrev>", addName "Previous" $ spawn "playerctl -p playerctld previous")
     , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl -p playerctld next")
     , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl -p playerctld stop")
-    , ("M-r", addName "Shift player" $ spawn "playerctld shift")
+    , ("M-m", addName "Shift player" $ spawn "playerctld shift")
     ] ^++^
     subKeys "Launchers"
     [
       ("M-u", addName "Open Launcher" defaultLauncher)
     , ("M-=", addName "Open Mini Calculator" calculatorLauncher)
-    , ("M-M4-u", addName "Open learning cmd line launcher" secondaryLauncher)
+    , ("M-M4-u", addName "Open adaptive cmd line launcher" secondaryLauncher)
     , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
     , ("M-f", addName "Toggle status line" $ sendMessage ToggleStruts)
     , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")
-    , ("M-S-m", addName "Focus master window" $ windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
-    , ("M-S-f", addName "Send the forward keystroke" $ sendKey noModMask xF86XK_Forward)
+    -- , ("M-S-m", addName "Focus master window" $ windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
+    -- , ("M-S-f", addName "Send the forward keystroke" $ sendKey noModMask xF86XK_Forward)
     , ("M-S-h", addName "Go to previous workspace" prevWS)
     , ("M-S-l", addName "Go to next workspace" nextWS)
-    -- notification stuff
-    , ("M-n", addName "Open notifications" $ spawn "dunstctl history-pop")
+    ] ^++^
+    subKeys "notification stuff"
+    [ ("M-n", addName "Open notifications" $ spawn "dunstctl history-pop")
     , ("M-S-n", addName "Close notifications" $ spawn "dunstctl close")
     , ("M-C-n", addName "Open notification action menu" $ spawn "dunstctl context")
-    -- random thing to try out.
-    , ("M-C-<Space>", addName "Split screen" $ layoutSplitScreen 2 (TwoPane 0.5 0.5))
-    , ("M-C-S-<Space>", addName "Reset screen splits" rescreen)
+    ] ^++^
+    subKeys "Managing wide monitors"
+    [ ("M-C-<Space> M-C-3", addName "tri split screen" $ rescreen >> layoutSplitScreen 3 (ThreeColMid 1 0.1 0.56))
+    , ("M-C-<Space> M-C-2", addName "dual split screen" $ rescreen >> layoutSplitScreen 2 (TwoPane 0.5 0.5))
+    , ("M-C-<Space> M-C-1", addName "dual asymetric split screen" $ rescreen >> layoutSplitScreen 2 (TwoPane 0.25 0.75))
+    , ("M-C-<Space> M-C-0", addName "no screen splits" rescreen)
     ]
     ^++^ subKeys "Numpad workspace management"
     -- set the numpad to be usable for workspace management
@@ -229,7 +233,7 @@ configModifiers = docks . ewmh
     . withUrgencyHookC myUrgencyHandler
         (urgencyConfig {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
 
-myConfig = configModifiers def 
+myConfig = configModifiers def
             { layoutHook = myLayoutHook
             , workspaces = myWorkspaces
             , modMask = myModMask
