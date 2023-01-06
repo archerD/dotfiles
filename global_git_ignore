@@ -1,3 +1,6 @@
-vimtex-output/
 .ipynb_checkpoints/
+# vim swap files
+.*.sw*
+# output from vim latex plugin
+vimtex-output/
 
