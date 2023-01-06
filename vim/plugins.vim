@@ -24,6 +24,9 @@ Plugin 'tpope/vim-obsession'
 " easy commenting
 Plugin 'tpope/vim-commentary'
 
+" undo tree visualization
+Plugin 'mbbill/undotree'
+
 " plugin for text object support
 " see https://github.com/kana/vim-textobj-user/wiki for plugins using this
 Plugin 'kana/vim-textobj-user'
@@ -38,15 +41,14 @@ Plugin 'kana/vim-textobj-fold'
 " in visual block mode, in a nice way
 "Plugin 'kana/vim-niceblock'
 " Adding git hunk details to the sidebar
-"Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'
 
 " local vimrc files for per project config
 Plugin 'embear/vim-localvimrc'
 
-" live preview of latex files
-Plugin 'xuhdev/vim-latex-live-preview'
 " full featured vim plugin
 Plugin 'lervag/vimtex'
+
 " language server and completion thing...
 " YCM has a compiled component, for install direction, see
 " https://github.com/ycm-core/YouCompleteMe#installation
