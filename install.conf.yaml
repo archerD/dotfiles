@@ -11,8 +11,10 @@
 
 - link:
     ~/.tmux.conf: tmux.conf
-    ~/.vim: vim
     ~/.bash_aliases: shell_aliases
+    ~/.vim: vim
+    ~/.config/nvim/init.vim: nvim/neovim_source_vim_config.vim
+    # ~/.config/nvim: nvim
     ~/.config/cmus/archerd.theme: cmus_archerd.theme
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.config/gnome-pie: gnome-pie
