@@ -71,14 +71,15 @@ myKeysNamed c =
     , ("M4-S-l", addName "lock and suspend" $ spawn "xscreensaver-command -lock && systemctl suspend")
     ] ^++^
     subKeys "Media Keys"
-    [ ("<XF86AudioLowerVolume>", addName "Volume down" $ void (lowerVolume 4))
-    , ("<XF86AudioRaiseVolume>", addName "Volume up" $ void (raiseVolume 4))
+    [ ("<XF86AudioLowerVolume>", addName "Volume down" $ void (lowerVolume 2))
+    , ("<XF86AudioRaiseVolume>", addName "Volume up" $ void (raiseVolume 2))
     , ("<XF86AudioMute>", addName "Mute" $ void toggleMute)
     , ("<XF86AudioPlay>", addName "Play/Pause" $ spawn "playerctl -p playerctld play-pause")
     , ("<XF86AudioPrev>", addName "Previous" $ spawn "playerctl -p playerctld previous")
     , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl -p playerctld next")
     , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl -p playerctld stop")
-    , ("M-m", addName "Shift player" $ spawn "playerctld shift")
+    , ("M-m", addName "Change focused player" $ spawn "playerctld shift")
+    , ("M-S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
     ] ^++^
     subKeys "Launchers"
     [
@@ -202,7 +203,7 @@ fixSupportedAtoms = withDisplay $ \dpy -> do
     io $ changeProperty32 dpy r a c propModeAppend (fmap fromIntegral supp)
 
 myStartupHook :: X ()
-myStartupHook = fixSupportedAtoms >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/"
+myStartupHook = fixSupportedAtoms >> spawnOnce "~/.dotfiles/xlogin_script" >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/"
 
 myXmobarPP :: X PP
 myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is installed
@@ -211,7 +212,7 @@ myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is insta
 myBaseXmobarPP :: PP
 myBaseXmobarPP = def
     { ppCurrent = yellow . wrap "[" "]"
-    , ppTitle = green . shorten 60
+    , ppTitle = green . (padTo 60) . shorten 60
     , ppVisible = wrap "(" ")"
     , ppUrgent  = xmobarColor "red" "yellow"
     , ppTitleSanitize = xmobarStrip
@@ -220,6 +221,7 @@ myBaseXmobarPP = def
   where
     yellow = xmobarColor "yellow" ""
     green = xmobarColor "green" ""
+    padTo n s = s ++ take (60-(length s)) (repeat ' ')
 
 myUrgencyHandler =
         DunstUrgencyHook { arguments = [ "-i", "~/.dotfiles/images/xmonad-logo.svg" ] }
@@ -229,7 +231,7 @@ myUrgencyHandler =
 -- should this be hooks instead?
 configModifiers = docks . ewmh
     . withEasySB (statusBarProp "xmobar" myXmobarPP) defToggleStrutsKey
-    . addDescrKeys ((myModMask, xK_r), xMessage) myKeysNamed
+    . addDescrKeys ((myModMask .|. shiftMask, xK_slash), xMessage) myKeysNamed
     . withUrgencyHookC myUrgencyHandler
         (urgencyConfig {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
 

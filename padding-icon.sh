@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Detects the width of running window with name given as first
 # argument (xprop name '$1') and creates an XPM icon of that width,

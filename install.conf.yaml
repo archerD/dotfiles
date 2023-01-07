@@ -44,7 +44,6 @@
       if: ' type xmonad '
 
 - link:
-    ~/.xsessionrc: xsessionrc
     ~/.config/xmonad/xmonad.hs: xmonad.hs
     ~/.config/xmobar/xmobar.hs: xmobar.hs
     ~/.xscreensaver: xscreensaver

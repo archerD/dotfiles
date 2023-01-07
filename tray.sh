@@ -1,51 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$(whoami)" == "archerd" ]; then
-    # background and screensaver/lockscreen
-    feh --bg-fill  --randomize /home/archerd/.dotfiles/wallpapers/* &
-    autorandr -c # force monitor configuration (uses script from feh to resize background)
-    xscreensaver -no-splash &
-    compton --backend glx --paint-on-overlay &
-    xsetroot -cursor_name left_ptr
-    # set numlock on by default
-    /usr/bin/numlockx on
-    # start gnome-pie for graphical menus
-    gnome-pie &
-
     # tray for applets and application notifications
     # trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 63 --tint 0x145A32 --heighttype request --margin 3 --padding 3 &
     # stalonetray --config /home/archerd/.dotfiles/stalonetrayrc &
     trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x294029 --expand true --padding 3 --monitor primary --iconspacing 2 \
         --heighttype pixel --height 38 &
 
-
     # applets (sleep to force desired order)
     xfce4-power-manager &
-    sleep 0.010
-    nm-applet --sm-disable &
-    sleep 0.010
-    blueman-applet &
-    sleep 0.500
+    if type nm-applet; then
+        nm-applet --sm-disable & # not found (I think it's autolaunching on nixos)
+    fi
+    blueman-applet & # erroring out on nixos
     pasystray &
-    sleep 0.400
     redshift-gtk &
-    sleep 0.070
     kdeconnect-indicator &
-    sleep 0.010
     # this one doesn't show up unless something is in the print queue.
     system-config-printer-applet &
 
     # to get the aliases for some stuff.
-    /home/archerd/.dotfiles/aliases
+    #/home/archerd/.dotfiles/aliases
     # software to be autostarted
     if type yubioath-desktop; then
         yubioath-desktop &
     fi
     if type slack; then
         slack --startup --silent &
-    fi
-    if type cmus; then
-        cmus &
     fi
 fi
 

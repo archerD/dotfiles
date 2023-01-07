@@ -2,12 +2,13 @@ import Xmobar
 
 leftTemplate :: String
 -- leftTemplate = "<action=`gnome-pie -o 232` button=3>%XMonadLog%</action>"
-leftTemplate = "<action=`gnome-pie -o 232` button=3>%UnsafeXMonadLog%</action>"
+leftTemplate = "<action=`rofi -show drun` button=3>%UnsafeXMonadLog%</action>"
 centerTemplate :: String
-centerTemplate = "   <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
+-- centerTemplate = "   <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
+centerTemplate = "<action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
 rightTemplate :: String
-rightTemplate = "<action=`playerctl -p playerctld play-pause` button=3>\
-                    \<action=`gnome-pie -o 353` button=1>\
+rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
+                    \<action=`playerctld shift` button=3>\
                         \<action=`playerctl -p playerctld next` button=5>\
                             \<action=`playerctl -p playerctld previous` button=4>\
                                 \<fc=#44cc44>%mpris2%</fc>\

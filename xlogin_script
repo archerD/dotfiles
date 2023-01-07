@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+if [ "$(whoami)" == "archerd" ]; then
+    # if [ -z $_XPROFILE_SOURCED ]; then
+        # export _XPROFILE_SOURCED=1 # guard to ensure file is only run once.
+
+    # background and screensaver/lockscreen
+    feh --bg-fill  --randomize /home/archerd/.dotfiles/wallpapers/* &
+    autorandr -c # force monitor configuration (uses script from feh to resize background)
+    xscreensaver -no-splash &
+    compton --backend glx --paint-on-overlay &
+    xsetroot -cursor_name left_ptr
+    # set numlock on by default
+    # /usr/bin/numlockx on
+    numlockx
+    # start gnome-pie for graphical menus
+    gnome-pie &
+
+    #if type cmus; then
+    #    cmus &
+    #fi
+
+    /home/archerd/.dotfiles/tray.sh
+    # fi
+fi
+
