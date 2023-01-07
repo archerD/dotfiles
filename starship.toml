@@ -13,6 +13,8 @@ show_notifications = false
 [directory]
 truncation_length = 0
 truncate_to_repo = false
+style = "cyan"
+repo_root_style = "#f54d28"
 
 [git_metrics]
 disabled = false

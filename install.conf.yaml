@@ -11,6 +11,8 @@
 
 - link:
     ~/.tmux.conf: tmux.conf
+    ~/.bashrc: bashrc
+    ~/.bash_profile: bash_profile
     ~/.bash_aliases: shell_aliases
     ~/.vim: vim
     ~/.config/nvim/init.vim: nvim/neovim_source_vim_config.vim

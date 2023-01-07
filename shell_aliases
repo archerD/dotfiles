@@ -9,7 +9,9 @@
 alias cmus='abduco -A -e ^z cmus "$(which cmus)"'
 
 # alias batcat to bat for ease of use
-alias bat='batcat'
+if which batcat 2> /dev/null ; then
+    alias bat='batcat'
+fi
 
 # alias for gnirehtet since it is a hard command to remember
 alias phone='abduco -A -e ^z phone "$(which gnirehtet)" autorun'
