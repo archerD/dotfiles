@@ -1,3 +1,0 @@
-
-require("keybindings")
-require("settings")
