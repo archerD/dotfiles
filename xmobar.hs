@@ -21,11 +21,11 @@ rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
 
 config :: Config
 config = defaultConfig
-       { font = "xft:JetBrains Mono:size=11:medium:antialias=true"
-       , additionalFonts = ["xft:Monospace Regular:size=10:antialias=true"]
+       { font = "JetBrains Mono Medium 18"
+       , additionalFonts = ["Monospace Regular 16"]
        , bgColor = "black"
        , fgColor = "grey"
-       , position = TopW L 100
+       , position = TopSize L 100 38
        , commands = [ Run $ Cpu ["-L","25","-H","75","--normal","green","--high","red", "--ppad","2", "-t","C:<total>%"] 10
                     , Run $ Memory ["-t","M:<usedratio>%"] 10
                     , Run $ Date "(%a) %F T %R:%S%z (%Z)" "date" 10

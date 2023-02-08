@@ -233,7 +233,7 @@ configModifiers = docks . ewmh
     . withEasySB (statusBarProp "xmobar" myXmobarPP) defToggleStrutsKey
     . addDescrKeys ((myModMask .|. shiftMask, xK_slash), xMessage) myKeysNamed
     . withUrgencyHookC myUrgencyHandler
-        (urgencyConfig {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
+        (def {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
 
 myConfig = configModifiers def
             { layoutHook = myLayoutHook
