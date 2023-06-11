@@ -32,3 +32,6 @@ alias kitty-ssh='kitty +kitten ssh'
 # alias to display images in kitty
 alias icat='kitty +kitten icat'
 
+# alias to simplify running of nix flakes
+alias nix-flake='nix --extra-experimental-features flakes'
+
