@@ -99,6 +99,8 @@ return require('packer').startup(function(use)
     -- YCM has a compiled component, for install direction, see
     -- https://github.com/ycm-core/YouCompleteMe#installation
     --use 'ycm-core/YouCompleteMe'
+    -- see the following for lsp support
+    --use 'neovim/nvim-lspconfig'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

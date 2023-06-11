@@ -12,6 +12,8 @@ vim.g.tex_flavor = 'latex'
 vim.g.vimtex_complete_close_braces = 1
 -- set the directory for vimtex to put the build files
 vim.g.vimtex_compiler_latexmk = { build_dir = './vimtex-output' }
+-- set the default viewer for vimtex
+vim.g.vimtex_view_general_viewer = 'evince'
 
 --[[ YouCompleteMe configuration
 " Let ycm use vimtex to perform autocomplete in tex files
