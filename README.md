@@ -12,6 +12,33 @@ Currently, set up to be run when the system configuration is applied on desktop.
 Not clear on exactly what it is doing now...
 Can be applied on laptop running `home-manager switch --flake .` from the nixos/ directory.
 
+## Laptop versions
+To keep in sync with main, run `git rebase main laptop` from the laptop branch.
+To add more changes to the laptop version, `git rebase -i HEAD~3` allows modifying the last 3 commits as appropriate.
+A force push will be required after doing either of these operations.
+Changes so far:
+* size related changes
+  * tray.sh
+    * changing the height of trayer
+  * xmobar.hs
+    * changing the font sizes
+    * changing the total size of the bar
+* distribution based file location changes
+  * dunstrc
+    * change the location of the rofi executable
+  * rofi.rasi
+    * change the theme location
+  * xss-lock-xsecurelock-daemon.sh
+    * use bash for the shebang instead of nix-shell
+  * xmonad.hs
+    * run the xss-lock-xsecure-daemon.sh file (screen locker is broken...)
+  * nixos/home.nix
+    * Use the generic linux target
+    * lock screen using locally installed xsecurelock
+    * add an alias so sudo can be used with packages installed by home-manager
+* distribution based autolaunching changes
+  * xlogin_script launches picom (nixos does this automatically)
+
 ## DotBoT Usage
 To install the dotfiles using dotbot on a machine, clone this repository (git clone ...), then run the install script inside it.
 This should install the configuration, using the instal.conf.yaml file as a guide.
