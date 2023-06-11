@@ -7,8 +7,8 @@ local opt = vim.opt -- options with set/list support
 
 
 -- colorschemes --
-vim.cmd.colorscheme('industry')
---vim.cmd('source ~/.dotfiles/nvim/vim/vim-old-slate-2008.vim')
+-- vim.cmd.colorscheme('industry')
+vim.cmd('source ~/.dotfiles/nvim/vim/vim-old-slate-2008.vim')
 
 
 -- miscellaneous settings? --
