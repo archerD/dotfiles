@@ -177,6 +177,12 @@ manageZoomHook =
     -- shouldSink title = title `elem` tileTitles
     -- doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
+manageKdeconnectPresenterHook = 
+    composeAll
+        [ (className =? "kdeconnect.daemon") --> doFullFloat
+          -- ((\title -> title == "KDE Connect Daemon") <$> title) --> doFullFloat
+        ]
+
 newtype DunstUrgencyHook = DunstUrgencyHook { arguments :: [String] }
     deriving (Read, Show)
 
@@ -233,10 +239,14 @@ myUrgencyHandler =
         -- (dzenUrgencyHook { duration = seconds 5, args = ["-bg", "darkgreen", "-xs", "1"]})
         -- Not to be obvious or anything, but the dzenUrgencyHook needs dzen2 installed
 
+-- to display messages in a nice gui window
+displayMessage :: String -> X ()
+displayMessage message = spawn ("gxmessage -name \"XMonad Message\" -buttons \"Close:0\" -default Close \"" ++ message ++ "\"") -- uses gxmessage for a nicer display.
+
 -- should this be hooks instead?
 configModifiers = docks . ewmh
     . withEasySB (statusBarProp "xmobar" myXmobarPP) defToggleStrutsKey
-    . addDescrKeys ((myModMask .|. shiftMask, xK_slash), xMessage) myKeysNamed
+    . addDescrKeys ((myModMask .|. shiftMask, xK_slash), addName "Show Keybindings" . displayMessage . unlines . showKm) myKeysNamed
     . withUrgencyHookC myUrgencyHandler
         (def {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
 
@@ -251,7 +261,7 @@ myConfig = configModifiers def
             , mouseBindings = myMouse
             , startupHook = myStartupHook
             -- I have no idea what isDialog works on...
-            , manageHook = composeOne [ isDialog -?> doCenterFloat ] <+> manageZoomHook
+            , manageHook = composeOne [ isDialog -?> doCenterFloat ] <+> manageZoomHook <+> manageKdeconnectPresenterHook
             , handleEventHook = Hacks.windowedFullscreenFixEventHook <+> dynamicTitle manageZoomHook
             -- , terminal = "x-terminal-emulator"
             , terminal = "kitty"
