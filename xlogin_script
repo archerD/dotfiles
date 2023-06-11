@@ -5,6 +5,7 @@ if [ "$(whoami)" == "archerd" ]; then
     feh --bg-fill  --randomize /home/archerd/.dotfiles/images/wallpapers/* &
     autorandr -c # force monitor configuration (uses script from feh to resize background)
     #xscreensaver -no-splash &
+    picom & # autolaunched by nixos, but not by ubuntu
     xsetroot -cursor_name left_ptr
 
     /home/archerd/.dotfiles/tray.sh

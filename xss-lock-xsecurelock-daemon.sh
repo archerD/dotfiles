@@ -1,5 +1,4 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p xss-lock xsecurelock
+#! /usr/bin/env bash
 xss-lock -l -- env \
     XSECURELOCK_SAVER=saver_xscreensaver \
     XSECURELOCK_AUTH_TIMEOUT=10 \
