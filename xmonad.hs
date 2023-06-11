@@ -13,13 +13,14 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.SetWMName
 import XMonad.Util.ClickableWorkspaces
 import XMonad.Util.Dzen
 import qualified XMonad.Util.Hacks as Hacks
 import XMonad.Util.Paste
 import XMonad.Util.EZConfig
     ( additionalKeys, removeKeys, checkKeymap, mkNamedKeymap )
-import XMonad.Util.NamedActions -- for future use
+import XMonad.Util.NamedActions
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.WorkspaceCompare(getWsIndex)
@@ -95,8 +96,8 @@ myKeysNamed c =
     , ("M-S-l", addName "Go to next workspace" nextWS)
     ] ^++^
     subKeys "notification stuff"
-    [ ("M-n", addName "Open notifications" $ spawn "dunstctl history-pop")
-    , ("M-S-n", addName "Close notifications" $ spawn "dunstctl close")
+    [ ("M-S-n", addName "Open notifications" $ spawn "dunstctl history-pop")
+    , ("M-n", addName "Close notifications" $ spawn "dunstctl close")
     , ("M-C-n", addName "Open notification action menu" $ spawn "dunstctl context")
     ] ^++^
     subKeys "Managing wide monitors"
@@ -203,7 +204,11 @@ fixSupportedAtoms = withDisplay $ \dpy -> do
     io $ changeProperty32 dpy r a c propModeAppend (fmap fromIntegral supp)
 
 myStartupHook :: X ()
-myStartupHook = fixSupportedAtoms >> spawnOnce "~/.dotfiles/xlogin_script" >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/"
+myStartupHook = fixSupportedAtoms
+                >> setWMName "LG3D" -- the wm name somehow helps java gui applications to show menus in the correct spot...
+                -- >> spawnOnce "export _JAVA_AWT_WM_NONREPARENTING=1" -- the (prefered) alternative is to run this export (I don't think this line works...)
+                >> spawnOnce "~/.dotfiles/xlogin_script"
+                >> spawn "feh --randomize --bg-fill ~/.dotfiles/wallpapers/"
 
 myXmobarPP :: X PP
 myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is installed
@@ -234,6 +239,10 @@ configModifiers = docks . ewmh
     . addDescrKeys ((myModMask .|. shiftMask, xK_slash), xMessage) myKeysNamed
     . withUrgencyHookC myUrgencyHandler
         (def {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
+
+-- see https://github.com/jceb/dotfiles/blob/master/xorg/.xmonad/xmonad.hs#L119
+-- https://github.com/jceb/dotfiles/blob/61492c348ac5cfc7a3e935868d0a5d16aabd8785/xorg/.xmonad/xmonad.hs#L119
+-- This changes the ewmh to use a greedy desktop change instead of a desktop change..., also https://github.com/xmonad/xmonad-contrib/issues/776
 
 myConfig = configModifiers def
             { layoutHook = myLayoutHook
