@@ -8,7 +8,7 @@ if [ "$(whoami)" == "archerd" ]; then
     feh --bg-fill  --randomize /home/archerd/.dotfiles/wallpapers/* &
     autorandr -c # force monitor configuration (uses script from feh to resize background)
     xscreensaver -no-splash &
-    compton --backend glx --paint-on-overlay &
+    picom &
     xsetroot -cursor_name left_ptr
     # set numlock on by default
     # /usr/bin/numlockx on

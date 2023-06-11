@@ -9,7 +9,7 @@
 alias cmus='abduco -A -e ^z cmus "$(which cmus)"'
 
 # alias batcat to bat for ease of use
-if which batcat 2> /dev/null ; then
+if which batcat 2> /dev/null > /dev/null; then
     alias bat='batcat'
 fi
 
@@ -34,4 +34,8 @@ alias icat='kitty +kitten icat'
 
 # alias to simplify running of nix flakes
 alias nix-flake='nix --extra-experimental-features flakes'
+
+# aliasing shell tools to `improved' versions
+# alias ls='lsd'
+# alias cat='bat'
 
