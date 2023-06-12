@@ -11,6 +11,7 @@ import XMonad.Hooks.DynamicProperty
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
@@ -22,6 +23,7 @@ import XMonad.Util.Paste
 import XMonad.Util.EZConfig
     ( additionalKeys, removeKeys, checkKeymap, mkNamedKeymap )
 import XMonad.Util.NamedActions
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.WorkspaceCompare(getWsIndex)
@@ -71,6 +73,11 @@ secondaryLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 tertiaryLauncher = spawn "dmenu_run -p \"$\""
 calculatorLauncher = spawn "rofi -modi \"calc:~/.dotfiles/rofi-scripts/rofi-calc.sh\" -show calc"
 
+-- scratchpad stuff
+scratchpads =
+    [ NS "calculator" "kitty --class nsp-calc ipython" (className =? "nsp-calc") defaultFloating
+    ]
+
 myKeysNamed :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
 myKeysNamed c =
     -- partially borrowed from https://gitlab.com/dwt1/dotfiles/-/blob/master/.xmonad/xmonad.hs
@@ -91,9 +98,9 @@ myKeysNamed c =
     , ("M-S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
     ] ^++^
     subKeys "Launchers"
-    [
-      ("M-u", addName "Open Launcher" defaultLauncher)
+    [ ("M-u", addName "Open Launcher" defaultLauncher)
     , ("M-=", addName "Open Mini Calculator" calculatorLauncher)
+    , ("M-S-=", addName "Open repl for Calculator usage" $ namedScratchpadAction scratchpads "calculator")
     , ("M-M4-u", addName "Open adaptive cmd line launcher" secondaryLauncher)
     , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
     , ("M-f", addName "Toggle status line" $ sendMessage ToggleStruts)
@@ -226,7 +233,6 @@ myStartupHook = fixSupportedAtoms
 
 myXmobarPP :: X PP
 myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is installed
--- myXmobarPP = pure myBaseXmobarPP
 
 myBaseXmobarPP :: PP
 myBaseXmobarPP = def
@@ -235,7 +241,10 @@ myBaseXmobarPP = def
     , ppVisible = wrap "(" ")"
     , ppUrgent  = xmobarColor "red" "yellow"
     , ppTitleSanitize = xmobarStrip
-    , ppRename = \workspaceName _ -> xmobarRaw workspaceName -- What is a WindowSpace, and what is it good for (the _ argument)
+    , ppRename = \workspaceName _ -> -- What is a WindowSpace, and what is it good for (the _ argument)
+        if workspaceName == scratchpadWorkspaceTag
+        then xmobarColor "white" "" "=" -- change how the scratchpad workspace is displayed
+        else xmobarRaw workspaceName
     }
   where
     yellow = xmobarColor "yellow" ""
@@ -286,8 +295,10 @@ myConfig = configModifiers def
             , mouseBindings = myMouse
             , startupHook = myStartupHook
             -- I have no idea what isDialog works on...
-            , manageHook = composeOne [ isDialog -?> doCenterFloat ] <+> manageZoomHook <+> manageKdeconnectPresenterHook
+            , manageHook = composeOne [ isDialog -?> doCenterFloat ] <+> manageZoomHook
+                <+> manageKdeconnectPresenterHook <+> namedScratchpadManageHook scratchpads
             , handleEventHook = Hacks.windowedFullscreenFixEventHook <+> dynamicTitle manageZoomHook
+            , logHook = refocusLastLogHook >> nsHideOnFocusLoss scratchpads
             -- , terminal = "x-terminal-emulator"
             , terminal = "kitty"
             , focusFollowsMouse = True
