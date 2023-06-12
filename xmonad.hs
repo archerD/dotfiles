@@ -57,7 +57,7 @@ import           XMonad.Util.WorkspaceCompare
 import           XMonad.Util.XUtils                    (fi)
 
 -- from https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Some_keys_not_working, to enable numpad keys as number keys
-extraWorkspaces = ["0"]
+extraWorkspaces = ["NSP"]
 myWorkspaces = workspaces def ++ extraWorkspaces
 -- Non-numeric num pad keys, sorted by number 
 numPadKeys = [ "<KP_1>", "<KP_2>", "<KP_3>"
@@ -79,7 +79,12 @@ calculatorLauncher = spawn "rofi -modi \"calc:~/.dotfiles/rofi-scripts/rofi-calc
 
 -- scratchpad stuff
 scratchpads =
-    [ NS "calculator" "kitty --class nsp-calc ipython" (className =? "nsp-calc") defaultFloating
+    [ NS "repl ipython" "kitty --class nsp-repl-ipython ipython"
+                (className =? "nsp-repl-ipython") defaultFloating
+    , NS "repl ghci" "kitty --class nsp-repl-ghci ghci"
+                (className =? "nsp-repl-ghci") defaultFloating
+    , NS "neovide notes" "neovide --x11-wm-class nsp-neovide-notes"
+                (className =? "nsp-neovide-notes") defaultFloating
     ]
 
 myKeysNamed :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
@@ -104,8 +109,10 @@ myKeysNamed c =
     ] ^++^
     subKeys "Launchers"
     [ ("M-u", addName "Open Launcher" defaultLauncher)
-    , ("M-=", addName "Open Mini Calculator" calculatorLauncher)
-    , ("M-S-=", addName "Open repl for Calculator usage" $ namedScratchpadAction scratchpads "calculator")
+    , ("M-= M-=", addName "Open Mini Calculator" calculatorLauncher)
+    , ("M-= p", addName "Open python repl" $ namedScratchpadAction scratchpads "repl ipython")
+    , ("M-= h", addName "Open ghci repl" $ namedScratchpadAction scratchpads "repl ghci")
+    , ("M-= n", addName "Open neovide for notes" $ namedScratchpadAction scratchpads "neovide notes")
     , ("M-M4-u", addName "Open adaptive cmd line launcher" secondaryLauncher)
     , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
     ] ^++^
@@ -235,7 +242,7 @@ fixSupportedAtoms = withDisplay $ \dpy -> do
                          ]
     io $ changeProperty32 dpy r a c propModeAppend (fmap fromIntegral supp)
 
-myStartupHook :: X ()
+myStartupHook :: X () -- TODO: add a check that the keymap is good
 myStartupHook = fixSupportedAtoms
                 >> setWMName "LG3D" -- the wm name somehow helps java gui applications to show menus in the correct spot...
                 -- >> spawnOnce "export _JAVA_AWT_WM_NONREPARENTING=1" -- the (prefered) alternative is to run this export (I don't think this line works...)
