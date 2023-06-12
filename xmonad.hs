@@ -1,4 +1,5 @@
-{-# LANGUAGE TupleSections #-}
+{-# LANGUAGE TupleSections #-} -- for the numpad bindings
+{-# LANGUAGE MultiWayIf #-} -- for the ewmh fix
 -- xmonad imports
 import XMonad
 import qualified XMonad.StackSet as W
@@ -41,6 +42,13 @@ import Control.Monad(void)
 import qualified Data.Map as M
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
+
+-- imports for ewmhGreedyDesktopChangeEventHook
+import qualified XMonad.Prelude                        as Pre
+import qualified Data.Monoid                           as DM
+import qualified XMonad.Util.ExtensibleState           as XS
+import           XMonad.Util.WorkspaceCompare
+import           XMonad.Util.XUtils                    (fi)
 
 -- from https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Some_keys_not_working, to enable numpad keys as number keys
 extraWorkspaces = ["0"]
@@ -243,16 +251,33 @@ myUrgencyHandler =
 displayMessage :: String -> X ()
 displayMessage message = spawn ("gxmessage -name \"XMonad Message\" -buttons \"Close:0\" -default Close \"" ++ message ++ "\"") -- uses gxmessage for a nicer display.
 
+-- This changes the ewmh to use a greedy desktop change instead of a desktop change, see https://github.com/xmonad/xmonad-contrib/issues/776
+ewmhGreedyDesktopChangeEventHookConfig :: XConfig a -> XConfig a
+ewmhGreedyDesktopChangeEventHookConfig c = c { handleEventHook = ewmhGreedyDesktopChangeEventHook <> handleEventHook c }
+
+-- A very stripped down version of the default ewmhDesktopsEventHook:
+--  keeps what is needed to do a greedy view on desktop change
+ewmhGreedyDesktopChangeEventHook :: Event -> X DM.All
+ewmhGreedyDesktopChangeEventHook
+        ClientMessageEvent{ev_window = w, ev_message_type = mt, ev_data = d} =
+    withWindowSet $ \s -> do
+        sort' <- getSortByIndex -- this is the default for the EwmhDesktopsConfig
+        let ws = sort' $ W.workspaces s
+        a_cd <- getAtom "_NET_CURRENT_DESKTOP"
+
+        if  | mt == a_cd, n : _ <- d, Just ww <- ws Pre.!? fi n ->
+                if W.currentTag s == W.tag ww then mempty else windows $ W.greedyView (W.tag ww)
+            | mt == a_cd -> trace $ "Bad _NET_CURRENT_DESKTOP with data=" ++ show d
+            | otherwise -> mempty
+        mempty
+ewmhGreedyDesktopChangeEventHook _ = mempty
+
 -- should this be hooks instead?
-configModifiers = docks . ewmh
+configModifiers = docks . ewmhGreedyDesktopChangeEventHookConfig . ewmh
     . withEasySB (statusBarProp "xmobar" myXmobarPP) defToggleStrutsKey
     . addDescrKeys ((myModMask .|. shiftMask, xK_slash), addName "Show Keybindings" . displayMessage . unlines . showKm) myKeysNamed
     . withUrgencyHookC myUrgencyHandler
         (def {suppressWhen = Focused}) -- may want to make "Focused" "OnScreen" instead... or remove the config entirely
-
--- see https://github.com/jceb/dotfiles/blob/master/xorg/.xmonad/xmonad.hs#L119
--- https://github.com/jceb/dotfiles/blob/61492c348ac5cfc7a3e935868d0a5d16aabd8785/xorg/.xmonad/xmonad.hs#L119
--- This changes the ewmh to use a greedy desktop change instead of a desktop change..., also https://github.com/xmonad/xmonad-contrib/issues/776
 
 myConfig = configModifiers def
             { layoutHook = myLayoutHook
