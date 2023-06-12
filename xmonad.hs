@@ -6,6 +6,7 @@ import qualified XMonad.StackSet as W
 
 -- xmonad-contrib imports
 import XMonad.Actions.CycleWS
+import XMonad.Actions.MessageFeedback (sendSomeMessages, sm)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.DynamicProperty
 import XMonad.Hooks.EwmhDesktops
@@ -31,6 +32,9 @@ import XMonad.Util.WorkspaceCompare(getWsIndex)
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LayoutScreens
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.Reflect
 import XMonad.Layout.TwoPane
 import XMonad.Layout.TwoPanePersistent
 -- import XMonad.Layout.Tabbed
@@ -96,6 +100,7 @@ myKeysNamed c =
     , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl -p playerctld stop")
     , ("M-m", addName "Change focused player" $ spawn "playerctld shift")
     , ("M-S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
+    , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")
     ] ^++^
     subKeys "Launchers"
     [ ("M-u", addName "Open Launcher" defaultLauncher)
@@ -103,8 +108,13 @@ myKeysNamed c =
     , ("M-S-=", addName "Open repl for Calculator usage" $ namedScratchpadAction scratchpads "calculator")
     , ("M-M4-u", addName "Open adaptive cmd line launcher" secondaryLauncher)
     , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
-    , ("M-f", addName "Toggle status line" $ sendMessage ToggleStruts)
-    , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")
+    ] ^++^
+    subKeys "Layout Modifications"
+    [ ("M-f", addName "Go to fullscreen mode" $ sendSomeMessages [sm ToggleStruts, sm (Toggle NBFULL)])
+    , ("M-S-f", addName "Toggle status line" $ sendMessage ToggleStruts)
+    , ("M-r m", addName "rotation 90 degrees (mirror)" $ sendMessage $ Toggle MIRROR)
+    , ("M-r h", addName "reflect horizontally" $ sendMessage $ Toggle REFLECTX)
+    , ("M-r v", addName "reflect vertically" $ sendMessage $ Toggle REFLECTY)
     -- , ("M-S-m", addName "Focus master window" $ windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
     -- , ("M-S-f", addName "Send the forward keystroke" $ sendKey noModMask xF86XK_Forward)
     , ("M-S-h", addName "Go to previous workspace" prevWS)
@@ -161,8 +171,9 @@ myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
     button8 = 8 -- back button
     button9 = 9 -- forward button (currently not sent, because logiops redirects first)
 
-myLayoutHook = avoidStruts $ tiled ||| Mirror tiled ||| trifold ||| noBorders Full
-    ||| TwoPanePersistent Nothing delta ratio
+myLayoutHook = avoidStruts
+        . mkToggle1 NBFULL . mkToggle1 MIRROR . mkToggle1 REFLECTX . mkToggle1 REFLECTY
+        $ tiled ||| trifold ||| TwoPanePersistent Nothing delta ratio
     where
         -- base layouts
         tiled   = smartBorders $ Tall nmaster delta ratio
