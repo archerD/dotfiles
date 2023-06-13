@@ -95,11 +95,7 @@ return require('packer').startup(function(use)
     --use nvim-lualine/lualine.nvim
     --use frazrepo/vim-rainbow
 
-    -- language server and completion thing... need to use builtin support instead
-    -- YCM has a compiled component, for install direction, see
-    -- https://github.com/ycm-core/YouCompleteMe#installation
-    --use 'ycm-core/YouCompleteMe'
-    -- see the following for lsp support
+    -- language server and completion, based off builtin lsp support
     use 'neovim/nvim-lspconfig'
 
     -- Automatically set up your configuration after cloning packer.nvim
