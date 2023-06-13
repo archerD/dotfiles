@@ -1,60 +1,59 @@
 {-# LANGUAGE TupleSections #-} -- for the numpad bindings
 {-# LANGUAGE MultiWayIf #-} -- for the ewmh fix
+
 -- xmonad imports
-import XMonad
-import qualified XMonad.StackSet as W
-
+import           XMonad
+import qualified XMonad.StackSet                as W
 -- xmonad-contrib imports
-import XMonad.Actions.CycleWS
-import XMonad.Actions.MessageFeedback (sendSomeMessages, sm)
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.DynamicProperty
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.RefocusLast (refocusLastLogHook)
-import XMonad.Hooks.StatusBar
-import XMonad.Hooks.StatusBar.PP
-import XMonad.Hooks.UrgencyHook
-import XMonad.Hooks.SetWMName
-import XMonad.Util.ClickableWorkspaces
-import XMonad.Util.Dzen
-import qualified XMonad.Util.Hacks as Hacks
-import XMonad.Util.Paste
-import XMonad.Util.EZConfig
-    ( additionalKeys, removeKeys, checkKeymap, mkNamedKeymap )
-import XMonad.Util.NamedActions
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.NamedWindows (getName)
-import XMonad.Util.SpawnOnce
-import XMonad.Util.WorkspaceCompare(getWsIndex)
--- import XMonad.Util.Run(runInTerm)
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.NoBorders
-import XMonad.Layout.LayoutScreens
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
-import XMonad.Layout.Reflect
-import XMonad.Layout.TwoPane
-import XMonad.Layout.TwoPanePersistent
--- import XMonad.Layout.Tabbed
--- import XMonad.Layout.LayoutBuilder
-
+import           XMonad.Actions.CycleWS
+import           XMonad.Actions.MessageFeedback
+                    ( sendSomeMessages, sm )
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.DynamicProperty
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.RefocusLast (refocusLastLogHook)
+import           XMonad.Hooks.SetWMName
+import           XMonad.Hooks.StatusBar
+import           XMonad.Hooks.StatusBar.PP
+import           XMonad.Hooks.UrgencyHook
+import qualified XMonad.Prelude                 as Pre
+import           XMonad.Util.ClickableWorkspaces
+import           XMonad.Util.Dzen
+import qualified XMonad.Util.ExtensibleState    as XS
+import           XMonad.Util.EZConfig
+                    ( additionalKeys, removeKeys
+                    , checkKeymap, mkNamedKeymap )
+import qualified XMonad.Util.Hacks              as Hacks
+import           XMonad.Util.NamedActions
+import           XMonad.Util.NamedScratchpad
+import           XMonad.Util.NamedWindows (getName)
+import           XMonad.Util.Paste
+--import           XMonad.Util.Run (runInTerm)
+import           XMonad.Util.SpawnOnce
+import           XMonad.Util.WorkspaceCompare
+                    ( getWsIndex, getSortByIndex )
+import           XMonad.Util.XUtils (fi)
+--import           XMonad.Layout.LayoutBuilder
+import           XMonad.Layout.LayoutScreens
+import           XMonad.Layout.MultiToggle
+import           XMonad.Layout.MultiToggle.Instances
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Reflect
+--import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.TwoPane
+import           XMonad.Layout.TwoPanePersistent
 -- xmonad-extra imports
-import XMonad.Actions.Volume
+import           XMonad.Actions.Volume
 
 -- other imports
-import Control.Monad(void)
-import qualified Data.Map as M
-import Graphics.X11.ExtraTypes.XF86
-import System.IO
-
--- imports for ewmhGreedyDesktopChangeEventHook
-import qualified XMonad.Prelude                        as Pre
-import qualified Data.Monoid                           as DM
-import qualified XMonad.Util.ExtensibleState           as XS
-import           XMonad.Util.WorkspaceCompare
-import           XMonad.Util.XUtils                    (fi)
+import           Control.Monad (void)
+import qualified Data.Map                       as M
+import qualified Data.Monoid                    as DM
+import           Graphics.X11.ExtraTypes.XF86
+import           System.IO
 
 -- from https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Some_keys_not_working, to enable numpad keys as number keys
 extraWorkspaces = ["NSP"]
@@ -90,6 +89,7 @@ scratchpads =
 myKeysNamed :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
 myKeysNamed c =
     -- partially borrowed from https://gitlab.com/dwt1/dotfiles/-/blob/master/.xmonad/xmonad.hs
+    -- TODO: add the default keybinds to this explicitly.
     let subKeys str ks = subtitle str : mkNamedKeymap c ks in
     subKeys "Custom Stuff"
     [ ("M4-l", addName "lock screen" $ spawn "xscreensaver-command -lock && sleep 2s ; xset dpms force off")
@@ -210,7 +210,7 @@ manageZoomHook =
     -- shouldSink title = title `elem` tileTitles
     -- doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
-manageKdeconnectPresenterHook = 
+manageKdeconnectPresenterHook =
     composeAll
         [ (className =? "kdeconnect.daemon") --> doFullFloat
           -- ((\title -> title == "KDE Connect Daemon") <$> title) --> doFullFloat
@@ -255,7 +255,7 @@ myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is insta
 myBaseXmobarPP :: PP
 myBaseXmobarPP = def
     { ppCurrent = yellow . wrap "[" "]"
-    , ppTitle = green . (padTo 60) . shorten 60
+    , ppTitle = green . padTo 60 . shorten 60
     , ppVisible = wrap "(" ")"
     , ppUrgent  = xmobarColor "red" "yellow"
     , ppTitleSanitize = xmobarStrip
@@ -267,7 +267,7 @@ myBaseXmobarPP = def
   where
     yellow = xmobarColor "yellow" ""
     green = xmobarColor "green" ""
-    padTo n s = s ++ take (60-(length s)) (repeat ' ')
+    padTo n s = s ++ replicate (60 - length s) ' '
 
 myUrgencyHandler =
         DunstUrgencyHook { arguments = [ "-i", "~/.dotfiles/images/xmonad-logo.svg" ] }
