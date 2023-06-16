@@ -35,6 +35,7 @@
 # can only be installed when the script is run with sudo
 - link:
     /etc/logid.cfg: mxmaster3mouse.cfg
+    /etc/nixos: nixos
 
 # before linking in the xmonad stuff, make sure xmonad is available.
 - defaults:
