@@ -109,8 +109,11 @@ myKeysNamed c =
     , ("<XF86AudioPrev>", addName "Previous" $ spawn "playerctl -p playerctld previous")
     , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl -p playerctld next")
     , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl -p playerctld stop")
-    , ("M-m", addName "Change focused player" $ spawn "playerctld shift")
-    , ("M-S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
+    , ("M-m M-m", addName "Change focused player" $ spawn "playerctld shift")
+    , ("M-m S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
+    , ("M-m <Space>", addName "Play/Pause focused player" $ spawn "playerctl play-pause")
+    , ("M-m n", addName "Next track focused player" $ spawn "playerctl next")
+    , ("M-m p", addName "Previous track focused player" $ spawn "playerctl previous")
     , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")
     ] ^++^
     subKeys "Launchers"
