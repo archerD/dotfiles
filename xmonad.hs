@@ -247,7 +247,7 @@ myStartupHook = fixSupportedAtoms
                 >> setWMName "LG3D" -- the wm name somehow helps java gui applications to show menus in the correct spot...
                 -- >> spawnOnce "export _JAVA_AWT_WM_NONREPARENTING=1" -- the (prefered) alternative is to run this export (I don't think this line works...)
                 >> spawnOnce "~/.dotfiles/xlogin_script"
-                >> spawn "feh --randomize --bg-fill ~/.dotfiles/wallpapers/"
+                >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/wallpapers/"
 
 myXmobarPP :: X PP
 myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is installed
