@@ -84,6 +84,10 @@ scratchpads =
                 (className =? "nsp-repl-ghci") defaultFloating
     , NS "neovide notes" "neovide --x11-wm-class nsp-neovide-notes"
                 (className =? "nsp-neovide-notes") defaultFloating
+    , NS "cmus window" "kitty --class nsp-cmus cmus"
+                (className =? "nsp-cmus") defaultFloating
+    , NS "popup terminal" "kitty --class nsp-kitty"
+                (className =? "nsp-kitty") defaultFloating
     ]
 
 myKeysNamed :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
@@ -115,6 +119,8 @@ myKeysNamed c =
     , ("M-= p", addName "Open python repl" $ namedScratchpadAction scratchpads "repl ipython")
     , ("M-= h", addName "Open ghci repl" $ namedScratchpadAction scratchpads "repl ghci")
     , ("M-= n", addName "Open neovide for notes" $ namedScratchpadAction scratchpads "neovide notes")
+    , ("M-= c", addName "Open cmus window" $ namedScratchpadAction scratchpads "cmus window")
+    , ("M-= t", addName "Open popup terminal" $ namedScratchpadAction scratchpads "popup terminal")
     , ("M-M4-u", addName "Open adaptive cmd line launcher" secondaryLauncher)
     , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
     ] ^++^
@@ -156,29 +162,34 @@ myKeysNamed c =
 
 myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((myModMask, button1), \w -> focus w >> mouseMoveWindow w
+    [ ((myModMask, leftClick), \w -> focus w >> mouseMoveWindow w
                                        >> windows W.shiftMaster)
 
     -- mod-button2, Kill the window
-    , ((myModMask, button2), \w -> focus w >> kill)
+    , ((myModMask, middleClick), \w -> focus w >> kill)
 
     -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((myModMask, button3), \w -> focus w >> mouseResizeWindow w
+    , ((myModMask, rightClick), \w -> focus w >> mouseResizeWindow w
                                         >> windows W.shiftMaster)
 
     -- mod-button4 (scroll up), Send the window back into the tiling
-    , ((myModMask, button4), \w -> focus w >> withFocused (windows . W.sink))
+    , ((myModMask, scrollUp), \w -> focus w >> withFocused (windows . W.sink))
     -- mod-button4 (scroll down), Send the window back into the tiling
-    , ((myModMask, button5), \w -> focus w >> withFocused (windows . W.sink))
+    , ((myModMask, scrollDown), \w -> focus w >> withFocused (windows . W.sink))
 
     -- mod-button8 (back button), send the forward key instead of the back key
-    , ((myModMask, button8), sendKeyWindow noModMask xF86XK_Forward)
+    , ((myModMask, backButton), sendKeyWindow noModMask xF86XK_Forward)
     ]
   where
-    button6 = 6 -- scroll left
-    button7 = 7 -- scroll right
-    button8 = 8 -- back button
-    button9 = 9 -- forward button (currently not sent, because logiops redirects first)
+    leftClick     = button1
+    middleClick   = button2
+    rightClick    = button3
+    scrollUp      = button4
+    scrollDown    = button5
+    scrollLeft    = 6 -- scroll left
+    scrollRight   = 7 -- scroll right
+    backButton    = 8 -- back button
+    forwardButton = 9 -- forward button (currently not sent, because logiops redirects first)
 
 myLayoutHook = avoidStruts
         . mkToggle1 NBFULL . mkToggle1 MIRROR . mkToggle1 REFLECTX . mkToggle1 REFLECTY
