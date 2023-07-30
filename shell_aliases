@@ -17,7 +17,7 @@ fi
 alias phone='abduco -A -e ^z phone "$(which gnirehtet)" autorun'
 
 # alias for bpytop, related to bashtop
-alias btop='bpytop'
+#alias btop='bpytop'
 
 # add protection against clobering files
 alias mv='mv -i'

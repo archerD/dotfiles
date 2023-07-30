@@ -104,13 +104,13 @@
     ];
   };
 
-  users.users.testing = {
-    isNormalUser = true;
-    description = "For Testing Only, may be corrupted/poisoned";
-  };
+#  users.users.testing = {
+#    isNormalUser = true;
+#    description = "For Testing Only, may be corrupted/poisoned";
+#  };
 
   environment.sessionVariables = {
-    # helps java gui applications behave better
+    # helps java gui applications behave better in xmonad
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
@@ -168,6 +168,8 @@
     jetbrains.idea-ultimate
     burpsuite
     neovide
+    baobab # a disk usage viewer
+    kobodeluxe
 
     # configuration/window manager/desktop environment stuff
     xmobar

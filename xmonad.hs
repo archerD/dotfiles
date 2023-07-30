@@ -122,8 +122,8 @@ myKeysNamed c =
     [ ("M-f", addName "Go to fullscreen mode" $ sendSomeMessages [sm ToggleStruts, sm (Toggle NBFULL)])
     , ("M-S-f", addName "Toggle status line" $ sendMessage ToggleStruts)
     , ("M-r m", addName "rotation 90 degrees (mirror)" $ sendMessage $ Toggle MIRROR)
-    , ("M-r h", addName "reflect horizontally" $ sendMessage $ Toggle REFLECTX)
-    , ("M-r v", addName "reflect vertically" $ sendMessage $ Toggle REFLECTY)
+    , ("M-r h", addName "reflect horizontally" $ sendMessage $ Toggle REFLECTY)
+    , ("M-r v", addName "reflect vertically" $ sendMessage $ Toggle REFLECTX)
     -- , ("M-S-m", addName "Focus master window" $ windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
     -- , ("M-S-f", addName "Send the forward keystroke" $ sendKey noModMask xF86XK_Forward)
     , ("M-S-h", addName "Go to previous workspace" prevWS)
@@ -246,7 +246,7 @@ fixSupportedAtoms = withDisplay $ \dpy -> do
 
 myStartupHook :: X () -- TODO: add a check that the keymap is good
 myStartupHook = fixSupportedAtoms
-                >> setWMName "LG3D" -- the wm name somehow helps java gui applications to show menus in the correct spot...
+                -- >> setWMName "LG3D" -- the wm name somehow helps java gui applications to show menus in the correct spot...
                 -- >> spawnOnce "export _JAVA_AWT_WM_NONREPARENTING=1" -- the (prefered) alternative is to run this export (I don't think this line works...)
                 >> spawnOnce "~/.dotfiles/xlogin_script"
                 >> spawnOnce "~/.dotfiles/xss-lock-xsecurelock-daemon.sh"
@@ -273,13 +273,13 @@ myBaseXmobarPP = def
     padTo n s = s ++ replicate (60 - length s) ' '
 
 myUrgencyHandler =
-        DunstUrgencyHook { arguments = [ "-i", "~/.dotfiles/images/xmonad-logo.svg" ] }
+        DunstUrgencyHook { arguments = [ "-i", "~/.dotfiles/images/xmonad-logo.svg" ] } -- TODO: find this file...
         -- (dzenUrgencyHook { duration = seconds 5, args = ["-bg", "darkgreen", "-xs", "1"]})
         -- Not to be obvious or anything, but the dzenUrgencyHook needs dzen2 installed
 
 -- to display messages in a nice gui window
 displayMessage :: String -> X ()
-displayMessage message = spawn ("gxmessage -name \"XMonad Message\" -buttons \"Close:0\" -default Close \"" ++ message ++ "\"") -- uses gxmessage for a nicer display.
+displayMessage message = spawn ("gxmessage -font \"JetBrains Mono 12\" -name \"XMonad Message\" -buttons \"Close:0\" -default Close \"" ++ message ++ "\"") -- uses gxmessage for a nicer display.
 
 -- This changes the ewmh to use a greedy desktop change instead of a desktop change, see https://github.com/xmonad/xmonad-contrib/issues/776
 ewmhGreedyDesktopChangeEventHookConfig :: XConfig a -> XConfig a

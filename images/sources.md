@@ -26,5 +26,5 @@ nix-wallpaper-simple-dark-gray.png nix-wallpaper-stripes-logo.png
 : (https://github.com/NixOS/nixos-artwork/tree/master/wallpapers)
 
 zsa-keycaps.jpg
-: zsa newsletter email, included wallpaper
+: zsa newsletter email, included wallpaper, from 2021-03
 
