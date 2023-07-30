@@ -92,8 +92,10 @@ myKeysNamed c =
     -- TODO: add the default keybinds to this explicitly.
     let subKeys str ks = subtitle str : mkNamedKeymap c ks in
     subKeys "Custom Stuff"
-    [ ("M4-l", addName "lock screen" $ spawn "xscreensaver-command -lock && sleep 2s ; xset dpms force off")
-    , ("M4-S-l", addName "lock and suspend" $ spawn "xscreensaver-command -lock && systemctl suspend")
+    -- [ ("M4-l", addName "lock screen" $ spawn "xscreensaver-command -lock && sleep 2s ; xset dpms force off")
+    -- , ("M4-S-l", addName "lock and suspend" $ spawn "xscreensaver-command -lock && systemctl suspend")
+    [ ("M4-l", addName "lock screen" $ spawn "xset s activate")
+    , ("M4-S-l", addName "lock and suspend" $ spawn "xset s activate && systemctl suspend")
     ] ^++^
     subKeys "Media Keys"
     [ ("<XF86AudioLowerVolume>", addName "Volume down" $ void (lowerVolume 2))
@@ -247,6 +249,7 @@ myStartupHook = fixSupportedAtoms
                 >> setWMName "LG3D" -- the wm name somehow helps java gui applications to show menus in the correct spot...
                 -- >> spawnOnce "export _JAVA_AWT_WM_NONREPARENTING=1" -- the (prefered) alternative is to run this export (I don't think this line works...)
                 >> spawnOnce "~/.dotfiles/xlogin_script"
+                >> spawnOnce "~/.dotfiles/xss-lock-xsecurelock-daemon.sh"
                 >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/wallpapers/"
 
 myXmobarPP :: X PP

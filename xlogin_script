@@ -7,7 +7,7 @@ if [ "$(whoami)" == "archerd" ]; then
     # background and screensaver/lockscreen
     feh --bg-fill  --randomize /home/archerd/.dotfiles/images/wallpapers/* &
     autorandr -c # force monitor configuration (uses script from feh to resize background)
-    xscreensaver -no-splash &
+    #xscreensaver -no-splash &
     picom &
     xsetroot -cursor_name left_ptr
     # set numlock on by default

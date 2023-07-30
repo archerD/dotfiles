@@ -174,6 +174,8 @@
     xdotool
     trayer
     xscreensaver
+    xsecurelock
+    xss-lock
     gnome.nautilus
     gnome.gnome-disk-utility
     gnome.gnome-screenshot
@@ -261,6 +263,15 @@
   programs.kdeconnect.enable = true;
   programs.java.enable = true;
 
+  programs.xss-lock = {
+    enable = false; # this service is not working as expected, the log says "xsecurelock: No saver selected. Giving up." and the background is a black screen (as opposed to the xmatrix hack from xscreensaver) (still locks though...)
+    extraOptions = [
+        "--transfer-sleep-lock"
+        "-n" "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
+        ];
+    lockerCommand = "env HOME=\"/home/archerd\" XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_PASSWORD_PROMPT=time ${pkgs.xsecurelock}/bin/xsecurelock";
+  };
+
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "archerd" ];
 
@@ -316,6 +327,8 @@
   # enable picom as the compositor
   services.picom = {
     enable = true;
+    backend = "glx";
+    fadeExclude = [ "class_g = 'xsecurelock'" ];
   };
 
   # Enable the OpenSSH daemon.
