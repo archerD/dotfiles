@@ -6,6 +6,7 @@ import           XMonad
 import qualified XMonad.StackSet                as W
 -- xmonad-contrib imports
 import           XMonad.Actions.CycleWS
+import           XMonad.Actions.FindEmptyWorkspace
 import           XMonad.Actions.MessageFeedback
                     ( sendSomeMessages, sm )
 import           XMonad.Hooks.DynamicLog
@@ -111,9 +112,9 @@ myKeysNamed c =
     , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl -p playerctld stop")
     , ("M-m M-m", addName "Change focused player" $ spawn "playerctld shift")
     , ("M-m S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
-    , ("M-m <Space>", addName "Play/Pause focused player" $ spawn "playerctl play-pause")
-    , ("M-m n", addName "Next track focused player" $ spawn "playerctl next")
-    , ("M-m p", addName "Previous track focused player" $ spawn "playerctl previous")
+    , ("M-m <Space>", addName "Play/Pause focused player" $ spawn "playerctl -p playerctld play-pause")
+    , ("M-m n", addName "Next track focused player" $ spawn "playerctl -p playerctld next")
+    , ("M-m p", addName "Previous track focused player" $ spawn "playerctl -p playerctld previous")
     , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")
     ] ^++^
     subKeys "Launchers"
