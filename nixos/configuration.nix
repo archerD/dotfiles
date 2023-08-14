@@ -280,7 +280,7 @@
   # enabling experimental features
   # (nix-command enables use of nix to run different things instead many nix-* commands)
   # (flakes enables flakes, which I don't really understand...)
-  nix.settings.experimental-features = [ "nix-command" /*"flakes"*/ ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # add the systemd service for logiops (logitech mouse support)
   systemd.packages = [ pkgs.logiops ]; # this provides the systemd unit somewhere
@@ -366,7 +366,7 @@
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
+  #system.copySystemConfiguration = true; # not supported with flakes
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
