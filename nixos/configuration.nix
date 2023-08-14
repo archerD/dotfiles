@@ -32,7 +32,7 @@
   
   # Enable networking
   networking.networkmanager.enable = true;  
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos-desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -100,7 +100,6 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCiHn1BtnhzMMIRPDwLRprke/IUARTOyLMwrdCtRdOCGfAmsL/tY92vkMDLIHI8ouCUgIBAyfHmmXcvraXPBKIr7eiwpzxReSJ0xX4tHI6xoLjzXtTglBGIzeGPBDan5IE0KJofmZIGvlnIKz9v9E3f6zP7/185k1l664EAhFjjJeAIhOWvU/8kutET5/Bkc9cRdC6131l+vxj4K+ZAm3W4i9SJd65yvqTZkfI82s6ZHvy7rHeUwyXRzpw4T+hJe9agUJm9bXIPdSJVWYCbb/QFH7PenCT5RgfHkkzMxUlXeoy+Tak+a22eKbJzs907Wga0kx5nZK3viFjN4N24EX8ZmZYS9q+/Rl5V4f6vlhsU4M6XQnEUE4L6UK9+fFFbvQkysTeuAFSLzCTfj6AmnnjdiysSysfKH4+/0o99P+XTU/ToEAgyZEgu2qHIRcD9EPDfjTxCFmH+f33Mo67Ekiix/9uGDknypCSDj3xntrQ4RsQtXbLkUbYdd2WQRIaNukPM0zTWyA2K+ceqktc1yJF6OfvK4sl4BYe5HxAbDQJ/cpFFrvlkcR0FA9tkQ/VCegL0/cSpnn9aUVjM5wvq3WdK20u83ZFNihTyHRyJmcyR/SXkSu2q3LBDpB5U588jxob+rvCXwv0tCRwssA2GcSgPkPOvPMOUB0ueGDRRWulJjw== dflores0818@gmail.com"
     ];
     packages = with pkgs; [
-      firefox
     ];
   };
 
@@ -156,6 +155,7 @@
 
     # gui applications
     google-chrome
+    firefox
     zoom-us
     slack
     evince
@@ -374,6 +374,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 
 }
