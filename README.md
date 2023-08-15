@@ -4,6 +4,13 @@ Uses [dotbot](https://github.com/anishathalye/dotbot) as a dot file manager.
 The .vim files are added as a subtree so that the vim stuff can be cloned without having to deal with the other stuff.
 The main repository for the .vim files is [archerD/.vim](https://github.com/archerD/.vim).
 
+## NixOS
+To update nixpkgs, run `nix flake update` and commit the resulting changes to the flake.lock file.
+Then run `sudo nixos-rebuild switch` (`sudo nixos-rebuild switch --flake ~/.dotfiles/nixos#nixos-desktop`?).
+### Home Manager...
+Currently, set up to be run when the system configuration is applied...
+Not clear on exactly what it is doing now...
+
 ## DotBoT Usage
 To install the dotfiles using dotbot on a machine, clone this repository (git clone ...), then run the install script inside it.
 This should install the configuration, using the instal.conf.yaml file as a guide.

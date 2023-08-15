@@ -30,7 +30,7 @@
     ~/bin/light-control: philips-hue-control-lights.py
 
     # self link
-    ~/.dotfiles: ""
+    ~/.dotfiles: .
 
 # can only be installed when the script is run with sudo
 - link:
