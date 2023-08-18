@@ -8,11 +8,15 @@ images/
 │   ├── nix-wallpaper-simple-dark-gray.png
 │   ├── nix-wallpaper-stripes-logo.png
 │   └── zsa-keycaps.jpg
-└── xmonad-logo.svg
+├── xmonad-logo.svg
+└── yubico-icon.png
 
 ## sources
 xmonad-logo.svg 
 : (https://github.com/xmonad/xmonad-web/blob/gh-pages/images/logo.svg)
+
+yubico-icon.png
+: copied from yubioath-flutter package in nixos
 
 ### wallpapers sources
 git-commit.png

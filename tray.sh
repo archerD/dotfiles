@@ -24,6 +24,8 @@ if [ "$(whoami)" == "archerd" ]; then
     # software to be autostarted
     if type yubioath-desktop; then
         yubioath-desktop &
+    else
+        $HOME/.dotfiles/yubico-icon-generator.sh &
     fi
     if type slack; then
         slack --startup --silent &
