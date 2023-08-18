@@ -17,13 +17,15 @@
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: {
+  outputs = { nixpkgs, home-manager, ... }@inputs:
+    let system = "x86_64-linux";
+    in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       # the desktop setup...
       NixOS-Desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
 
         specialArgs = { inherit inputs; }; # Pass flake inputs to our config
         # > Our main nixos configuration file <
@@ -37,6 +39,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.verbose = true;
 
             home-manager.extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
 
@@ -47,12 +50,12 @@
       };
     };
 
-    /*
+    #/*
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
-      "archerd@nixos-desktop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      "archerd@Ubuntu-X1-Yoga-4" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
         # > Our main home-manager configuration file <
         modules = [ ./home.nix ];
