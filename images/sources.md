@@ -1,12 +1,14 @@
 # Contents
 images/
 ├── wallpapers/
-│   ├── git-commit.png*
+│   ├── git-commit.png
 │   ├── haskell-wallpaper.png
 │   ├── nix-wallpaper-gear.png
+│   ├── nix-wallpaper-hexagonal.png
 │   ├── nix-wallpaper-nineish-dark-gray.png
 │   ├── nix-wallpaper-simple-dark-gray.png
 │   ├── nix-wallpaper-stripes-logo.png
+│   ├── nixos-dark-tiling.svg
 │   └── zsa-keycaps.jpg
 ├── xmonad-logo.svg
 └── yubico-icon.png
@@ -28,6 +30,12 @@ haskell-walpaper.png
 nix-wallpaper-gear.png nix-wallpaper-nineish-dark-gray.png
 nix-wallpaper-simple-dark-gray.png nix-wallpaper-stripes-logo.png
 : (https://github.com/NixOS/nixos-artwork/tree/master/wallpapers)
+
+nix-wallpaper-hexagonal.png
+: [reddit](https://www.reddit.com/r/NixOS/comments/1632nml/edited_this_into_a_nix_wallpaper_a_while_ago/?utm_source=share&utm_medium=web2x&context=3), with inspiration from (https://www.freepik.com/free-vector/gradient-hexagonal-background_13900571.htm)
+
+nixos-dark-tiling.svg
+: (https://github.com/Zebreus/nixos-dark-wallpaper), found through reddit, the nix-d.svg file in the repo
 
 zsa-keycaps.jpg
 : zsa newsletter email, included wallpaper, from 2021-03
