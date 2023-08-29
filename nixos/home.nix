@@ -1,5 +1,5 @@
 { inputs, lib, config, pkgs, ... }:
-{
+rec {
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
@@ -102,6 +102,103 @@
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
+    TEST = "hello world";
   };
+
+  #home.sessionPath = [ "$HOME/bin" ];
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      flake-checker = "nix run github:DeterminateSystems/flake-checker";
+
+      # tool aliases
+      ls="ls --color=auto -F";
+#      dir="dir --color=auto";
+#      vdir="vdir --color=auto";
+
+      grep="grep --color=auto";
+      fgrep="fgrep --color=auto";
+      egrep="egrep --color=auto";
+
+      # some more ls aliases
+      ll="ls -alF";
+      la="ls -A";
+      l="ls -CF";
+
+      # Add an "alert" alias for long running commands.  Use like so:
+      #   sleep 10; alert
+      alert="notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e '\\''s/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//'\\'')\"";
+
+      # prevent accidentally clobering files
+      mv = "mv -i";
+      cp = "cp -i";
+
+      # kitty related aliases
+      kitty-update="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin";
+      kitty-ssh="kitty +kitten ssh";
+      icat="kitty +kitten icat";
+      
+# alias for cmus so it is detachable
+# tmux version
+#alias cmus='tmux new-session -A -D -s cmus "$(which cmus)"'
+#alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(which cmus)"'
+# in cmus: :bind -f common q shell tmux detach-client -s cmus
+# abduco version, uses ctrl-z to detach (can change by replacing ^z below)
+      cmus="abduco -A -e ^z cmus \"$(which cmus)\"";
+      # now that I have a scratchpad for cmus, do I still need this alias?
+    };
+    historyControl = [ "ignoredups" "ignorespace" ];
+    sessionVariables = home.sessionVariables;
+    shellOptions = [ "histappend" ];
+
+    initExtra =
+    ''
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+if test -n "&KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+    '';
+  };
+
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    settings = {
+      format = lib.concatStrings [
+        "$directory"
+        "$all"
+        "$username"
+        "$hostname"
+        "$character"
+      ];
+      add_newline = true;
+      
+      cmd_duration = {
+        disabled = true;
+        show_notifications = false;
+      };
+
+      directory = {
+        truncation_length = 0;
+        truncate_to_repo = false;
+        style = "cyan";
+        repo_root_style = "#f54d28";
+      };
+
+      username = {
+        show_always = true;
+        format = "[$user]($style)@";
+      };
+      hostname = {
+        ssh_only = false;
+        ssh_symbol = " 🌐";
+        format = "[$hostname$ssh_symbol]($style)";
+      };
+
+      git_metrics.disabled = false;
+    };
+  };
+
 }

@@ -11,9 +11,9 @@
 
 - link:
     ~/.tmux.conf: tmux.conf
-    ~/.bashrc: bashrc
-    ~/.bash_profile: bash_profile
-    ~/.bash_aliases: shell_aliases
+    # ~/.bashrc: bashrc
+    # ~/.bash_profile: bash_profile
+    #~/.bash_aliases: shell_aliases
     ~/.vim: vim
     # ~/.config/nvim/init.vim: nvim/vim/neovim_source_vim_config.vim
     ~/.config/nvim: nvim
@@ -22,7 +22,7 @@
     ~/.config/gnome-pie: gnome-pie
     ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/ranger/rc.conf: ranger.conf
-    ~/.config/starship.toml: starship.toml
+    # ~/.config/starship.toml: starship.toml
     ~/.config/lsd/config.yaml: lsd.yaml
     ~/.ssh/config: ssh_config
     ~/.gitconfig: git_config
