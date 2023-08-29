@@ -137,6 +137,7 @@
     bashmount # tool to manage mounted media (like usb drives)
     # udiskie # alternative to bashmount which should be able to automount usb drives and display tray icon.
     nixos-option # check current nixos configuration values
+    nix-melt # inspect flake.lock files
     texlive.combined.scheme-full
     neofetch
     poppler_utils # pdf utilities
@@ -281,6 +282,8 @@
   # (nix-command enables use of nix to run different things instead many nix-* commands)
   # (flakes enables flakes, which I don't really understand...)
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # use newer version of nix?
+  #nix.package = pkgs.nixVersions.nix_2_14;
 
   # add the systemd service for logiops (logitech mouse support)
   systemd.packages = [ pkgs.logiops ]; # this provides the systemd unit somewhere
