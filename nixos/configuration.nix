@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -138,6 +138,7 @@
     # udiskie # alternative to bashmount which should be able to automount usb drives and display tray icon.
     nixos-option # check current nixos configuration values
     nix-melt # inspect flake.lock files
+    inputs.flake-checker.packages.${system}.default
     texlive.combined.scheme-full
     neofetch
     poppler_utils # pdf utilities

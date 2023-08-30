@@ -118,8 +118,6 @@ rec {
   programs.bash = {
     enable = true;
     shellAliases = {
-      flake-checker = "nix run github:DeterminateSystems/flake-checker";
-
       # tool aliases
       ls="ls --color=auto -F";
 #      dir="dir --color=auto";
