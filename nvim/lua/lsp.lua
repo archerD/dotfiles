@@ -10,6 +10,7 @@ lspconfig.rust_analyzer.setup {
     ['rust-analyzer'] = {},
   },
 }
+lspconfig.nixd.setup{}
 
 --- Setting up keybindings, based off https://github.com/neovim/nvim-lspconfig#suggested-configuration
 -- Global mappings.

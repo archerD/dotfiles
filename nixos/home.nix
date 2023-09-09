@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, pkgs-unstable, ... }:
 rec {
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -53,11 +53,9 @@ rec {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # example usages:
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -74,6 +72,13 @@ rec {
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    # a slack/discord like communication tool
+    zulip
+    zulip-term
+
+    # an lsp for nix files
+    pkgs-unstable.pkgs.nixd
   ];
 
   # programs with builtin support...
