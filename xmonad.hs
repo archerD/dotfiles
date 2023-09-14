@@ -60,14 +60,11 @@ import           System.IO
 extraWorkspaces = ["NSP"]
 myWorkspaces = workspaces def ++ extraWorkspaces
 -- Non-numeric num pad keys, sorted by number 
-numPadKeys = [ "<KP_1>", "<KP_2>", "<KP_3>"
-             , "<KP_4>", "<KP_5>", "<KP_6>"
-             , "<KP_7>", "<KP_8>", "<KP_9>"
-                       , "<KP_0>"]
-numPadKeys2 = [ "<KP_End>",  "<KP_Down>",  "<KP_Page_Down>" -- 1, 2, 3
-              , "<KP_Left>", "<KP_Begin>", "<KP_Right>"     -- 4, 5, 6
-              , "<KP_Home>", "<KP_Up>",    "<KP_Page_Up>"   -- 7, 8, 9
-              , "<KP_Insert>"]                            -- 0
+numberKeys = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ]
+numPadKeys = [ "<KP_End>",  "<KP_Down>",  "<KP_Page_Down>" -- 1, 2, 3
+             , "<KP_Left>", "<KP_Begin>", "<KP_Right>"     -- 4, 5, 6
+             , "<KP_Home>", "<KP_Up>",    "<KP_Page_Up>"   -- 7, 8, 9
+             , "<KP_Insert>"]                            -- 0
 
 myModMask = modMask def -- defaults to the alt key, mod1/3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
@@ -152,17 +149,17 @@ myKeysNamed c =
     ]
     ^++^ subKeys "Numpad workspace management"
     -- set the numpad to be usable for workspace management
+    (let shiftAndView i = W.greedyView i . W.shift i in
     [("M-" ++ m ++ k, addName (d ++ " workspace " ++ i) $ windows $ f i)
-        | (i, k) <- zip myWorkspaces numPadKeys2
-        , (f, m, d) <- [(W.greedyView, "", "Change to"), (W.shift, "S-", "Move window to")]
-    ]
+        | (i, k) <- zip (myWorkspaces ++ myWorkspaces) (numPadKeys ++ numberKeys)
+        , (f, m, d) <- [(W.greedyView, "", "Change to"), (W.shift, "S-", "Move window to"), (shiftAndView, "C-", "Follow window to")]
+    ])
     ^++^ subKeys "Screen management"
     -- add additional keybindings for moving between screens
     [("M-" ++ m ++ key, addName (d ++ " screen "  ++ show sc) $ screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip ["v", "z"] [1..]
         , (f, m, d) <- [(W.view, "", "Change to"), (W.shift, "S-", "Move window to")]
     ]
-    -- TODO: add a bind (myModMask + '=' maybe) to open a terminal with some some repl (ipython or ghci probably) to do basic calculations.
 
 myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
     -- mod-button1, Set the window to floating mode and move by dragging
