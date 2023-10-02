@@ -81,6 +81,29 @@ rec {
     pkgs-unstable.pkgs.nixd
   ];
 
+  programs.rofi = {
+    enable = true;
+
+    theme = "fancy";
+    font = "JetBrains Mono 16";
+    terminal = "kitty";
+
+    plugins = [ pkgs.rofi-calc pkgs.rofi-power-menu ];
+    extraConfig = {
+      modi = "filebrowser,ssh,window,run,drun,calc,keys";
+      case-sensitive = false;
+      ssh-client = "kitty +kitten ssh";
+      #timeout = {
+      #    action = "kb-cancel";
+      #    delay = 0;
+      #};
+      #filebrowser = {
+      #    directories-first = true;
+      #    sorting-method = "name";
+      #};
+    };
+  };
+
   # programs with builtin support...
   programs.direnv = {
     enable = true;

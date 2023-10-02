@@ -183,7 +183,6 @@
     gnome.gnome-disk-utility
     gnome.gnome-screenshot
     dmenu
-    rofi
     dunst
     logiops
     blueman

@@ -72,7 +72,7 @@ myModMask = modMask def -- defaults to the alt key, mod1/3Mask.
 defaultLauncher = spawn "rofi -show run"
 secondaryLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 tertiaryLauncher = spawn "dmenu_run -p \"$\""
-calculatorLauncher = spawn "rofi -modi \"calc:~/.dotfiles/rofi-scripts/rofi-calc.sh\" -show calc"
+calculatorLauncher = spawn "rofi -show calc -calc-command \"echo -n '{result}' | xclip -selection c\""
 
 -- scratchpad stuff
 scratchpads =
