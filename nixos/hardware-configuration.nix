@@ -23,10 +23,10 @@
       fsType = "vfat";
     };
 
-  fileSystems."/mnt/nix-old" =
-    { device = "/dev/disk/by-uuid/c66b77f9-b0ce-4712-9222-2aa875f2a3fc";
-      fsType = "ext4";
-    };
+  #fileSystems."/mnt/nix-old" =
+  #  { device = "/dev/disk/by-uuid/c66b77f9-b0ce-4712-9222-2aa875f2a3fc";
+  #    fsType = "ext4";
+  #  };
 
   swapDevices = [ ];
 
