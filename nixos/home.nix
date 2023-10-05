@@ -79,6 +79,13 @@ rec {
 
     # an lsp for nix files
     pkgs-unstable.pkgs.nixd
+
+    # misc packages/scripts
+    pkgs.bat
+    pkgs.timer
+    (pkgs.writeShellScriptBin "overlay" ''
+        kitty -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
+    '')
   ];
 
   programs.rofi = {
@@ -141,7 +148,7 @@ rec {
     TEST = "hello world";
   };
 
-  #home.sessionPath = [ "$HOME/bin" ];
+  home.sessionPath = [ "$HOME/bin" ];
 
   programs.bash = {
     enable = true;
@@ -188,10 +195,7 @@ rec {
 
     initExtra =
     ''
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-if test -n "&KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+    echo Bash managed by home-manager!
     '';
   };
 

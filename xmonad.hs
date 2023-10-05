@@ -330,6 +330,7 @@ myConfig = configModifiers def
             -- I have no idea what isDialog works on...
             , manageHook = composeOne [ isDialog -?> doCenterFloat ] <+> manageZoomHook
                 <+> manageKdeconnectPresenterHook <+> namedScratchpadManageHook scratchpads
+                <+> ((className =? "kitty-overlay") --> doCenterFloat)
             , handleEventHook = Hacks.windowedFullscreenFixEventHook <+> dynamicTitle manageZoomHook
             , logHook = refocusLastLogHook >> nsHideOnFocusLoss scratchpads
             -- , terminal = "x-terminal-emulator"
