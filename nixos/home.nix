@@ -77,6 +77,9 @@ rec {
     zulip
     zulip-term
 
+    # screenlocking...
+    xsecurelock
+
     # an lsp for nix files
     pkgs-unstable.pkgs.nixd
 
@@ -87,6 +90,35 @@ rec {
         kitty -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
     '')
   ];
+
+  # screen locking experiment
+  services.screen-locker = {
+    enable = true;
+    xautolock.enable = false;
+    inactiveInterval = 15;
+
+    xss-lock.extraOptions = [
+        "--transfer-sleep-lock"
+        "-n" "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
+        ];
+    # This seems to work, but is a bit weird, needs the path set..., otherwise xscreensaver can't use some utilities.
+    lockCmd = ''
+        /usr/bin/env PATH=\"/run/current-system/sw/bin/:$PATH\"
+            XSECURELOCK_SAVER=saver_xscreensaver \
+            XSECURELOCK_AUTH_TIMEOUT=10 \
+            XSECURELOCK_KEY_XF86AudioPlay_COMMAND="playerctl -p playerctld play-pause" \
+            XSECURELOCK_KEY_XF86AudioPrev_COMMAND="playerctl -p playerctld previous" \
+            XSECURELOCK_KEY_XF86AudioNext_COMMAND="playerctl -p playerctld next" \
+            XSECURELOCK_KEY_XF86AudioStop_COMMAND="playerctl -p playerctld stop" \
+            XSECURELOCK_KEY_XF86AudioMute_COMMAND="amixer set Master toggle" \
+            XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="amixer set Master 2%-" \
+            XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="amixer set Master 2%+" \
+            XSECURELOCK_PASSWORD_PROMPT="time" \
+            XSECURELOCK_SHOW_DATETIME=1 \
+            XSECURELOCK_DATETIME_FORMAT="(%a) %F T %R:%S%z (%Z)" \
+            ${pkgs.xsecurelock}/bin/xsecurelock
+    '';
+  };
 
   programs.rofi = {
     enable = true;
