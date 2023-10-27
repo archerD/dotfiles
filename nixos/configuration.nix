@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, pkgs-unstable, inputs, ... }:
 
 {
   imports =
@@ -282,7 +282,7 @@
   # (flakes enables flakes, which I don't really understand...)
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # use newer version of nix?
-  #nix.package = pkgs.nixVersions.nix_2_14;
+  nix.package = pkgs-unstable.nixVersions.nix_2_18;
 
   # add the systemd service for logiops (logitech mouse support)
   systemd.packages = [ pkgs.logiops ]; # this provides the systemd unit somewhere
