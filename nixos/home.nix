@@ -118,6 +118,8 @@ rec {
     xsecurelock
     sysz # systemctl tui
 
+    comma # run things without installing
+
     radio-active # tui radio player
 
     # an lsp for nix files
