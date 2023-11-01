@@ -55,7 +55,44 @@ rec {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
+  home.packages = 
+      let zenlog = pkgs.python3Packages.buildPythonPackage rec {
+          pname = "zenlog";
+          version = "1.1";
+          src = pkgs.python3Packages.fetchPypi {
+              inherit pname version;
+              sha256 = "83460a85fa7249b8007c03681a6a0b575ce6fe044349389d3d3d43f58d4687de";
+          };
+          doCheck = false;
+          propagatedBuildInputs = with pkgs.python3Packages; [
+              colorlog
+          ];
+      };
+      radio-active = pkgs.python3Packages.buildPythonApplication rec {
+          pname = "radio-active";
+          version = "2.8.0";
+          src = pkgs.python3Packages.fetchPypi {
+              inherit pname version;
+              sha256 = "7d01ce460cac3b57f421762c8943187ee3bd458e51985d9d15d37381b6fe265c";
+          };
+          doCheck = false;
+          propagatedBuildInputs = with pkgs.python3Packages; [
+              pkgs.ffmpeg_4-full
+                  requests
+                  urllib3
+                  psutil
+                  pyradios
+                  requests-cache
+                  rich
+                  pick
+                  zenlog
+
+                  flake8
+                  twine
+                  black
+          ];
+      }
+  ; in with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -80,6 +117,8 @@ rec {
     # screenlocking...
     xsecurelock
     sysz # systemctl tui
+
+    radio-active # tui radio player
 
     # an lsp for nix files
     pkgs-unstable.pkgs.nixd
