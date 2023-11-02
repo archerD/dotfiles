@@ -14,7 +14,6 @@ if [ "$(whoami)" == "archerd" ]; then
     fi
     blueman-applet & # erroring out on nixos
     pasystray &
-    redshift-gtk &
     kdeconnect-indicator &
     # this one doesn't show up unless something is in the print queue.
     system-config-printer-applet &

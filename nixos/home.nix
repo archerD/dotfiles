@@ -149,6 +149,12 @@ rec {
     '';
   };
 
+  services.redshift = {
+    enable = true;
+    tray = true;
+    provider = "geoclue2";
+  };
+
   programs.rofi = {
     enable = true;
 

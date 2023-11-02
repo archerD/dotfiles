@@ -193,7 +193,6 @@
     find-cursor
     xclip
     ##visual
-    redshift
     lxappearance
     xorg.xsetroot
     autorandr
@@ -343,6 +342,10 @@
       PermitRootLogin = "no";
     };
   };
+
+  # set geoclue2 to provide location (as opposed to nothing or manual specification)
+  # primarily for redshift to work properly, but potentially other things as well.
+  location.provider = "geoclue2";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
