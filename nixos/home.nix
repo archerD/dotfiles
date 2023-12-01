@@ -59,7 +59,7 @@ rec {
       let zenlog = pkgs.python3Packages.buildPythonPackage rec {
           pname = "zenlog";
           version = "1.1";
-          src = pkgs.python3Packages.fetchPypi {
+          src = pkgs.fetchPypi {
               inherit pname version;
               sha256 = "83460a85fa7249b8007c03681a6a0b575ce6fe044349389d3d3d43f58d4687de";
           };
@@ -71,7 +71,7 @@ rec {
       radio-active = pkgs.python3Packages.buildPythonApplication rec {
           pname = "radio-active";
           version = "2.8.0";
-          src = pkgs.python3Packages.fetchPypi {
+          src = pkgs.fetchPypi {
               inherit pname version;
               sha256 = "7d01ce460cac3b57f421762c8943187ee3bd458e51985d9d15d37381b6fe265c";
           };

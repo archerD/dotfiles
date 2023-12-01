@@ -58,9 +58,9 @@
   };
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -250,7 +250,7 @@
   environment.etc."rofi/themes".source = "${pkgs.rofi}/share/rofi/themes";
 
   # my fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     jetbrains-mono
     (nerdfonts.override { fonts = [ "3270" ]; })
   ];
@@ -281,7 +281,7 @@
   # (flakes enables flakes, which I don't really understand...)
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # use newer version of nix?
-  nix.package = pkgs-unstable.nixVersions.nix_2_18;
+  #nix.package = pkgs-unstable.nixVersions.nix_2_18; # 2.18 is the default on 23.11
 
   # add the systemd service for logiops (logitech mouse support)
   systemd.packages = [ pkgs.logiops ]; # this provides the systemd unit somewhere
@@ -379,6 +379,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 
 }

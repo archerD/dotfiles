@@ -17,7 +17,7 @@ rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
                         \ <fn=1>%playerstatus%</fn>\
                     \</action>\
                 \</action>\
-                \ [<fc=#ffff00>%locks%</fc>] (%cpu%, %memory%, %default:Master%) <box type=Left>%trayerpad%</box>"
+                \ [<fc=#ffff00>%locks%</fc>] (%cpu%, %memory%, %alsa:default:Master%) <box type=Left>%trayerpad%</box>"
 
 config :: Config
 config = defaultConfig
@@ -33,7 +33,7 @@ config = defaultConfig
                     , Run   UnsafeXMonadLog
                     , Run   Locks
                     , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
-                    , Run $ Volume "default" "Master" ["-t", "V:<volume>%"] 5
+                    , Run $ Alsa "default" "Master" ["-t", "V:<volume>%"]
                     , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", ">", "-t", "<artist>/<title>"] 10
                     -- , Run $ MarqueePipeReader "/tmp/.volume-pipe" (32, 5, "|") "playerinfo"
                     -- this relies on the following running: playerctl -F -p playerctld -f "{{artist}} / {{title}}" metadata > /tmp/.volume-pipe
