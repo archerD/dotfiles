@@ -5,7 +5,7 @@ rec {
     # inputs.nix-colors.homeManagerModule
 
     # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    ./nvim.nix
   ];
 
   /*
@@ -211,7 +211,6 @@ rec {
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    EDITOR = "nvim";
     TEST = "hello world";
   };
 
@@ -222,8 +221,8 @@ rec {
     shellAliases = {
       # tool aliases
       ls="ls --color=auto -F";
-#      dir="dir --color=auto";
-#      vdir="vdir --color=auto";
+      # dir="dir --color=auto";
+      # vdir="vdir --color=auto";
 
       grep="grep --color=auto";
       fgrep="fgrep --color=auto";
@@ -306,3 +305,4 @@ rec {
   };
 
 }
+
