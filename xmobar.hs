@@ -21,7 +21,7 @@ rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
 
 config :: Config
 config = defaultConfig
-       { font = "JetBrains Mono Medium 18"
+       { font = "JetBrains Mono Nerd Font Medium 18"
        , additionalFonts = ["Monospace Regular 16"]
        , bgColor = "black"
        , fgColor = "grey"
@@ -34,7 +34,7 @@ config = defaultConfig
                     , Run   Locks
                     , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
                     , Run $ Alsa "default" "Master" ["-t", "V:<volume>%"]
-                    , Run $ Mpris2 "playerctld" ["-T", "41", "-E", "...", "-M", "25", "-e", ">", "-t", "<artist>/<title>"] 10
+                    , Run $ Mpris2 "playerctld" ["-T", "38", "-E", "…", "-M", "25", "-e", ">", "-t", "<artist>/<title>"] 10
                     -- , Run $ MarqueePipeReader "/tmp/.volume-pipe" (32, 5, "|") "playerinfo"
                     -- this relies on the following running: playerctl -F -p playerctld -f "{{artist}} / {{title}}" metadata > /tmp/.volume-pipe
                     -- the pipe can be created by running _volume_pipe=/tmp/.volume-pipe; [[ -S $_volume_pipe ]] || mkfifo $_volume_pipe

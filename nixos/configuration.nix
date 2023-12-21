@@ -252,7 +252,7 @@
   # my fonts
   fonts.packages = with pkgs; [
     jetbrains-mono
-    (nerdfonts.override { fonts = [ "3270" ]; })
+    (nerdfonts.override { fonts = [ "3270" "JetBrainsMono" ]; })
   ];
 
   #programs.neovim.enable = true;

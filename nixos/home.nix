@@ -159,7 +159,7 @@ rec {
     enable = true;
 
     theme = "fancy";
-    font = "JetBrains Mono 16";
+    font = "JetBrains Mono Nerd Font 16";
     terminal = "kitty";
 
     plugins = [ pkgs.rofi-calc pkgs.rofi-power-menu ];

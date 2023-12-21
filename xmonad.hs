@@ -291,7 +291,7 @@ myUrgencyHandler =
 
 -- to display messages in a nice gui window
 displayMessage :: String -> X ()
-displayMessage message = spawn ("gxmessage -font \"JetBrains Mono 12\" -name \"XMonad Message\" -buttons \"Close:0\" -default Close \"" ++ message ++ "\"") -- uses gxmessage for a nicer display.
+displayMessage message = spawn ("gxmessage -font \"JetBrains Mono Nerd Font 12\" -name \"XMonad Message\" -buttons \"Close:0\" -default Close \"" ++ message ++ "\"") -- uses gxmessage for a nicer display.
 
 -- This changes the ewmh to use a greedy desktop change instead of a desktop change, see https://github.com/xmonad/xmonad-contrib/issues/776
 ewmhGreedyDesktopChangeEventHookConfig :: XConfig a -> XConfig a

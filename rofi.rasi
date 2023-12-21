@@ -1,7 +1,7 @@
 @theme "/etc/rofi/themes/fancy.rasi"
 configuration {
 	modi: "windowcd,window,filebrowser,run,drun,ssh,keys";
-	font: "JetBrains Mono 16";
+	font: "JetBrains Mono Nerd Font 16";
 /*	location: 0;*/
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
