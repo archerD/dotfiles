@@ -1,9 +1,7 @@
--- Using lazy.nvim as a plugin manager (from the README)
+-- Using lazy.nvim as a plugin manager, from the README:
 --  Plugins are managed with the :Lazy command. Open the help with <?> to see all the key mappings.
 --  You can press <CR> on a plugin to show its details. Most properties can be hovered with <K> to open links, help files, readmes, git commits and git issues.
 --  run `:checkhealth lazy` to check the install
-
--- TODO: see nvim-lua/kickstart.nvim for possible settings guideline.
 
 -- bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

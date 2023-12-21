@@ -1,14 +1,20 @@
 -- settings --
 
 -- helpers --
-local g = vim.g -- global variables
+-- local g = vim.g -- global variables
 local o = vim.o -- options
 local opt = vim.opt -- options with set/list support
 
+-- neovide gui stuff, split into separate file if more settings are applied.
+if vim.g.neovide then
+    vim.o.guifont = "JetBrainsMono Nerd Font:h12"
+end
 
 -- colorschemes --
 -- vim.cmd.colorscheme('industry')
-vim.cmd.colorscheme('slate-old')
+--vim.cmd.colorscheme('slate-old')
+-- currently set in plugins-lazy.lua, using carbonfox.
+-- vim.cmd.colorscheme('carbonfox')
 
 
 -- miscellaneous settings? --

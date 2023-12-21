@@ -1,9 +1,11 @@
 -- settings
 require('keybindings')
 require('settings')
-if vim.g.neovide then -- for neovide only...
-    require('gui')
-end
--- plugins
-require('plugins')
+
+-- TODO: see nvim-lua/kickstart.nvim for possible settings guideline.
+
+-- plugins, using lazy
+require('lazy-bootstrap')
+-- or consider using home-manager to install plugins...
+-- Further notes on this in ../../nixos/nvim.nix
 
