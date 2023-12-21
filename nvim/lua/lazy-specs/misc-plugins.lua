@@ -23,7 +23,18 @@ return {
         config = function()
             local configs = require("nvim-treesitter.configs")
             configs.setup({
-                ensure_installed = { "lua", "haskell", "ocaml", "latex", "vimdoc", "vim", "nix", "python" },
+                ensure_installed = {
+                    "lua",
+                    "haskell",
+                    "ocaml",
+                    "latex",
+                    "vimdoc",
+                    "vim",
+                    "nix",
+                    "python",
+                    "markdown",
+                    "markdown_inline",
+                },
 
                 highlight = {enabled=true},
                 indent = {enabled=true},

@@ -20,9 +20,11 @@ return {
         opts = {
             timeout = 2000,
         },
+        init = function(_)
+            vim.notify = require("notify")
+        end,
         config = function(_, opts)
             require("notify").setup(opts)
-            vim.notify = require("notify")
         end,
         lazy = true,
     }, -- not clear on what uses this, but it looks nice...

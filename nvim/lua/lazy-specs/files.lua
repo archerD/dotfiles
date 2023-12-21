@@ -11,6 +11,10 @@ return { -- TODO: remove one of the file trees
         },
         opts = {
             filesystem = {
+                filtered_items = {
+                    visible = true,
+                },
+                -- for immediate refresh
                 use_libuv_file_watcher = true,
             },
         },
@@ -36,5 +40,6 @@ return { -- TODO: remove one of the file trees
       config = function()
         require("nvim-tree").setup {}
       end,
+      enabled=false
     },
 }
