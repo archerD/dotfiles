@@ -1,5 +1,5 @@
 -- add fugitive status line to default status line
-vim.o.statusline = '%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P'
+-- vim.o.statusline = '%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P'
 
 -- attempt at setting up comments for c and cpp files
 vim.cmd([[ autocmd FileType c,cpp  let b:commentary_format='//%s' ]])
