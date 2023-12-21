@@ -6,6 +6,4 @@ if vim.g.neovide then -- for neovide only...
 end
 -- plugins
 require('plugins')
-require('lsp')
-require('plugin-settings')
 
