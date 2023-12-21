@@ -8,7 +8,7 @@ local opt = vim.opt -- options with set/list support
 
 -- colorschemes --
 -- vim.cmd.colorscheme('industry')
-vim.cmd('source ~/.dotfiles/nvim/vim/vim-old-slate-2008.vim')
+vim.cmd.colorscheme('slate-old')
 
 
 -- miscellaneous settings? --
@@ -21,6 +21,11 @@ vim.api.nvim_command('syntax enable')
 
 -- see :help nvim-defaults for changed defaults
 
+-- a thing... --
+-- how long until the swap file is (re)written
+vim.o.updatetime = 1000
+-- menu settings
+vim.o.completeopt = 'menuone,noselect,longest' -- consider adding 'preview' to the list
 
 -- search settings --
 -- highlight all matches as you type
@@ -54,6 +59,8 @@ opt.backspace = { 'indent', 'eol', 'start' }
 -- set line numbers
 o.number = true
 o.relativenumber = true
+-- better colors
+o.termguicolors = true
 
 -- adds the status bar (this is all the defaults in neovim)
 o.ruler = true
