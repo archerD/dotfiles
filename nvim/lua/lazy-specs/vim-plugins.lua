@@ -20,6 +20,7 @@ return { -- handful of plugins from vim, mostly better keybindings.
             vim.cmd([[ autocmd FileType c,cpp  let b:commentary_format='//%s' ]])
             vim.cmd([[ autocmd FileType factor let b:commentary_format='! %s' ]])
         end,
+        enabled=false
     }, -- see numToStr/comment.nvim as possible alternative
 
     -- plugins for text object support

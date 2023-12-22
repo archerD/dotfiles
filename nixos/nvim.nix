@@ -29,14 +29,13 @@ in
     extraPackages = with pkgs; [ ripgrep fd gcc ];
 
     # plugin management? needs further investigation
-    /*
-    plugins = with pkgs.vimPlugins; [
-            nvim-treesitter
-            # nvim-treesitter.withAllGrammars
-        ];
-    extraLuaConfig = ''
-        require("source-all")
-    '';
-    #*/
+    # plugins = with pkgs.vimPlugins; [
+    #         nvim-treesitter
+    #         # nvim-treesitter.withAllGrammars
+    #     ];
+    # extraLuaConfig = /* lua */ ''
+    #     require("keybindings")
+    #     require("settings")
+    # '';
   };
 }

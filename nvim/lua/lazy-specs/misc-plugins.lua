@@ -10,7 +10,8 @@ return {
         })
         -- telescope settings, many other searches possible.
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+            -- TODO: add the desc key to all keymaps.
+        vim.keymap.set('n', '<leader>ff', builtin.find_files, {desc = "Telescope file finder"})
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
         vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
@@ -36,11 +37,15 @@ return {
                     "markdown_inline",
                 },
 
-                highlight = {enabled=true},
-                indent = {enabled=true},
+                highlight = {enable=true},
+                indent = {enable=true},
             })
         end,
         enabled=true },
+
+    { "numToStr/Comment.nvim",
+        opts = {},
+    },
 
     { "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
