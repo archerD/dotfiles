@@ -30,8 +30,21 @@ in
 
     # plugin management? needs further investigation
     plugins = with pkgs.vimPlugins; [
-            nvim-treesitter
-            # nvim-treesitter.withAllGrammars
+            # nvim-treesitter
+            nvim-treesitter.withAllGrammars
+            ### vim-plugins
+            vim-repeat
+            vim-surround
+            vim-fugitive
+            vim-obsession
+            #vim-commentary
+
+            #vim-textobj-fold # not in nixpkgs
+            vim-gitgutter
+
+            vim-localvimrc
+            undotree
+            vimtex # need to add the configuration.
         ];
     extraLuaConfig = /* lua */ ''
         require("keybindings")
