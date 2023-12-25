@@ -29,7 +29,7 @@
             pkgs-unstable = import nixpkgs-unstable {
                 # configure the unstable inputs...
                 inherit system;
-                config.allowUnfree = true;
+                # config.allowUnfree = true;
             };
         };
     in {
