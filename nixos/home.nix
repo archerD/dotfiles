@@ -37,6 +37,21 @@ rec {
   home.username = "archerd";
   home.homeDirectory = "/home/archerd";
 
+  # manage xmonad in home-manager
+  xsession.enable = true;
+  xsession.windowManager.xmonad = {
+    enable = true;
+    enableContribAndExtras = true;
+    extraPackages = haskellPackages: [
+        haskellPackages.dbus
+        haskellPackages.List
+        haskellPackages.monad-logger
+        haskellPackages.xmonad
+        haskellPackages.xmobar
+    ];
+    config = null;
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
@@ -114,8 +129,6 @@ rec {
     zulip
     zulip-term
 
-    # screenlocking...
-    xsecurelock
     sysz # systemctl tui
 
     comma # run things without installing
@@ -133,7 +146,6 @@ rec {
     '')
   ];
 
-  # screen locking experiment
   services.screen-locker = {
     enable = true;
     xautolock.enable = false;
@@ -143,10 +155,21 @@ rec {
         "--transfer-sleep-lock"
         "-n" "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
         ];
-    # This seems to work, but is a bit weird, needs the path set..., otherwise xscreensaver can't use some utilities.
-    lockCmd = ''
-        /usr/bin/env PATH="/run/current-system/sw/bin/:$PATH"  XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 XSECURELOCK_KEY_XF86AudioPlay_COMMAND="playerctl -p playerctld play-pause" XSECURELOCK_KEY_XF86AudioPrev_COMMAND="playerctl -p playerctld previous" XSECURELOCK_KEY_XF86AudioNext_COMMAND="playerctl -p playerctld next" XSECURELOCK_KEY_XF86AudioStop_COMMAND="playerctl -p playerctld stop" XSECURELOCK_KEY_XF86AudioMute_COMMAND="amixer set Master toggle" XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="amixer set Master 2%-" XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="amixer set Master 2%+" XSECURELOCK_PASSWORD_PROMPT="time" XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_DATETIME_FORMAT="(%%a) %%F T %%R:%%S%%z (%%Z)" ${pkgs.xsecurelock}/bin/xsecurelock
-    '';
+
+    # Two options for this module on non nixos: use the htpasswd authproto or don't use nix version of xsecurelock.
+    # Reason: PAM stuff... hard to exactly say why for me, but nix can't properly setup PAM,
+    # because security stuff..., and also the nix version of PAM can't handle imports that
+    # ubuntu has in it's version of pam services.  Even if it could, the nix version of PAM
+    # does not have the modules that the services seem to want.
+    lockCmd = let # the base version, to be used on nixos only
+        xsecurelock-base = "${pkgs.xsecurelock}/bin/xsecurelock";
+        # to use the htpasswd, need to generate a file, `( umask 077; htpasswd -cB ~/.xsecurelock.pw "$USER" )`, see https://github.com/google/xsecurelock#authentication-protocol-modules
+        xsecurelock-htpasswd = "XSECURELOCK_AUTHPROTO=authproto_htpasswd " + xsecurelock-base;
+        # need to install xsecurelock outside of nixos if using this.
+        xsecurelock-local = "/usr/local/bin/xsecurelock";
+    in ''
+        env XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 XSECURELOCK_KEY_XF86AudioPlay_COMMAND="playerctl -p playerctld play-pause" XSECURELOCK_KEY_XF86AudioPrev_COMMAND="playerctl -p playerctld previous" XSECURELOCK_KEY_XF86AudioNext_COMMAND="playerctl -p playerctld next" XSECURELOCK_KEY_XF86AudioStop_COMMAND="playerctl -p playerctld stop" XSECURELOCK_KEY_XF86AudioMute_COMMAND="amixer set Master toggle" XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="amixer set Master 2%-" XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="amixer set Master 2%+" XSECURELOCK_PASSWORD_PROMPT="time" XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_DATETIME_FORMAT="(%%a) %%F T %%R:%%S%%z (%%Z)" ''
+        + xsecurelock-base;
   };
 
   services.redshift = {
