@@ -3,6 +3,7 @@ rec {
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
+    inputs.nix-index-database.hmModules.nix-index
 
     # You can also split up your configuration and import pieces of it here:
     ./nvim.nix
@@ -131,8 +132,6 @@ rec {
 
     sysz # systemctl tui
 
-    comma # run things without installing
-
     radio-active # tui radio player
 
     # an lsp for nix files
@@ -177,6 +176,10 @@ rec {
     tray = true;
     provider = "geoclue2";
   };
+
+  # from the nix-index-database flake module.
+  programs.nix-index-database.comma.enable = true;
+  programs.nix-index.enable = true;
 
   programs.rofi = {
     enable = true;
