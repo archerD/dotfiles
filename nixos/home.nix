@@ -134,8 +134,6 @@ rec {
 
     radio-active # tui radio player
 
-    # an lsp for nix files
-    pkgs-unstable.pkgs.nixd
 
     # misc packages/scripts
     pkgs.bat

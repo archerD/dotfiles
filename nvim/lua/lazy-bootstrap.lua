@@ -3,6 +3,8 @@
 --  You can press <CR> on a plugin to show its details. Most properties can be hovered with <K> to open links, help files, readmes, git commits and git issues.
 --  run `:checkhealth lazy` to check the install
 
+-- TODO: Consider integrating b-src/lazy-nix-helper.nvim, to let nix handle plugin installation, while lazy handles loading/configuration.
+
 -- bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

@@ -25,8 +25,21 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    # ripgrep and fd for telescope, gcc for treesitter.
-    extraPackages = with pkgs; [ ripgrep fd gcc ];
+    extraPackages = let
+        # ripgrep and fd for telescope, gcc for treesitter.
+        pluginPkgs = with pkgs; [ ripgrep fd gcc ];
+        ghcPkg = pkgs.haskellPackages.ghcWithPackages (self : [
+            self.ghc
+            self.xmobar # this line is needed to rebuild xmobar?
+# these are so the haskell language server can work on my xmonad config
+            self.xmonad
+            self.xmonad-contrib
+            self.xmonad-extras
+        ]);
+        # hlsPkg = pkgs.haskell-language-server.override { supportedGhcVersions = ["884"]; } ;
+        hlsPkg = pkgs.haskell-language-server;
+        lspPkgs = [ ghcPkg hlsPkg pkgs.nixd ];
+        in pluginPkgs ++ lspPkgs;
 
     # plugin management? needs further investigation
     # plugins = with pkgs.vimPlugins; [

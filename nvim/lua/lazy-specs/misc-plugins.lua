@@ -36,9 +36,8 @@ return {
                     "markdown",
                     "markdown_inline",
                 },
-
-                highlight = {enable=true},
-                indent = {enable=true},
+                highlight = { enable = true },
+                indent = { enable = true },
             })
         end,
         enabled=true },
@@ -52,6 +51,11 @@ return {
         opts = {}, enabled=false }, -- better highlighting and stuff on TODO comments and other similar comments
                                     -- needs further investigation...
 
+    { "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {},
+        enabled=false }, -- a better list thing, could be worth keeping around.
+
     -- see nvim-treesitter/nvim-treesitter-context, wellle/context.vim for providing context to current line (i.e. function definition, etc.)
     -- see stevearc/aerial.nvim for providing an outline to current code
 
@@ -60,7 +64,18 @@ return {
         vim.o.timeout = true
         vim.o.timeoutlen = 1000
       end,
-      opts = { triggers_nowait = { "z=" }, },
+      opts = {
+            triggers_nowait = { "z=" },
+            presets = {
+                operators = true, -- adds help for operators like d, y, ...
+                motions = true, -- adds help for motions
+                text_objects = true, -- help for text objects triggered after entering an operator
+                windows = true, -- default bindings on <c-w>
+                nav = true, -- misc bindings to work with windows
+                z = true, -- bindings for folds, spelling and others prefixed with z
+                g = true, -- bindings for prefixed with g
+            },
+        },
       enabled=true, }, -- primarily to help learn keybindings, but also useful for
                        -- marks, registers, spelling, and presets (motions, windows, etc.)
                        -- TODO: would be good to document some of the lsp keybindings
