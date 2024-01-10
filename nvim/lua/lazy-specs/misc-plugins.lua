@@ -12,9 +12,9 @@ return {
         local builtin = require('telescope.builtin')
             -- TODO: add the desc key to all keymaps.
         vim.keymap.set('n', '<leader>ff', builtin.find_files, {desc = "Telescope file finder"})
-        vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-        vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-        vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        vim.keymap.set('n', '<leader>fg', builtin.live_grep, {desc = "Telescope grep search"})
+        vim.keymap.set('n', '<leader>fb', builtin.buffers, {desc = "Telescope buffers"})
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags, {desc = "Telescope help tags"})
 
         require("telescope").load_extension("ui-select")
       end,
