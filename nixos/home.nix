@@ -147,13 +147,18 @@ rec {
 
   services.screen-locker = {
     enable = true;
-    xautolock.enable = false;
     inactiveInterval = 15;
 
     xss-lock.extraOptions = [
         "--transfer-sleep-lock"
         "-n" "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
         ];
+
+    xautolock = { 
+        enable = true;
+        extraOptions = [ "-notify" "15" 
+                         "-notifier" "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer" ];
+    };
 
     # Two options for this module on non nixos: use the htpasswd authproto or don't use nix version of xsecurelock.
     # Reason: PAM stuff... hard to exactly say why for me, but nix can't properly setup PAM,
