@@ -161,7 +161,6 @@
     slack
     evince
     yubioath-flutter
-    unison
     gsimplecal
     libreoffice
     discord
@@ -261,6 +260,7 @@
   programs.adb.enable = true;
   programs.kdeconnect.enable = true;
   programs.java.enable = true;
+  programs.mosh.enable = true;
 
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "archerd" ];

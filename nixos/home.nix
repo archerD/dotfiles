@@ -133,6 +133,8 @@ rec {
     sysz # systemctl tui
 
     radio-active # tui radio player
+    unison # file syncing
+    mosh # better ssh
 
 
     # misc packages/scripts
