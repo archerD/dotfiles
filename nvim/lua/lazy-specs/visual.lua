@@ -9,6 +9,7 @@ return {
               -- 'lazy',
               'neo-tree',
               'quickfix',
+              'oil',
           },
       },
       enabled=true },
