@@ -52,7 +52,7 @@ return { -- handful of plugins from vim, mostly better keybindings.
             -- set completions from vimtex to include closing brace
             vim.g.vimtex_complete_close_braces = 1
             -- set the directory for vimtex to put the build files
-            vim.g.vimtex_compiler_latexmk = { build_dir = './vimtex-output' }
+            vim.g.vimtex_compiler_latexmk = { out_dir = './vimtex-output' }
             -- set the default viewer for vimtex
             vim.g.vimtex_view_general_viewer = 'evince'
         end,

@@ -11,7 +11,7 @@ let g:tex_flavor = 'latex'
 let g:vimtex_complete_close_braces = 1
 " set the directory for vimtex to put the build files
 let g:vimtex_compiler_latexmk = {
-    \ 'build_dir' : './vimtex-output',
+    \ 'out_dir' : './vimtex-output',
     \}
 
 " Let ycm use vimtex to perform autocomplete in tex files
