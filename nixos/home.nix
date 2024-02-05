@@ -1,4 +1,11 @@
-{ inputs, lib, config, pkgs, pkgs-unstable, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 rec {
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -9,28 +16,27 @@ rec {
     ./nvim.nix
   ];
 
-  /*
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
+  /* nixpkgs = {
+       # You can add overlays here
+       overlays = [
+         # If you want to use overlays exported from other flakes:
+         # neovim-nightly-overlay.overlays.default
 
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
-    };
-  };
+         # Or define it inline, for example:
+         # (final: prev: {
+         #   hi = final.hello.overrideAttrs (oldAttrs: {
+         #     patches = [ ./change-hello-to-hi.patch ];
+         #   });
+         # })
+       ];
+       # Configure your nixpkgs instance
+       config = {
+         # Disable if you don't want unfree packages
+         allowUnfree = true;
+         # Workaround for https://github.com/nix-community/home-manager/issues/2942
+         allowUnfreePredicate = (_: true);
+       };
+     };
   */
 
   # Home Manager needs a bit of information about you and the
@@ -44,11 +50,11 @@ rec {
     enable = true;
     enableContribAndExtras = true;
     extraPackages = haskellPackages: [
-        haskellPackages.dbus
-        haskellPackages.List
-        haskellPackages.monad-logger
-        haskellPackages.xmonad
-        haskellPackages.xmobar
+      haskellPackages.dbus
+      haskellPackages.List
+      haskellPackages.monad-logger
+      haskellPackages.xmonad
+      haskellPackages.xmobar
     ];
     config = null;
   };
@@ -71,93 +77,98 @@ rec {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = 
-      let zenlog = pkgs.python3Packages.buildPythonPackage rec {
-          pname = "zenlog";
-          version = "1.1";
-          src = pkgs.fetchPypi {
-              inherit pname version;
-              sha256 = "83460a85fa7249b8007c03681a6a0b575ce6fe044349389d3d3d43f58d4687de";
-          };
-          doCheck = false;
-          propagatedBuildInputs = with pkgs.python3Packages; [
-              colorlog
-          ];
+  home.packages =
+    let
+      zenlog = pkgs.python3Packages.buildPythonPackage rec {
+        pname = "zenlog";
+        version = "1.1";
+        src = pkgs.fetchPypi {
+          inherit pname version;
+          sha256 = "83460a85fa7249b8007c03681a6a0b575ce6fe044349389d3d3d43f58d4687de";
+        };
+        doCheck = false;
+        propagatedBuildInputs = with pkgs.python3Packages; [ colorlog ];
       };
       radio-active = pkgs.python3Packages.buildPythonApplication rec {
-          pname = "radio-active";
-          version = "2.8.0";
-          src = pkgs.fetchPypi {
-              inherit pname version;
-              sha256 = "7d01ce460cac3b57f421762c8943187ee3bd458e51985d9d15d37381b6fe265c";
-          };
-          doCheck = false;
-          propagatedBuildInputs = with pkgs.python3Packages; [
-              pkgs.ffmpeg_4-full
-                  requests
-                  urllib3
-                  psutil
-                  pyradios
-                  requests-cache
-                  rich
-                  pick
-                  zenlog
+        pname = "radio-active";
+        version = "2.8.0";
+        src = pkgs.fetchPypi {
+          inherit pname version;
+          sha256 = "7d01ce460cac3b57f421762c8943187ee3bd458e51985d9d15d37381b6fe265c";
+        };
+        doCheck = false;
+        propagatedBuildInputs = with pkgs.python3Packages; [
+          pkgs.ffmpeg_4-full
+          requests
+          urllib3
+          psutil
+          pyradios
+          requests-cache
+          rich
+          pick
+          zenlog
 
-                  flake8
-                  twine
-                  black
-          ];
-      }
-  ; in with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+          flake8
+          twine
+          black
+        ];
+      };
+    in
+    with pkgs;
+    [
+      # # Adds the 'hello' command to your environment. It prints a friendly
+      # # "Hello, world!" when run.
+      # pkgs.hello
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+      # # It is sometimes useful to fine-tune packages, for example, by applying
+      # # overrides. You can do that directly here, just don't forget the
+      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+      # # fonts?
+      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
 
-    # a slack/discord like communication tool
-    zulip
-    zulip-term
+      # a slack/discord like communication tool
+      zulip
+      zulip-term
 
-    sysz # systemctl tui
+      sysz # systemctl tui
 
-    radio-active # tui radio player
-    unison # file syncing
-    mosh # better ssh
+      radio-active # tui radio player
+      unison # file syncing
+      mosh # better ssh
 
-
-    # misc packages/scripts
-    pkgs.bat
-    pkgs.timer
-    (pkgs.writeShellScriptBin "overlay" ''
+      # misc packages/scripts
+      pkgs.bat
+      pkgs.timer
+      (pkgs.writeShellScriptBin "overlay" ''
         kitty -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
-    '')
-  ];
+      '')
+    ];
 
   services.screen-locker = {
     enable = true;
     inactiveInterval = 15;
 
     xss-lock.extraOptions = [
-        "--transfer-sleep-lock"
-        "-n" "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
-        ];
+      "--transfer-sleep-lock"
+      "-n"
+      "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
+    ];
 
-    xautolock = { 
-        enable = true;
-        extraOptions = [ "-notify" "15" 
-                         "-notifier" "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer" ];
+    xautolock = {
+      enable = true;
+      extraOptions = [
+        "-notify"
+        "15"
+        "-notifier"
+        "${pkgs.xsecurelock}/libexec/xsecurelock/dimmer"
+      ];
     };
 
     # Two options for this module on non nixos: use the htpasswd authproto or don't use nix version of xsecurelock.
@@ -165,15 +176,16 @@ rec {
     # because security stuff..., and also the nix version of PAM can't handle imports that
     # ubuntu has in it's version of pam services.  Even if it could, the nix version of PAM
     # does not have the modules that the services seem to want.
-    lockCmd = let # the base version, to be used on nixos only
+    lockCmd =
+      let # the base version, to be used on nixos only
         xsecurelock-base = "${pkgs.xsecurelock}/bin/xsecurelock";
         # to use the htpasswd, need to generate a file, `( umask 077; htpasswd -cB ~/.xsecurelock.pw "$USER" )`, see https://github.com/google/xsecurelock#authentication-protocol-modules
         xsecurelock-htpasswd = "XSECURELOCK_AUTHPROTO=authproto_htpasswd " + xsecurelock-base;
         # need to install xsecurelock outside of nixos if using this.
         xsecurelock-local = "/usr/local/bin/xsecurelock";
-    in ''
-        /usr/bin/env XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 XSECURELOCK_KEY_XF86AudioPlay_COMMAND="playerctl -p playerctld play-pause" XSECURELOCK_KEY_XF86AudioPrev_COMMAND="playerctl -p playerctld previous" XSECURELOCK_KEY_XF86AudioNext_COMMAND="playerctl -p playerctld next" XSECURELOCK_KEY_XF86AudioStop_COMMAND="playerctl -p playerctld stop" XSECURELOCK_KEY_XF86AudioMute_COMMAND="amixer set Master toggle" XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="amixer set Master 2%-" XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="amixer set Master 2%+" XSECURELOCK_PASSWORD_PROMPT="time" XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_DATETIME_FORMAT="(%%a) %%F T %%R:%%S%%z (%%Z)" ''
-        + xsecurelock-base;
+      in
+      ''/usr/bin/env XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 XSECURELOCK_KEY_XF86AudioPlay_COMMAND="playerctl -p playerctld play-pause" XSECURELOCK_KEY_XF86AudioPrev_COMMAND="playerctl -p playerctld previous" XSECURELOCK_KEY_XF86AudioNext_COMMAND="playerctl -p playerctld next" XSECURELOCK_KEY_XF86AudioStop_COMMAND="playerctl -p playerctld stop" XSECURELOCK_KEY_XF86AudioMute_COMMAND="amixer set Master toggle" XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="amixer set Master 2%-" XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="amixer set Master 2%+" XSECURELOCK_PASSWORD_PROMPT="time" XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_DATETIME_FORMAT="(%%a) %%F T %%R:%%S%%z (%%Z)" ''
+      + xsecurelock-base;
   };
 
   services.redshift = {
@@ -193,7 +205,10 @@ rec {
     font = "JetBrains Mono Nerd Font 16";
     terminal = "kitty";
 
-    plugins = [ pkgs.rofi-calc pkgs.rofi-power-menu ];
+    plugins = [
+      pkgs.rofi-calc
+      pkgs.rofi-power-menu
+    ];
     extraConfig = {
       modi = "filebrowser,ssh,window,run,drun,calc,keys";
       case-sensitive = false;
@@ -251,48 +266,50 @@ rec {
     enable = true;
     shellAliases = {
       # tool aliases
-      ls="ls --color=auto -F";
+      ls = "ls --color=auto -F";
       # dir="dir --color=auto";
       # vdir="vdir --color=auto";
 
-      grep="grep --color=auto";
-      fgrep="fgrep --color=auto";
-      egrep="egrep --color=auto";
+      grep = "grep --color=auto";
+      fgrep = "fgrep --color=auto";
+      egrep = "egrep --color=auto";
 
       # some more ls aliases
-      ll="ls -alF";
-      la="ls -A";
-      l="ls -CF";
+      ll = "ls -alF";
+      la = "ls -A";
+      l = "ls -CF";
 
       # Add an "alert" alias for long running commands.  Use like so:
       #   sleep 10; alert
-      alert="notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e '\\''s/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//'\\'')\"";
+      alert = "notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e '\\''s/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//'\\'')\"";
 
       # prevent accidentally clobering files
       mv = "mv -i";
       cp = "cp -i";
 
       # kitty related aliases
-      kitty-update="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin";
-      kitty-ssh="kitty +kitten ssh";
-      icat="kitty +kitten icat";
-      
-# alias for cmus so it is detachable
-# tmux version
-#alias cmus='tmux new-session -A -D -s cmus "$(which cmus)"'
-#alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(which cmus)"'
-# in cmus: :bind -f common q shell tmux detach-client -s cmus
-# abduco version, uses ctrl-z to detach (can change by replacing ^z below)
-      cmus="abduco -A -e ^z cmus \"$(which cmus)\"";
+      kitty-update = "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin";
+      kitty-ssh = "kitty +kitten ssh";
+      icat = "kitty +kitten icat";
+
+      # alias for cmus so it is detachable
+      # tmux version
+      #alias cmus='tmux new-session -A -D -s cmus "$(which cmus)"'
+      #alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(which cmus)"'
+      # in cmus: :bind -f common q shell tmux detach-client -s cmus
+      # abduco version, uses ctrl-z to detach (can change by replacing ^z below)
+      cmus = ''abduco -A -e ^z cmus "$(which cmus)"'';
       # now that I have a scratchpad for cmus, do I still need this alias?
     };
-    historyControl = [ "ignoredups" "ignorespace" ];
+    historyControl = [
+      "ignoredups"
+      "ignorespace"
+    ];
     sessionVariables = home.sessionVariables;
     shellOptions = [ "histappend" ];
 
-    initExtra =
-    ''
-    echo Bash managed by home-manager!
+    initExtra = ''
+      echo Bash managed by home-manager!
     '';
   };
 
@@ -308,7 +325,7 @@ rec {
         "$character"
       ];
       add_newline = true;
-      
+
       cmd_duration = {
         disabled = true;
         show_notifications = false;
@@ -334,6 +351,4 @@ rec {
       git_metrics.disabled = false;
     };
   };
-
 }
-

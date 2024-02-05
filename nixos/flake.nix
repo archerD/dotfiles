@@ -25,58 +25,68 @@
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database, ... }@inputs:
-    let system = "x86_64-linux";
-        args   = { # Pass flake inputs to our config
-            inherit inputs;
-            pkgs-unstable = import nixpkgs-unstable {
-                # configure the unstable inputs...
-                inherit system;
-                # config.allowUnfree = true;
-            };
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      nix-index-database,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      args = {
+        # Pass flake inputs to our config
+        inherit inputs;
+        pkgs-unstable = import nixpkgs-unstable {
+          # configure the unstable inputs...
+          inherit system;
+          # config.allowUnfree = true;
         };
-    in {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = {
-      # the desktop setup...
-      NixOS-Desktop = nixpkgs.lib.nixosSystem {
-        inherit system;
+      };
+    in
+    {
+      # NixOS configuration entrypoint
+      # Available through 'nixos-rebuild --flake .#your-hostname'
+      nixosConfigurations = {
+        # the desktop setup...
+        NixOS-Desktop = nixpkgs.lib.nixosSystem {
+          inherit system;
 
-        specialArgs = args;
-        # > Our main nixos configuration file <
-        modules = [
-          ./configuration.nix
+          specialArgs = args;
+          # > Our main nixos configuration file <
+          modules = [
+            ./configuration.nix
 
-          #/*
-          # make home-manager as a module of nixos
-          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.verbose = true;
+            #/*
+            # make home-manager as a module of nixos
+            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.verbose = true;
 
-            home-manager.extraSpecialArgs = args; # Pass flake inputs to our config
+              home-manager.extraSpecialArgs = args; # Pass flake inputs to our config
 
-            home-manager.users.archerd = import ./home.nix;
-          }
-          #*/
+              home-manager.users.archerd = import ./home.nix;
+            }
+            #*/
           ];
+        };
       };
-    };
 
-    #/*
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      "archerd@Ubuntu-X1-Yoga-4" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = args; # Pass flake inputs to our config
-        # > Our main home-manager configuration file <
-        modules = [ ./home.nix ];
+      #/*
+      # Standalone home-manager configuration entrypoint
+      # Available through 'home-manager --flake .#your-username@your-hostname'
+      homeConfigurations = {
+        "archerd@Ubuntu-X1-Yoga-4" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = args; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [ ./home.nix ];
+        };
       };
+      #*/
     };
-    #*/
-  };
 }
