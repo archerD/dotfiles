@@ -10,6 +10,17 @@
             "cast"
             "google_translate"
             "otp"
+            "sun"
+            "light"
+            "person"
+            "device_tracker"
+            "device_sun_light_trigger"
+            "androidtv"
+            "androidtv_remote"
+            "cast"
+            "device_sun_light_trigger"
+            "roku"
+            "google_assistant"
         ];
         extraPackages = py3ps: with py3ps; [ pyqrcode ]; # for 2fa
         openFirewall = true;
