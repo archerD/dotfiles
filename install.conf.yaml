@@ -51,4 +51,4 @@
     ~/.config/xmobar/xmobar.hs: xmobar.hs
     ~/.xscreensaver: xscreensaver
     ~/.config/dunst/dunstrc: dunstrc
-    ~/.config/rofi/config.rasi: rofi.rasi
+    # ~/.config/rofi/config.rasi: rofi.rasi

@@ -143,6 +143,10 @@ rec {
       unison # file syncing
       mosh # better ssh
 
+      # useful cli tools
+      fd
+      ripgrep
+
       # misc packages/scripts
       pkgs.bat
       pkgs.timer
@@ -336,6 +340,10 @@ rec {
         truncate_to_repo = false;
         style = "cyan";
         repo_root_style = "#f54d28";
+      };
+
+      shlvl = {
+        disabled = false;
       };
 
       username = {
