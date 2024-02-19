@@ -36,6 +36,8 @@
 - link:
     /etc/logid.cfg: mxmaster3mouse.cfg
     /etc/nixos: nixos
+- link:
+    ~/.config/home-manager: nixos
 
 # before linking in the xmonad stuff, make sure xmonad is available.
 - defaults:

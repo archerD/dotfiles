@@ -58,7 +58,7 @@
           modules = [
             ./configuration.nix
 
-            #/*
+            /*
             # make home-manager as a module of nixos
             # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
             home-manager.nixosModules.home-manager
@@ -81,6 +81,12 @@
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
         "archerd@Ubuntu-X1-Yoga-4" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = args; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [ ./home.nix ];
+        };
+        "archerd@NixOS-Desktop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
