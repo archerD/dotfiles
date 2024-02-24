@@ -12,6 +12,7 @@ local lsp_servers = function()
     -- get the capabilities for completion, make sure to set in each lsp
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+    lspconfig.clangd.setup { capabilities = capabilities }
     lspconfig.hls.setup { capabilities = capabilities }
     lspconfig.rust_analyzer.setup {
         capabilities = capabilities,
