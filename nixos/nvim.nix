@@ -59,7 +59,7 @@ in
         lspPkgs = [
           ghcPkg
           hlsPkg
-          # pkgs.nixd # TODO: uncomment line when nixd is in the nixos-23.11 channel.
+          pkgs.nixd
           # the cpp lsp is better served by having clang-tools in the flake.
           # pkgs.clang-tools
         ];
