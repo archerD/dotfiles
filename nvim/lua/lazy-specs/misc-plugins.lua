@@ -46,6 +46,57 @@ return {
         opts = {},
     },
 
+    { 'lewis6991/gitsigns.nvim',
+        opts = {
+            on_attach = function (bufnr)
+                -- suggested configuration, emulates vim-gitgutter keymaps
+                local gs = package.loaded.gitsigns
+
+                local function map(mode, l, r, desc, opts)
+                    opts = opts or {}
+                    opts.buffer = bufnr
+                    opts.desc = desc or ""
+                    vim.keymap.set(mode, l, r, opts)
+                end
+
+                -- Navigation
+                map('n', ']c', function()
+                    if vim.wo.diff then return ']c' end
+                    vim.schedule(function() gs.next_hunk() end)
+                    return '<Ignore>'
+                end, "Goto next change", { expr = true })
+
+                map('n', '[c', function()
+                    if vim.wo.diff then return '[c' end
+                    vim.schedule(function() gs.prev_hunk() end)
+                    return '<Ignore>'
+                end, "Goto previous change", { expr = true })
+
+                -- Actions
+                map('n', '<leader>hs', gs.stage_hunk, "Stage hunk")
+                map('n', '<leader>hr', gs.reset_hunk, "Reset hunk (discard change)")
+                map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end, "Stage hunk")
+                map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end, "Reset hunk")
+                map('n', '<leader>hS', gs.stage_buffer, "Stage all hunks in buffer")
+                map('n', '<leader>hu', gs.undo_stage_hunk, "Restore hunk (undo staging)")
+                map('n', '<leader>hR', gs.reset_buffer, "Reset all hunks in buffer (discard ALL changes)")
+                map('n', '<leader>hp', gs.preview_hunk, "Preview hunk")
+                map('n', '<leader>hb', function() gs.blame_line { full = true } end, "Git blame on line")
+                map('n', '<leader>tb', gs.toggle_current_line_blame, "Git blame inline")
+                map('n', '<leader>hd', gs.diffthis, "Show a diff of the change")
+                map('n', '<leader>hD', function() gs.diffthis('~') end, "Show a diff of the entire buffer changes")
+                map('n', '<leader>td', gs.toggle_deleted, "Show old version inline")
+
+                -- Text object
+                map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+            end
+        },
+        enabled=true
+    },
+
+    -- need to explore and configure
+    { 'gbprod/substitute.nvim', enabled=false },
+
     { "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {}, enabled=false }, -- better highlighting and stuff on TODO comments and other similar comments

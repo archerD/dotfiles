@@ -111,6 +111,9 @@ return {
       end,
     },
 
+    -- consider, for displaying lsp info on cursor
+    { 'LukasPietzschmann/boo.nvim', enabled=false },
+
     -- snippets
     { 'L3MON4D3/LuaSnip',
         dependencies = {

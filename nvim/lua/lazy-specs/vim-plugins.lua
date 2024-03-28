@@ -35,8 +35,6 @@ return { -- handful of plugins from vim, mostly better keybindings.
     -- allows I and A to be used in all visual modes to get the effect of I and A
     -- in visual block mode, in a nice way
     {"kana/vim-niceblock", enabled=false},
-    -- Adding git hunk details to the sidebar
-    {"airblade/vim-gitgutter"}, -- see lewis6991/gitsigns.nvim as possible alternative
 
     -- local vimrc files for per project config
     {"embear/vim-localvimrc"},
