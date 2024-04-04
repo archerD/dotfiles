@@ -113,9 +113,19 @@ rec {
           black
         ];
       };
+      /* clustergit1 = pkgs.writeShellApplication {
+        name = "clustergit";
+        src = inputs.clustergit;
+      }; */
+      # kinda works, but not really... creates a script which calls clustergit...
+      clustergit2 = pkgs.writeScriptBin "clustergit" "${inputs.clustergit}/clustergit";
+      # this works well enough for now
+      clustergit3 = pkgs.writeScriptBin "clustergit" (builtins.readFile "${inputs.clustergit}/clustergit");
+      clustergit = clustergit3;
     in
     with pkgs;
     [
+      clustergit
       # # Adds the 'hello' command to your environment. It prints a friendly
       # # "Hello, world!" when run.
       # pkgs.hello

@@ -14,8 +14,13 @@
     flake-checker.url = "github:DeterminateSystems/flake-checker";
     flake-checker.inputs.nixpkgs.follows = "nixpkgs";
 
+    # nix index, for comma.
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    # clustergit
+    clustergit.url = "github:mnagel/clustergit";
+    clustergit.flake = false;
 
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";

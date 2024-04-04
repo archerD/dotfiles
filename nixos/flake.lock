@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "clustergit": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678373821,
+        "narHash": "sha256-vVY9yPa8yNVcZri8sfJfqiw8IGPnsO4G0ewUSUo2nxs=",
+        "owner": "mnagel",
+        "repo": "clustergit",
+        "rev": "ed0cbe1fad3b5934bda45db3e06cf86d0c88185e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mnagel",
+        "repo": "clustergit",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "flake-compat": [
@@ -157,6 +173,7 @@
     },
     "root": {
       "inputs": {
+        "clustergit": "clustergit",
         "flake-checker": "flake-checker",
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
