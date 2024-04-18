@@ -21,8 +21,12 @@
       "device_sun_light_trigger"
       "roku"
       "google_assistant"
+      "ipp"
     ];
-    extraPackages = py3ps: with py3ps; [ pyqrcode ]; # for 2fa
+    extraPackages = py3ps: with py3ps; [
+            pyqrcode # for 2fa
+            spotipy # (spotify api) for ?
+        ];
     openFirewall = true;
     configWritable = false;
     config = {
