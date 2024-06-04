@@ -152,7 +152,6 @@
     watson # time tracking
     bashmount # tool to manage mounted media (like usb drives)
     # udiskie # alternative to bashmount which should be able to automount usb drives and display tray icon.
-    nixos-option # check current nixos configuration values
     nix-melt # inspect flake.lock files
     inputs.flake-checker.packages.${system}.default
     texlive.combined.scheme-full
@@ -287,6 +286,8 @@
   programs.kdeconnect.enable = true;
   programs.java.enable = true;
   programs.mosh.enable = true;
+  programs.nh.enable = true;
+  programs.nh.flake = "/home/archerd/.dotfiles/nixos";
 
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "archerd" ];
@@ -398,5 +399,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 }
