@@ -113,15 +113,15 @@ rec {
           black
         ];
       };
-      /* clustergit1 = pkgs.writeShellApplication {
+      clustergit-script = (pkgs.writeScriptBin "clustergit" (builtins.readFile "${inputs.clustergit}/clustergit")).overrideAttrs(old: {
+        buildCommand = "${old.buildCommand}\n patchShebangs $out";
+      });
+      clustergit = pkgs.symlinkJoin {
         name = "clustergit";
-        src = inputs.clustergit;
-      }; */
-      # kinda works, but not really... creates a script which calls clustergit...
-      clustergit2 = pkgs.writeScriptBin "clustergit" "${inputs.clustergit}/clustergit";
-      # this works well enough for now
-      clustergit3 = pkgs.writeScriptBin "clustergit" (builtins.readFile "${inputs.clustergit}/clustergit");
-      clustergit = clustergit3;
+        paths = with pkgs; [ clustergit-script git python3 ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = "wrapProgram $out/bin/clustergit --prefix PATH : $out/bin";
+      };
     in
     with pkgs;
     [
