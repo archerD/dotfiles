@@ -10,10 +10,10 @@ import           XMonad.Actions.FindEmptyWorkspace
 import           XMonad.Actions.MessageFeedback
                     ( sendSomeMessages, sm )
 import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.DynamicProperty
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.OnPropertyChange
 import           XMonad.Hooks.RefocusLast (refocusLastLogHook)
 import           XMonad.Hooks.SetWMName
 import           XMonad.Hooks.StatusBar
@@ -330,7 +330,7 @@ myConfig = configModifiers def
             , manageHook = composeOne [ isDialog -?> doCenterFloat ] <+> manageZoomHook
                 <+> manageKdeconnectPresenterHook <+> namedScratchpadManageHook scratchpads
                 <+> ((className =? "kitty-overlay") --> doCenterFloat)
-            , handleEventHook = Hacks.windowedFullscreenFixEventHook <+> dynamicTitle manageZoomHook
+            , handleEventHook = Hacks.windowedFullscreenFixEventHook <+> onTitleChange manageZoomHook
             , logHook = refocusLastLogHook >> nsHideOnFocusLoss scratchpads
             -- , terminal = "x-terminal-emulator"
             , terminal = "kitty"
