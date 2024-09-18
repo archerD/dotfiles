@@ -312,7 +312,7 @@ rec {
       #alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(which cmus)"'
       # in cmus: :bind -f common q shell tmux detach-client -s cmus
       # abduco version, uses ctrl-z to detach (can change by replacing ^z below)
-      cmus = ''abduco -A -e ^z cmus "$(which cmus)"'';
+      # cmus = ''abduco -A -e ^z cmus "$(which cmus)"'';
       # now that I have a scratchpad for cmus, do I still need this alias?
     };
     historyControl = [

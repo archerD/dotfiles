@@ -277,6 +277,7 @@
     })
   ];
 
+  services.hardware.openrgb.enable = true;
   #programs.neovim.enable = true;
   #programs.neovim.defaultEditor = true;
   # programs.vim.defaultEditor = true;
@@ -287,7 +288,7 @@
   programs.java.enable = true;
   programs.mosh.enable = true;
   programs.nh.enable = true;
-  programs.nh.flake = "/home/archerd/.dotfiles/nixos";
+  programs.nh.flake = "/home/archerd/repos/dotfiles/nixos";
 
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "archerd" ];
