@@ -16,28 +16,27 @@ rec {
     ./nvim.nix
   ];
 
-  /* nixpkgs = {
-       # You can add overlays here
-       overlays = [
-         # If you want to use overlays exported from other flakes:
-         # neovim-nightly-overlay.overlays.default
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # If you want to use overlays exported from other flakes:
+      # neovim-nightly-overlay.overlays.default
 
-         # Or define it inline, for example:
-         # (final: prev: {
-         #   hi = final.hello.overrideAttrs (oldAttrs: {
-         #     patches = [ ./change-hello-to-hi.patch ];
-         #   });
-         # })
-       ];
-       # Configure your nixpkgs instance
-       config = {
-         # Disable if you don't want unfree packages
-         allowUnfree = true;
-         # Workaround for https://github.com/nix-community/home-manager/issues/2942
-         allowUnfreePredicate = (_: true);
-       };
-     };
-  */
+      # Or define it inline, for example:
+      # (final: prev: {
+      #   hi = final.hello.overrideAttrs (oldAttrs: {
+      #     patches = [ ./change-hello-to-hi.patch ];
+      #   });
+      # })
+    ];
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+      # Workaround for https://github.com/nix-community/home-manager/issues/2942
+      # allowUnfreePredicate = (_: true);
+    };
+  };
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -67,7 +66,7 @@ rec {
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.11"; # Please read the comment before changing.
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
@@ -149,6 +148,11 @@ rec {
 
       sysz # systemctl tui
 
+      # games!
+      kobodeluxe
+      tetrio-desktop
+      bzflag
+
       radio-active # tui radio player
       unison # file syncing
       mosh # better ssh
@@ -158,9 +162,9 @@ rec {
       ripgrep
 
       # misc packages/scripts
-      pkgs.bat
-      pkgs.timer
-      (pkgs.writeShellScriptBin "overlay" ''
+      bat
+      timer
+      (writeShellScriptBin "overlay" ''
         kitty -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
       '')
     ];
