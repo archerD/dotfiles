@@ -14,6 +14,7 @@ local lsp_servers = function()
 
     lspconfig.clangd.setup { capabilities = capabilities }
     lspconfig.hls.setup { capabilities = capabilities }
+    lspconfig.gopls.setup { capabilities = capabilities }
     lspconfig.rust_analyzer.setup {
         capabilities = capabilities,
         settings = {

@@ -18,7 +18,7 @@ return { -- TODO: remove one of the file trees
                 use_libuv_file_watcher = true,
             },
         },
-        vim.keymap.set('n', '<leader>ft', ':Neotree reveal<cr>', { desc = "Open filetree" })
+        vim.keymap.set('n', '<leader>ft', ':Neotree toggle<cr>', { desc = "Toggle filetree" })
     },
     { "stevearc/oil.nvim",
       opts = {},

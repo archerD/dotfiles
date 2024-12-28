@@ -116,7 +116,6 @@ return {
         vim.o.timeoutlen = 1000
       end,
       opts = {
-            triggers_nowait = { "z=" },
             presets = {
                 operators = true, -- adds help for operators like d, y, ...
                 motions = true, -- adds help for motions

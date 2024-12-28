@@ -61,7 +61,9 @@ in
           hlsPkg
           pkgs.nixd
           # the cpp lsp is better served by having clang-tools in the flake.
-          # pkgs.clang-tools
+          pkgs.clang-tools
+          pkgs.gopls
+          pkgs.go
         ];
       in
       pluginPkgs ++ lspPkgs;

@@ -38,7 +38,7 @@ nmap('gw', ':w<Cr>', 'Write buffer')
 nmap('gW', ':w!', 'Force write buffer')
 
 -- terminal stuff
-nmap('<leader>t', ':split +term<CR>', 'open a terminal in a new window')
+nmap('<leader>T', ':split +term<CR>', 'open a terminal in a new window')
 map('t', '<Esc>', '<C-\\><C-n>', 'Easy way to exit terminal mode')
 
 --[[ still need to figure this out...
