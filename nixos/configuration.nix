@@ -82,7 +82,6 @@
 
   security.rtkit.enable = true; # ...
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -92,9 +91,6 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
-  ## Enable sound (old version).
-  ## sound.enable = true;
-  #hardware.pulseaudio.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -192,9 +188,9 @@
     xdotool
     trayer
     xscreensaver
-    gnome.nautilus
-    gnome.gnome-disk-utility
-    gnome.gnome-screenshot
+    nautilus
+    gnome-disk-utility
+    gnome-screenshot
     dmenu
     dunst
     logiops
@@ -251,7 +247,6 @@
     (python3.withPackages (
       self: [
         self.ipython
-        self.angr
       ]
     ))
 
@@ -349,6 +344,8 @@
            };
     */
   };
+  # changed default at 24.11
+  hardware.nvidia.open = false;
 
   # enable picom as the compositor
   services.picom = {
