@@ -26,8 +26,5 @@ if [ "$(whoami)" == "archerd" ]; then
     else
         $HOME/.dotfiles/yubico-icon-generator.sh &
     fi
-    if type slack; then
-        slack --startup --silent &
-    fi
 fi
 

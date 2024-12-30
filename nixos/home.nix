@@ -142,16 +142,15 @@ rec {
       #   echo "Hello, ${config.home.username}!"
       # '')
 
-      # a slack/discord like communication tool
-      zulip
-      zulip-term
-
       sysz # systemctl tui
 
       # games!
       kobodeluxe
       tetrio-desktop
       bzflag
+
+      # gui apps
+      google-chrome
 
       radio-active # tui radio player
       unison # file syncing
@@ -280,6 +279,11 @@ rec {
   };
 
   home.sessionPath = [ "$HOME/bin" ];
+
+  programs.cmus = {
+    enable = true;
+    theme = "night";
+  };
 
   programs.bash = {
     enable = true;

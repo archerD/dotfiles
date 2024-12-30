@@ -1,19 +1,18 @@
 # local network computers
 Host laptop
-    HostName 10.0.0.22
+    HostName 10.0.0.21
     User archerd
     ForwardAgent yes
     ForwardX11Trusted yes
 
 Host desktop
-    HostName 10.0.0.80
+    HostName 10.0.0.95
     User archerd
     ForwardAgent yes
     ForwardX11Trusted yes
 
 # remote connection to local network
 Host remote-desktop
-    # HostName 73.243.161.158 # router ip address, does not work for unknown reasons
     HostName 100.121.8.47 # tailscale address
     User archerd
     ForwardAgent yes

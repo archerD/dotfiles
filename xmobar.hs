@@ -17,7 +17,7 @@ rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
                         \ <fn=1>%playerstatus%</fn>\
                     \</action>\
                 \</action>\
-                \ [<fc=#ffff00>%locks%</fc>] (%cpu%, %memory%, %alsa:default:Master%) <box type=Left>%trayerpad%</box>"
+                \ [<fc=#ffff00>%locks%</fc>] (%cpu%|%memory%|%alsa:default:Master%) <box type=Left>%trayerpad%</box>"
 
 config :: Config
 config = defaultConfig

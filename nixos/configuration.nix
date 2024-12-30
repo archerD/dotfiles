@@ -162,12 +162,10 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     neovide
-    cmus
     ranger
     btop
 
     # gui applications
-    google-chrome
     firefox
     zoom-us # to provide audio sharing capabilities, this needs the pulseaudio package...
     slack
