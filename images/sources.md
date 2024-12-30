@@ -10,12 +10,20 @@ images/
 │   ├── nix-wallpaper-stripes-logo.png
 │   ├── nixos-dark-tiling.svg
 │   └── zsa-keycaps.jpg
+├── nix-snowflake.svg
+├── xmonad-logo.png
 ├── xmonad-logo.svg
 └── yubico-icon.png
 
 ## sources
+nix-snowflake.svg
+: likely from (https://github.com/nixos/nixos-artwork)
+
 xmonad-logo.svg 
 : (https://github.com/xmonad/xmonad-web/blob/gh-pages/images/logo.svg)
+
+xmonad-logo.png
+: png version of xmonad-logo.svg
 
 yubico-icon.png
 : copied from yubioath-flutter package in nixos
