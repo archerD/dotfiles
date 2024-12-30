@@ -196,7 +196,8 @@ rec {
     # does not have the modules that the services seem to want.
     lockCmd =
       let # the base version, to be used on nixos only
-        xsecurelock-base = "${pkgs.xsecurelock}/bin/xsecurelock";
+        # the addition of the PATH variable is so playerctl and amixer can be found.
+        xsecurelock-base = "PATH=\"/run/current-system/sw/bin\" ${pkgs.xsecurelock}/bin/xsecurelock";
         # to use the htpasswd, need to generate a file, `( umask 077; htpasswd -cB ~/.xsecurelock.pw "$USER" )`, see https://github.com/google/xsecurelock#authentication-protocol-modules
         xsecurelock-htpasswd = "XSECURELOCK_AUTHPROTO=authproto_htpasswd " + xsecurelock-base;
         # need to install xsecurelock outside of nixos if using this.
