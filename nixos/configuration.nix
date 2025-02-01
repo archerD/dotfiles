@@ -211,6 +211,8 @@
     paprefs
     pavucontrol
 
+    wine
+
     # languages
     ## haskell configuration
     (haskellPackages.ghcWithPackages (
@@ -344,6 +346,7 @@
   };
   # changed default at 24.11
   hardware.nvidia.open = false;
+  hardware.graphics.enable32Bit = true; # to use wine on 32bit things
 
   # enable picom as the compositor
   services.picom = {
