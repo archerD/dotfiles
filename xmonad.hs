@@ -260,8 +260,7 @@ myStartupHook :: X () -- TODO: add a check that the keymap is good
 myStartupHook = fixSupportedAtoms
                 -- >> setWMName "LG3D" -- the wm name somehow helps java gui applications to show menus in the correct spot...
                 -- >> spawnOnce "export _JAVA_AWT_WM_NONREPARENTING=1" -- the (prefered) alternative is to run this export (I don't think this line works...)
-                >> spawnOnce "~/.dotfiles/xlogin_script"
-                >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/wallpapers/"
+                >> spawn "feh --randomize --bg-fill ~/.dotfiles/images/wallpapers/" -- TODO: see if this can maybe call autorandr for the randomization...
 
 myXmobarPP :: X PP
 myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is installed

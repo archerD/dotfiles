@@ -44,18 +44,23 @@ rec {
   home.homeDirectory = "/home/archerd";
 
   # manage xmonad in home-manager
-  xsession.enable = true;
-  xsession.windowManager.xmonad = {
+  xsession =  {
     enable = true;
-    enableContribAndExtras = true;
-    extraPackages = haskellPackages: [
-      haskellPackages.dbus
-      haskellPackages.List
-      haskellPackages.monad-logger
-      haskellPackages.xmonad
-      haskellPackages.xmobar
-    ];
-    config = null;
+    numlock.enable = true;
+    # could also use multiline string ('' '') to put contents of the script here.
+    initExtra = builtins.readFile ../xlogin_script;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      extraPackages = haskellPackages: [
+        haskellPackages.dbus
+        haskellPackages.List
+        haskellPackages.monad-logger
+        haskellPackages.xmonad
+        haskellPackages.xmobar
+      ];
+      config = null;
+    };
   };
 
   # This value determines the Home Manager release that your
@@ -159,6 +164,7 @@ rec {
       # useful cli tools
       fd
       ripgrep
+      nix-inspect
 
       # misc packages/scripts
       bat

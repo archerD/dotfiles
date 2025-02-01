@@ -6,13 +6,6 @@ if [ "$(whoami)" == "archerd" ]; then
     autorandr -c # force monitor configuration (uses script from feh to resize background)
     #xscreensaver -no-splash &
     xsetroot -cursor_name left_ptr
-    # set numlock on by default
-    # /usr/bin/numlockx on
-    numlockx
-
-    #if type cmus; then
-    #    cmus &
-    #fi
 
     /home/archerd/.dotfiles/tray.sh
 fi
