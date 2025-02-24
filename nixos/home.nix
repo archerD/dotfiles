@@ -57,6 +57,8 @@ rec {
         haskellPackages.List
         haskellPackages.monad-logger
         haskellPackages.xmonad
+        haskellPackages.xmonad-contrib
+        haskellPackages.xmonad-extras
         haskellPackages.xmobar
       ];
       config = null;
@@ -165,6 +167,9 @@ rec {
       fd
       ripgrep
       nix-inspect
+
+      # for xmobar volume?
+      alsa-utils
 
       # misc packages/scripts
       bat
@@ -338,10 +343,13 @@ rec {
     shellOptions = [ "histappend" ];
 
     initExtra = ''
-      echo Bash managed by home-manager!
+      fastfetch
     '';
   };
 
+  programs.fastfetch = {
+    enable = true;
+  };
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
