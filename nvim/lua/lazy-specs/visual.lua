@@ -67,7 +67,7 @@ return {
                     -- comments = "italic",
                 },
                 inverse = {
-                    match_paren = false,
+                    match_paren = true,
                     visual = false, -- alternative solution to visual selection contrast problem
                 },
             },

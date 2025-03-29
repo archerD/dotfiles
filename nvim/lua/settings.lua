@@ -29,9 +29,9 @@ vim.api.nvim_command('syntax enable')
 
 -- a thing... --
 -- how long until the swap file is (re)written
-vim.o.updatetime = 1000
+o.updatetime = 1000
 -- menu settings
-vim.o.completeopt = 'menuone,noselect,longest' -- consider adding 'preview' to the list
+o.completeopt = 'menuone,noselect,longest' -- consider adding 'preview' to the list
 
 -- search settings --
 -- highlight all matches as you type
@@ -49,7 +49,8 @@ o.expandtab = true
 o.shiftwidth = 4
 o.softtabstop = 4
 -- auto expand tabs
-o.autoindent = true
+o.autoindent = false
+o.smartindent = false -- use tree-sitter.ident instead
 
 
 -- control settings --
