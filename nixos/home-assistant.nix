@@ -27,7 +27,9 @@
       # new integrations
       "matter"
       "govee_ble"
+      "homekit"
       "homekit_controller"
+      "aranet"
       "xiaomi_ble"
       "wiz"
     ];
