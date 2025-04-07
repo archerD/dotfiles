@@ -56,6 +56,9 @@ import qualified Data.Monoid                    as DM
 import           Graphics.X11.ExtraTypes.XF86
 import           System.IO
 
+-- home manager provided library file
+import HomeManagerProvided as HMP
+
 -- from https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Some_keys_not_working, to enable numpad keys as number keys
 extraWorkspaces = ["NSP"]
 myWorkspaces = workspaces def ++ extraWorkspaces
@@ -341,8 +344,8 @@ myConfig = configModifiers def
             -- , normalBorderColor = "#33572c"
             -- , focusedBorderColor = "#680a7b"
             -- , normalBorderColor = "#1d7b0a"
-            , focusedBorderColor = "#772388"
-            , normalBorderColor = "#348823"
+            , focusedBorderColor = HMP.focusedBorder
+            , normalBorderColor = HMP.normalBorder
             }
             -- `removeKeys` [ (myModMask, xK_t)
             --              , (myModMask, xK_m)

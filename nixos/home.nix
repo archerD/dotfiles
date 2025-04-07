@@ -28,6 +28,22 @@ rec {
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
+      
+      # bump xmonad version to latest! is this necessary? no. but I can.
+      (self: super:
+        {
+          haskellPackages = super.haskellPackages.override (old: {
+            overrides = self.lib.composeExtensions (old.overrides or (_: _: {}))
+              (
+                hself: hsuper: {
+                  # xmonad = super.haskell.lib.appendPatch hsuper.xmonad_0_17_0 ./xmonad-nix.patch;
+                  xmonad = hsuper.xmonad_0_18_0;
+                  xmonad-contrib = hsuper.xmonad-contrib_0_18_1;
+                  # xmonad-extras = hsuper.xmonad-extras_0_17_0;
+                }
+              );
+          });
+        })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -61,8 +77,25 @@ rec {
         haskellPackages.xmonad-extras
         haskellPackages.xmobar
       ];
+      # either allow home-manager to manage xmonad directly (config is path),
+      # or leave the file under dotbot control (config is null)
+      # dotbot allows for self recompiling, hm means recompiling must be done via a hm switch
+      # config = ../xmonad.hs;
       config = null;
+      libFiles = {
+        "HomeManagerProvided.hs" = pkgs.writeText "HomeManagerProvided.hs" ''
+          module HomeManagerProvided where
+          screenshot = ""
+          kitty = "${pkgs.kitty}/bin/kitty "
+          focusedBorder = "#772388"
+          normalBorder = "#348823"
+        '';
+      };
     };
+  };
+  programs.xmobar = {
+    enable = false;
+    extraConfig = builtins.readFile ../xmobar.hs;
   };
 
   # This value determines the Home Manager release that your
