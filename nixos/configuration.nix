@@ -122,6 +122,7 @@
 
   environment.sessionVariables = {
     # helps java gui applications behave better in xmonad
+    # TODO: move to home-manager, or investigate xmonad.util.hacks.javaHack.
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
@@ -272,6 +273,15 @@
     })
   ];
 
+  programs.steam = {
+    enable = true;
+    # other recommended lines
+    # remotePlay.openFirewall = true;
+    # dedicatedServer.openFirewall = true;
+    # do I want proton (windows compatability thing)?
+    extraCompatPackages = [ pkgs.proton-ge-bin ];
+  };
+
   services.hardware.openrgb.enable = true;
   #programs.neovim.enable = true;
   #programs.neovim.defaultEditor = true;
@@ -361,6 +371,7 @@
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
+      X11Forwarding = true;
     };
   };
 

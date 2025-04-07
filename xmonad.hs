@@ -316,6 +316,7 @@ ewmhGreedyDesktopChangeEventHook
 ewmhGreedyDesktopChangeEventHook _ = mempty
 
 -- should this be hooks instead?
+-- TODO: consider adding ewmhFullscreen to this list, right before ewmh
 configModifiers = docks . ewmhGreedyDesktopChangeEventHookConfig . ewmh
     . withEasySB (statusBarProp "xmobar" myXmobarPP) defToggleStrutsKey
     . addDescrKeys ((myModMask .|. shiftMask, xK_slash), addName "Show Keybindings" . displayMessage . unlines . showKm) myKeysNamed

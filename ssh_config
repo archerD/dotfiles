@@ -3,20 +3,21 @@ Host laptop
     HostName 10.0.0.21
     User archerd
     ForwardAgent yes
-    ForwardX11Trusted yes
+    ForwardX11 yes
 
 Host desktop
     HostName 10.0.0.95
     User archerd
     ForwardAgent yes
-    ForwardX11Trusted yes
+    ForwardX11 yes
 
 # remote connection to local network
 Host remote-desktop
     HostName 100.121.8.47 # tailscale address
     User archerd
     ForwardAgent yes
-    ForwardX11Trusted yes
+    ForwardX11 yes
 
+# general settings
 Host *
-
+    ForwardX11Trusted no

@@ -64,6 +64,7 @@ rec {
     enable = true;
     numlock.enable = true;
     # could also use multiline string ('' '') to put contents of the script here.
+    # TODO: investigate why some programs aren't launching (notably, trayer).
     initExtra = builtins.readFile ../xlogin_script;
     windowManager.xmonad = {
       enable = true;
@@ -96,6 +97,13 @@ rec {
   programs.xmobar = {
     enable = false;
     extraConfig = builtins.readFile ../xmobar.hs;
+  };
+  services.trayer = {
+    enable = false; # TODO: set this service up, and remove from ../tray.sh
+  };
+
+  services.ssh-agent = {
+    enable = true;
   };
 
   # This value determines the Home Manager release that your
