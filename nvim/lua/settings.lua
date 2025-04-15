@@ -8,6 +8,8 @@ local opt = vim.opt -- options with set/list support
 -- neovide gui stuff, split into separate file if more settings are applied.
 if vim.g.neovide then
     vim.o.guifont = "JetBrainsMono Nerd Font:h12"
+    vim.g.neovide_opacity = 0.8
+    vim.g.neovide_normal_opacity = 0.8
 end
 
 -- colorschemes --
@@ -51,7 +53,11 @@ o.softtabstop = 4
 -- auto expand tabs
 o.autoindent = false
 o.smartindent = false -- use tree-sitter.ident instead
+-- these set defaults I guess, but using plugin guess-indent to set in files with a different tabstop.
 
+-- folding using treesitter
+-- vim.wo.foldmethod = 'expr'
+-- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- control settings --
 -- enable mouse support in all modes
@@ -68,6 +74,10 @@ o.number = true
 o.relativenumber = true
 -- better colors
 o.termguicolors = true
+
+-- how splits happen
+opt.splitbelow = true
+opt.splitright = true
 
 -- adds the status bar (this is all the defaults in neovim)
 o.ruler = true

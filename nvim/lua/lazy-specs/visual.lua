@@ -30,7 +30,8 @@ return {
         lazy = true,
     }, -- not clear on what uses this, but it looks nice...
 
-    -- colorschemes! (carbonfox looks good for now, but no other ordering implied)
+    -- colorschemes! (carbonfox looks good for now, cyberdream is also pretty good, but no other ordering implied)
+    -- see :help group-name for some example colorings
     { "EdenEast/nightfox.nvim", lazy = false, priority = 1000,
         -- use :NightfoxInteractive to see changes on write
         opts = {
@@ -74,14 +75,30 @@ return {
         },
         config = function(_, opts)
             require("nightfox").setup(opts)
-            vim.cmd.colorscheme("carbonfox")
+            -- vim.cmd.colorscheme("carbonfox")
         end,
     }, -- :colorscheme carbonfox
+    { "scottmckendry/cyberdream.nvim", lazy = false, priority = 1000,
+        opts = {
+            transparent = true,
+            overrides = function(colors)
+                return {
+                    Comment = { fg = colors.yellow, bg = "NONE", italic = true, },
+                }
+            end,
+        },
+        config = function(_, opts)
+            require("cyberdream").setup(opts)
+            vim.cmd.colorscheme("cyberdream")
+        end,
+    }, -- :colorscheme cyberdream
     { "Mofiqul/vscode.nvim" }, -- :colorscheme vscode or require('vscode').load()
     { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = true, }, -- :colorscheme moonfly
     { "dasupradyumna/midnight.nvim", lazy = true, }, -- :colorscheme midnight
     { "kartikp10/noctis.nvim", lazy = true, dependencies={"rktjmp/lush.nvim"}, }, -- :colorscheme noctis
     { "rodnaph/vim-color-schemes", enabled=false }, -- a large collection of schemes...
                                                     -- see https://vimcolorschemes.com/rodnaph/vim-color-schemes
+    { "tinted-theming/tinted-vim", lazy = true, }, -- another large collection of schemes
+                                                   -- see https://tinted-theming.github.io/tinted-gallery/
 
 }

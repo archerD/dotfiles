@@ -42,6 +42,10 @@ return {
         end,
         enabled=true },
 
+    -- to set how many spaces a level of indentation is automatically.
+    { 'NMAC427/guess-indent.nvim', opts = {}, enabled=true }, -- is faster
+    { 'tpope/vim-sleuth', enabled=false }, -- is vim compatible, probably does more/smarter
+
     { "numToStr/Comment.nvim",
         opts = {},
     },
