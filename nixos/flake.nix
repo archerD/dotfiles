@@ -51,6 +51,11 @@
       };
     in
     {
+      # my custom packages not in nixpkgs...
+      packages.${system} = import ./custom-packages.nix {inherit inputs system;};
+      # an (unused, untested) overlay to add the pkgs to the nixpkgs input...
+      # overlays.${system}.additions = final: _prev: import ./custom-packages.nix { pkgs = final; inherit inputs; };
+
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
