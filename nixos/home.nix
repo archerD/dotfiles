@@ -220,6 +220,12 @@ rec {
     provider = "geoclue2";
   };
 
+  # starts the service, but cannot open the firewall
+  services.kdeconnect = {
+    enable = true;
+    indicator = true;
+  };
+
   # from the nix-index-database flake module.
   programs.nix-index-database.comma.enable = true;
   programs.nix-index.enable = true;

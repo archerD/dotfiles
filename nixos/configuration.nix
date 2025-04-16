@@ -289,6 +289,7 @@
   programs.nm-applet.enable = true;
   programs.nm-applet.indicator = true;
   programs.adb.enable = true;
+  # opens the firewall for kde connect, but does not start the service...
   programs.kdeconnect.enable = true;
   programs.java.enable = true;
   programs.mosh.enable = true;
