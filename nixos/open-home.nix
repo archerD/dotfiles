@@ -1,5 +1,14 @@
 { config, pkgs, ... }:
 {
+  networking.firewall.allowedTCPPorts = [
+    8097 8098 # for music-assistant?
+    5580 # for matter-server
+  ];
+  services.music-assistant = {
+    enable = true;
+    providers = [ "builtin" "chromecast" "filesystem_local" "filesystem_smb" "hass" "hass_players" "radiobrowser" "template_player_provider" "ytmusic" ];
+    # 2025-04-15: type of provides is list of (one of "airplay", "apple_music", "builtin", "chromecast", "deezer", "dlna", "fanarttv", "filesystem_local", "filesystem_smb", "fully_kiosk", "hass", "hass_players", "jellyfin", "musicbrainz", "opensubsonic", "plex", "qobuz", "radiobrowser", "slimproto", "snapcast", "sonos", "soundcloud", "spotify", "template_player_provider", "test", "theaudiodb", "tidal", "tunein", "ugp", "ytmusic")
+  };
   services.home-assistant = {
     enable = true;
     extraComponents = [
@@ -32,6 +41,7 @@
       "aranet"
       "xiaomi_ble"
       "wiz"
+      # "music_assistant" # currently only in unstable.
     ];
     extraPackages = py3ps: with py3ps; [
             # pyqrcode # for 2fa

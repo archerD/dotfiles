@@ -17,7 +17,7 @@
     ./windows-drives.nix
 
     # services files
-    ./home-assistant.nix
+    ./open-home.nix
     ./tailscale.nix
   ];
 
