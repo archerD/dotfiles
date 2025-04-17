@@ -74,6 +74,8 @@ o.number = true
 o.relativenumber = true
 -- better colors
 o.termguicolors = true
+-- show visually tabs, trailing spaces, etc.
+o.list = true
 
 -- how splits happen
 opt.splitbelow = true

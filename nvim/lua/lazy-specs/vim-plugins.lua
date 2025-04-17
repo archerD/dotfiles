@@ -22,6 +22,8 @@ return { -- handful of plugins from vim, mostly better keybindings.
         end,
         enabled=false
     }, -- see numToStr/comment.nvim as possible alternative
+    -- extra keybindings for navigation, option toggling, etc.
+    {"tpope/vim-unimpaired"},
 
     -- plugins for text object support
     -- see https://github.com/kana/vim-textobj-user/wiki for more plugins using kana/vim-textobj-user

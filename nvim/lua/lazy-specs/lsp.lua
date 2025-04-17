@@ -21,7 +21,16 @@ local lsp_servers = function()
             ['rust-analyzer'] = {},
         },
     }
-    lspconfig.nixd.setup { capabilities = capabilities }
+    lspconfig.nixd.setup {
+        capabilities = capabilities,
+        settings = {
+            nixd = {
+                formatting = {
+                    command = { "nixfmt" },
+                },
+            },
+        },
+    }
     lspconfig.lua_ls.setup {    -- recommended setup for neovim lua from nvim-lspconfig
         capabilities = capabilities,
         on_init = function(client)
