@@ -4,6 +4,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  pkgs-mine,
   ...
 }:
 rec {
@@ -28,29 +29,25 @@ rec {
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
-      
+
       # bump xmonad version to latest! is this necessary? no. but I can.
-      (self: super:
-        {
-          haskellPackages = super.haskellPackages.override (old: {
-            overrides = self.lib.composeExtensions (old.overrides or (_: _: {}))
-              (
-                hself: hsuper: {
-                  # xmonad = super.haskell.lib.appendPatch hsuper.xmonad_0_17_0 ./xmonad-nix.patch;
-                  xmonad = hsuper.xmonad_0_18_0;
-                  xmonad-contrib = hsuper.xmonad-contrib_0_18_1;
-                  # xmonad-extras = hsuper.xmonad-extras_0_17_0;
-                }
-              );
-          });
-        })
+      (self: super: {
+        haskellPackages = super.haskellPackages.override (old: {
+          overrides = self.lib.composeExtensions (old.overrides or (_: _: { })) (
+            hself: hsuper: {
+              # xmonad = super.haskell.lib.appendPatch hsuper.xmonad_0_17_0 ./xmonad-nix.patch;
+              xmonad = hsuper.xmonad_0_18_0;
+              xmonad-contrib = hsuper.xmonad-contrib_0_18_1;
+              # xmonad-extras = hsuper.xmonad-extras_0_17_0;
+            }
+          );
+        });
+      })
     ];
     # Configure your nixpkgs instance
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      # allowUnfreePredicate = (_: true);
     };
   };
 
@@ -60,7 +57,7 @@ rec {
   home.homeDirectory = "/home/archerd";
 
   # manage xmonad in home-manager
-  xsession =  {
+  xsession = {
     enable = true;
     numlock.enable = true;
     # could also use multiline string ('' '') to put contents of the script here.
@@ -124,57 +121,54 @@ rec {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages =
-    # TODO: this way of getting the system feels very hacky...
-    let pkgs-mine = inputs.self.packages.${pkgs.system}; in
-    with pkgs; [
-      pkgs-mine.clustergit
-      # # Adds the 'hello' command to your environment. It prints a friendly
-      # # "Hello, world!" when run.
-      # pkgs.hello
+  home.packages = with pkgs; [
+    # # Adds the 'hello' command to your environment. It prints a friendly
+    # # "Hello, world!" when run.
+    # pkgs.hello
 
-      # # It is sometimes useful to fine-tune packages, for example, by applying
-      # # overrides. You can do that directly here, just don't forget the
-      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-      # # fonts?
-      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # # It is sometimes useful to fine-tune packages, for example, by applying
+    # # overrides. You can do that directly here, just don't forget the
+    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    # # fonts?
+    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
+    # # You can also create simple shell scripts directly inside your
+    # # configuration. For example, this adds a command 'my-hello' to your
+    # # environment:
+    # (pkgs.writeShellScriptBin "my-hello" ''
+    #   echo "Hello, ${config.home.username}!"
+    # '')
 
-      sysz # systemctl tui
+    sysz # systemctl tui
 
-      # games!
-      kobodeluxe
-      tetrio-desktop
-      bzflag
+    # games!
+    kobodeluxe
+    tetrio-desktop
+    bzflag
 
-      # gui apps
-      google-chrome
+    # gui apps
+    google-chrome
 
-      pkgs-mine.radio-active # tui radio player
-      unison # file syncing
-      mosh # better ssh
+    pkgs-mine.radio-active # tui radio player
+    unison # file syncing
+    mosh # better ssh
 
-      # useful cli tools
-      fd
-      ripgrep
-      nix-inspect
+    # useful cli tools
+    pkgs-mine.clustergit
+    fd
+    ripgrep
+    nix-inspect
 
-      # for xmobar volume?
-      alsa-utils
+    # for xmobar volume?
+    alsa-utils
 
-      # misc packages/scripts
-      bat
-      timer
-      (writeShellScriptBin "overlay" ''
-        kitty -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
-      '')
-    ];
+    # misc packages/scripts
+    bat
+    timer
+    (writeShellScriptBin "overlay" ''
+      kitty -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
+    '')
+  ];
 
   services.screen-locker = {
     enable = true;

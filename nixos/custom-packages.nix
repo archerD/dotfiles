@@ -2,16 +2,16 @@
   inputs,
   system,
   ...
-}: 
-let 
-  pkgs = import inputs.nixpkgs{
+}:
+let
+  pkgs = import inputs.nixpkgs {
     inherit system;
     # config.allowUnfree = true;
   };
-  # pkgs-unstable = import inputs.nixpkgs-unstable {
-  #   inherit system;
-  #   # config.allowUnfree = true;
-  # };
+  pkgs-unstable = import inputs.nixpkgs-unstable {
+    inherit system;
+    # config.allowUnfree = true;
+  };
 in rec {
   zenlog = pkgs.python3Packages.buildPythonPackage rec {
     pname = "zenlog";
@@ -48,12 +48,19 @@ in rec {
     ];
   };
   # TODO: I don't like this way of packaging clustergitt, look into alternatives
-  clustergit-script = (pkgs.writeScriptBin "clustergit" (builtins.readFile "${inputs.clustergit}/clustergit")).overrideAttrs(old: {
-    buildCommand = "${old.buildCommand}\n patchShebangs $out";
-  });
+  clustergit-script =
+    (pkgs.writeScriptBin "clustergit" (builtins.readFile "${inputs.clustergit}/clustergit"))
+    .overrideAttrs
+      (old: {
+        buildCommand = "${old.buildCommand}\n patchShebangs $out";
+      });
   clustergit = pkgs.symlinkJoin {
     name = "clustergit";
-    paths = with pkgs; [ clustergit-script git python3 ];
+    paths = with pkgs; [
+      clustergit-script
+      git
+      python3
+    ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = "wrapProgram $out/bin/clustergit --prefix PATH : $out/bin";
   };

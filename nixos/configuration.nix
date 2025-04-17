@@ -6,6 +6,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  pkgs-mine,
   inputs,
   ...
 }:
@@ -216,16 +217,14 @@
 
     # languages
     ## haskell configuration
-    (haskellPackages.ghcWithPackages (
-      self: [
-        self.ghc
-        self.xmobar # this line is needed to rebuild xmobar?
-        # these are so the haskell language server can work on my xmonad config
-        self.xmonad
-        self.xmonad-contrib
-        self.xmonad-extras
-      ]
-    ))
+    (haskellPackages.ghcWithPackages (self: [
+      self.ghc
+      self.xmobar # this line is needed to rebuild xmobar?
+      # these are so the haskell language server can work on my xmonad config
+      self.xmonad
+      self.xmonad-contrib
+      self.xmonad-extras
+    ]))
 
     haskellPackages.haskell-language-server
     haskellPackages.hoogle
@@ -245,11 +244,9 @@
     #ocaml
 
     ## python
-    (python3.withPackages (
-      self: [
-        self.ipython
-      ]
-    ))
+    (python3.withPackages (self: [
+      self.ipython
+    ]))
 
     ## scala
     scala
@@ -342,18 +339,6 @@
     desktopManager.xterm.enable = true;
     videoDrivers = [ "nvidia" ];
     # letting home-manager handle the window manager for now.
-    /* windowManager.xmonad = {
-             enable = true;
-             enableContribAndExtras = true;
-             extraPackages = haskellPackages: [
-               haskellPackages.dbus
-               haskellPackages.List
-               haskellPackages.monad-logger
-               haskellPackages.xmonad
-       	haskellPackages.xmobar
-             ];
-           };
-    */
   };
   # changed default at 24.11
   hardware.nvidia.open = false;

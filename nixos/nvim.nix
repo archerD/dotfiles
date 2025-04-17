@@ -46,16 +46,14 @@ in
           tree-sitter
           nodejs-slim
         ];
-        ghcPkg = pkgs.haskellPackages.ghcWithPackages (
-          self: [
-            self.ghc
-            self.xmobar # this line is needed to rebuild xmobar?
-            # these are so the haskell language server can work on my xmonad config
-            self.xmonad
-            self.xmonad-contrib
-            self.xmonad-extras
-          ]
-        );
+        ghcPkg = pkgs.haskellPackages.ghcWithPackages (self: [
+          self.ghc
+          self.xmobar # this line is needed to rebuild xmobar?
+          # these are so the haskell language server can work on my xmonad config
+          self.xmonad
+          self.xmonad-contrib
+          self.xmonad-extras
+        ]);
         # hlsPkg = pkgs.haskell-language-server.override { supportedGhcVersions = ["884"]; } ;
         hlsPkg = pkgs.haskell-language-server;
         lspPkgs = [

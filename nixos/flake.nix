@@ -48,13 +48,17 @@
           inherit system;
           # config.allowUnfree = true;
         };
+        pkgs-mine = inputs.self.packages.${system};
       };
     in
     {
       # my custom packages not in nixpkgs...
-      packages.${system} = import ./custom-packages.nix {inherit inputs system;};
+      packages.${system} = import ./custom-packages.nix { inherit inputs system; };
       # an (unused, untested) overlay to add the pkgs to the nixpkgs input...
       # overlays.${system}.additions = final: _prev: import ./custom-packages.nix { pkgs = final; inherit inputs; };
+
+      # formatter!
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
@@ -69,19 +73,19 @@
             ./configuration.nix
 
             /*
-            # make home-manager as a module of nixos
-            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.verbose = true;
+              # make home-manager as a module of nixos
+              # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.verbose = true;
 
-              home-manager.extraSpecialArgs = args; # Pass flake inputs to our config
+                home-manager.extraSpecialArgs = args; # Pass flake inputs to our config
 
-              home-manager.users.archerd = import ./home.nix;
-            }
-            #*/
+                home-manager.users.archerd = import ./home.nix;
+              }
+            */
           ];
         };
       };
