@@ -9,6 +9,7 @@ Can use these in nvim, using the tinted-theming/tinted-vim plugin, and preface t
 
 already in my config:
 carbonfox (with minor mods), vscode.nvim, vim-moonfly-colors, midnight.nvim, noctis.nvim, slate-old (ported from vim a bit ago...)
+don't forget industry scheme...
 rodnaph/vim-color-schemes: nightshade, sean, rcg_term, dante, greens, Green, relaxedgreen, fog,
 
 # other notes:

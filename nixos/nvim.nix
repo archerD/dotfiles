@@ -43,6 +43,8 @@ in
           ripgrep
           fd
           gcc
+          tree-sitter
+          nodejs-slim
         ];
         ghcPkg = pkgs.haskellPackages.ghcWithPackages (
           self: [
@@ -64,6 +66,7 @@ in
           # pkgs.clang-tools
           pkgs.gopls
           pkgs.go
+          # pkgs.texlab
         ];
       in
       pluginPkgs ++ lspPkgs;
