@@ -344,13 +344,6 @@
   hardware.nvidia.open = false;
   hardware.graphics.enable32Bit = true; # to use wine on 32bit things
 
-  # enable picom as the compositor
-  services.picom = {
-    enable = true;
-    backend = "glx";
-    fadeExclude = [ "class_g = 'xsecurelock'" ];
-  };
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
