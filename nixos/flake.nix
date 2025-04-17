@@ -70,7 +70,7 @@
           specialArgs = args;
           # > Our main nixos configuration file <
           modules = [
-            ./configuration.nix
+            ./nos-modules/configuration.nix
 
             /*
               # make home-manager as a module of nixos
@@ -83,7 +83,7 @@
 
                 home-manager.extraSpecialArgs = args; # Pass flake inputs to our config
 
-                home-manager.users.archerd = import ./home.nix;
+                home-manager.users.archerd = import ./hm-modules/home.nix;
               }
             */
           ];
@@ -98,13 +98,13 @@
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./home.nix ];
+          modules = [ ./hm-modules/home.nix ];
         };
         "archerd@NixOS-Desktop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./home.nix ];
+          modules = [ ./hm-modules/home.nix ];
         };
       };
       #*/
