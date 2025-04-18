@@ -98,13 +98,19 @@
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./hm-modules/home.nix ];
+          modules = [
+            ./hm-modules/home.nix
+            { archerd.baseSystem = "ubuntu"; }
+          ];
         };
         "archerd@NixOS-Desktop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./hm-modules/home.nix ];
+          modules = [
+            ./hm-modules/home.nix
+            { archerd.baseSystem = "nixos"; }
+          ];
         };
       };
       #*/

@@ -20,6 +20,19 @@
     ./programs.nix
   ];
 
+  options.archerd = with lib; {
+    # TODO: consider making this an enable option or something, like targetUbuntu or something.
+    baseSystem = mkOption {
+      type = types.enum [ "ubuntu" "nixos" ];
+      description = ''
+        What the base system is, used to control things that depend on this, such as:
+          * setting targets.genericLinux.enable
+          * choosing the path for xsecurelock
+      '';
+    };
+  };
+
+  config = {
   nixpkgs = {
     # You can add overlays here
     overlays = [
@@ -41,12 +54,15 @@
     };
   };
 
+  targets.genericLinux = lib.mkIf (config.archerd.baseSystem != "nixos") { enable = true; };
+  archerd.useLocalScreenLocker = config.archerd.baseSystem == "ubuntu";
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "archerd";
   home.homeDirectory = "/home/archerd";
 
-  # TODO: move this to another module?
+  # TODO: move this to another module? maybe make ubuntu only?
   services.ssh-agent = {
     enable = true;
   };
@@ -80,5 +96,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+  };
   };
 }

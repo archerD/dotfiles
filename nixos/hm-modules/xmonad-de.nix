@@ -13,6 +13,20 @@
     maybe others things, but not sure yet...
   */
 
+  options = with lib; {
+    archerd.useLocalScreenLocker = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Whether to use the locally installed screen locker.
+        This is useful for non nixos systems, because some PAM stuff doesn't play nice,
+        which understanding exactly why is above my paygrade.
+        Assumes using xsecurelock, installed at /usr/local/bin/xsecurelock.
+      '';
+    };
+  };
+
+  config = {
   ### overlay! (to set xmonad to highest version, because I can...)
   nixpkgs.overlays = [
     # bump xmonad version to latest! is this necessary? no. but I can.
@@ -169,7 +183,6 @@
       ];
     };
 
-    # TODO: have this select the correct xsecure configuration based on a config switch somewhere...
     # Two options for this module on non nixos: use the htpasswd authproto or don't use nix version of xsecurelock.
     # Reason: PAM stuff... hard to exactly say why for me, but nix can't properly setup PAM,
     # because security stuff..., and also the nix version of PAM can't handle imports that
@@ -177,16 +190,30 @@
     # does not have the modules that the services seem to want.
     lockCmd =
       let # the base version, to be used on nixos only
-        # the addition of the PATH variable is so playerctl and amixer can be found.
+        # the addition of the PATH variable is so the screensaver can be loaded...
+        # TODO: figure out how to remove or narrow the scope of this path addition
         xsecurelock-base = "PATH=\"/run/current-system/sw/bin\" ${pkgs.xsecurelock}/bin/xsecurelock";
         # to use the htpasswd, need to generate a file, `( umask 077; htpasswd -cB ~/.xsecurelock.pw "$USER" )`, see https://github.com/google/xsecurelock#authentication-protocol-modules
         xsecurelock-htpasswd = "XSECURELOCK_AUTHPROTO=authproto_htpasswd " + xsecurelock-base;
         # need to install xsecurelock outside of nixos if using this.
         xsecurelock-local = "/usr/local/bin/xsecurelock";
+        xsecurelock = if config.archerd.useLocalScreenLocker then xsecurelock-local else xsecurelock-base;
+        pctl = "${pkgs.playerctl}/bin/playerctl";
+        amixer = "${pkgs.alsa-utils}/bin/amixer";
       in
-      ''/usr/bin/env XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 XSECURELOCK_KEY_XF86AudioPlay_COMMAND="playerctl -p playerctld play-pause" XSECURELOCK_KEY_XF86AudioPrev_COMMAND="playerctl -p playerctld previous" XSECURELOCK_KEY_XF86AudioNext_COMMAND="playerctl -p playerctld next" XSECURELOCK_KEY_XF86AudioStop_COMMAND="playerctl -p playerctld stop" XSECURELOCK_KEY_XF86AudioMute_COMMAND="amixer set Master toggle" XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="amixer set Master 2%-" XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="amixer set Master 2%+" XSECURELOCK_PASSWORD_PROMPT="time" XSECURELOCK_SHOW_DATETIME=1 XSECURELOCK_DATETIME_FORMAT="(%%a) %%F T %%R:%%S%%z (%%Z)" ''
-      + xsecurelock-base;
+      ''/usr/bin/env XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 \
+        XSECURELOCK_KEY_XF86AudioPlay_COMMAND="${pctl} -p playerctld play-pause" \
+        XSECURELOCK_KEY_XF86AudioPrev_COMMAND="${pctl} -p playerctld previous" \
+        XSECURELOCK_KEY_XF86AudioNext_COMMAND="${pctl} -p playerctld next" \
+        XSECURELOCK_KEY_XF86AudioStop_COMMAND="${pctl} -p playerctld stop" \
+        XSECURELOCK_KEY_XF86AudioMute_COMMAND="${amixer} set Master toggle" \
+        XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="${amixer} set Master 2%-" \
+        XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="${amixer} set Master 2%+" \
+        XSECURELOCK_PASSWORD_PROMPT="time" XSECURELOCK_SHOW_DATETIME=1 \
+        XSECURELOCK_DATETIME_FORMAT="(%%a) %%F T %%R:%%S%%z (%%Z)" ''
+      + xsecurelock;
   };
+  warnings = if config.archerd.useLocalScreenLocker then [ "Make sure to install xsecurelock locally!" ] else [];
 
   ### dunst (notification daemon)
   services.dunst = {
@@ -531,4 +558,5 @@
     };
   };
   # alternative is deadd-notification-center
+  };
 }
