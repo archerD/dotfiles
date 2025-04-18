@@ -55,6 +55,9 @@
   programs.bash = {
     enable = true;
     shellAliases = {
+      # alias to run hm installed tools as sudo
+      sudo-hm = "sudo --preserve-env=PATH env";
+
       # tool aliases
       ls = "ls --color=auto -F";
       # dir="dir --color=auto";
@@ -71,16 +74,15 @@
 
       # Add an "alert" alias for long running commands.  Use like so:
       #   sleep 10; alert
-      alert = "notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e '\\''s/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//'\\'')\"";
+      alert = "${pkgs.libnotify}/bin/notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e 's/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//')\"";
 
       # prevent accidentally clobering files
       mv = "mv -i";
       cp = "cp -i";
 
       # kitty related aliases
-      kitty-update = "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin";
-      kitty-ssh = "kitty +kitten ssh";
-      icat = "kitty +kitten icat";
+      kitty-ssh = "${pkgs.kitty}/bin/kitten ssh";
+      icat = "${pkgs.kitty}/bin/kitten icat";
 
       # alias for cmus so it is detachable
       # tmux version
