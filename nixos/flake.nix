@@ -109,7 +109,10 @@
           # > Our main home-manager configuration file <
           modules = [
             ./hm-modules/home.nix
-            { archerd.baseSystem = "nixos"; }
+            {
+              archerd.baseSystem = "nixos";
+              archerd.highResolutionScreen = true;
+            }
           ];
         };
       };

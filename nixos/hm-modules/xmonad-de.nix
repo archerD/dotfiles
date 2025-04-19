@@ -14,6 +14,7 @@
   */
 
   options = with lib; {
+    # TODO: consider making this a nullOr path type, which specifies the path to the screen locker.
     archerd.useLocalScreenLocker = mkOption {
       type = types.bool;
       default = false;
@@ -24,6 +25,7 @@
         Assumes using xsecurelock, installed at /usr/local/bin/xsecurelock.
       '';
     };
+    archerd.highResolutionScreen = mkEnableOption "settings for high resolutions screens (larger fonts, etc.)";
   };
 
   config = {
@@ -91,27 +93,31 @@
     ### The tray stuff!
     services.trayer = {
       enable = true;
-      settings = {
-        # trayer --edge top --align right --widthtype request --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x294029 --expand true --padding 3 --monitor primary --iconspacing 2 --heighttype pixel --height 38 &
-        edge = "top";
-        align = "right";
-        widthtype = "request";
-        SetDockType = true;
-        SetPartialStrut = true;
-        transparent = true;
-        alpha = 0;
-        tint = "0x294029";
-        # alpha = 63;
-        # tint = "0x145A32";
-        expand = true;
-        padding = 3;
-        monitor = "primary";
-        iconspacing = 2;
-        # changes
-        heighttype = "pixel";
-        height = 38;
-        # heighttype = "request";
-      };
+      settings = lib.mkMerge [
+        {
+          edge = "top";
+          align = "right";
+          widthtype = "request";
+          SetDockType = true;
+          SetPartialStrut = true;
+          transparent = true;
+          alpha = 0;
+          tint = "0x294029";
+          # alpha = 63;
+          # tint = "0x145A32";
+          expand = true;
+          padding = 3;
+          monitor = "primary";
+          iconspacing = 2;
+        }
+        (lib.mkIf config.archerd.highResolutionScreen {
+          heighttype = "pixel";
+          height = 38;
+        })
+        (lib.mkIf (!config.archerd.highResolutionScreen) {
+          heighttype = "request";
+        })
+      ];
     };
 
     services.redshift = {
