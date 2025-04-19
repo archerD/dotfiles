@@ -12,7 +12,8 @@ let
     inherit system;
     # config.allowUnfree = true;
   };
-in rec {
+in
+rec {
   zenlog = pkgs.python3Packages.buildPythonPackage rec {
     pname = "zenlog";
     version = "1.1";

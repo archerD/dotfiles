@@ -6,13 +6,14 @@
   pkgs-unstable,
   pkgs-mine,
   ...
-}: rec {
+}:
+rec {
   /*
-   * Scope: the things related to my terminal/shell configuration
-   * NOT tui programs and the like.
-   * so... kitty, bash, starship, other things that would go in my bash config files...
-   * some other path and variable things...
-   */
+    Scope: the things related to my terminal/shell configuration
+    NOT tui programs and the like.
+    so... kitty, bash, starship, other things that would go in my bash config files...
+    some other path and variable things...
+  */
 
   home.packages = [
     pkgs.kitty
@@ -21,7 +22,6 @@
     # TODO: configure this.
     enable = false;
   };
-
 
   # from the nix-index-database flake module.
   # provides nix-locate, comma, and hooks into the shell command not found hook
