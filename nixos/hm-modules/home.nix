@@ -86,6 +86,13 @@
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
+    # TODO: consider moving to using home.file/xdg.configFile over dotbot eventually.
+    # TODO: package the install script somehow...
+    home.activation = {
+      # runDotBot = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      #     run ${builtins.toPath ../../install} --quiet $VERBOSE_ARG
+      #   '';
+    };
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
     home.file = {

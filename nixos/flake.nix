@@ -77,13 +77,18 @@
               # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
               home-manager.nixosModules.home-manager
               {
-                home-manager.useGlobalPkgs = true;
+                # home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.verbose = true;
 
                 home-manager.extraSpecialArgs = args; # Pass flake inputs to our config
 
                 home-manager.users.archerd = import ./hm-modules/home.nix;
+              }
+              {
+                # also configure the home manager module!
+                home-manager.users.archerd.archerd.baseSystem = "nixos";
+                home-manager.users.archerd.archerd.highResolutionScreen = true;
               }
             */
           ];
