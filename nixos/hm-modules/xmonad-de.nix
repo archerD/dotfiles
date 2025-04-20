@@ -89,6 +89,24 @@
       # for xmobar volume?
       pkgs.alsa-utils
     ];
+    # a library file for xmobar!
+    xdg.configFile."xmobar/lib/HomeManagerProvided.hs" =
+      let
+        highResSwitch = high: low: toString (if config.archerd.highResolutionScreen then high else low);
+      in
+      {
+        text = ''
+          module HomeManagerProvided where
+          fontSize = "${highResSwitch 18 11}"
+          additionalFontSizes = ["${highResSwitch 16 12}"]
+          topSizeHeight :: Int
+          topSizeHeight = ${highResSwitch 38 26}
+        '';
+        # the issue is that the date given is basically epoch, for build determinisim...
+        # we can't set the date for the home manager file, but we can create a new file with touch,
+        # so that the date is current date, which is enough to tell xmobar to recompile itself
+        onChange = "touch ${config.xdg.configHome}/xmobar/lib/recompileFlag.hs";
+      };
 
     ### The tray stuff!
     services.trayer = {

@@ -1,10 +1,10 @@
 import Xmobar
+import HomeManagerProvided as HMP
 
 leftTemplate :: String
 -- leftTemplate = "<action=`gnome-pie -o 232` button=3>%XMonadLog%</action>"
 leftTemplate = "<action=`rofi -show drun` button=3>%UnsafeXMonadLog%</action>"
 centerTemplate :: String
--- centerTemplate = "   <action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
 centerTemplate = "<action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
 rightTemplate :: String
 rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
@@ -21,14 +21,14 @@ rightTemplate = "<action=`playerctl -p playerctld play-pause` button=1>\
 
 config :: Config
 config = defaultConfig
-       { font = "JetBrains Mono Nerd Font Medium 18"
-       , additionalFonts = ["Monospace Regular 16"]
+       { font = "JetBrains Mono Nerd Font Medium " ++ HMP.fontSize
+       , additionalFonts = zipWith (++) ["Monospace Regular "] HMP.additionalFontSizes
        , bgColor = "black"
        , fgColor = "grey"
-       , position = TopSize L 100 38
+       , position = TopSize L 100 HMP.topSizeHeight
        , commands = [ Run $ Cpu ["-L","25","-H","75","--normal","green","--high","red", "--ppad","2", "-t","C:<total>%"] 10
                     , Run $ Memory ["-t","M:<usedratio>%"] 10
-                    , Run $ Date "(%a) %F T %R:%S%z (%Z)" "date" 10
+                    , Run $ Date "   (%a) %F T %T%z (%Z)" "date" 10
                     -- , Run   XMonadLog
                     , Run   UnsafeXMonadLog
                     , Run   Locks
