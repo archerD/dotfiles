@@ -70,11 +70,16 @@
         # dotbot allows for self recompiling, hm means recompiling must be done via a hm switch
         # config = ../xmonad.hs;
         config = null;
-        libFiles = {
+        libFiles = let 
+          kittyPath = if config.archerd.baseSystem == "nixos"
+            then "${pkgs.kitty}/bin/kitty"
+          else "~/bin/kitty";
+        in 
+          {
           "HomeManagerProvided.hs" = pkgs.writeText "HomeManagerProvided.hs" ''
             module HomeManagerProvided where
             screenshot = ""
-            kitty = "${pkgs.kitty}/bin/kitty "
+            kitty = "${kittyPath} "
             focusedBorder = "#772388"
             normalBorder = "#348823"
           '';

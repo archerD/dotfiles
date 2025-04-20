@@ -15,7 +15,8 @@ rec {
     some other path and variable things...
   */
 
-  home.packages = [
+  # kitty needs glx bindings, because its gpu accelerated...
+  home.packages = lib.optionals (config.archerd.baseSystem == "nixos") [
     pkgs.kitty
   ];
   programs.kitty = {
@@ -83,6 +84,7 @@ rec {
       # kitty related aliases
       kitty-ssh = "${pkgs.kitty}/bin/kitten ssh";
       icat = "${pkgs.kitty}/bin/kitten icat";
+      kitty-update = "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin";
 
       # alias for cmus so it is detachable
       # tmux version

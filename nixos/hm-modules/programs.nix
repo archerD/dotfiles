@@ -50,6 +50,18 @@
     (writeShellScriptBin "overlay" ''
       ${pkgs.kitty}/bin/kitty  -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
     '')
+  ] ++ lib.optionals (config.archerd.baseSystem == "ubuntu") [
+    nautilus
+
+    # TODO: see if this can be removed? or move to xmonad-de.nix
+    (haskellPackages.ghcWithPackages (self : [
+      self.ghc
+      self.xmobar # this line is needed to rebuild xmobar?
+      self.xmonad
+      self.xmonad-contrib
+      self.xmonad-extras
+    ]))
+    xmobar.bin
   ];
 
   ### programs with customization
@@ -60,5 +72,10 @@
 
   programs.fastfetch = {
     enable = true;
+  };
+
+  programs.nh = {
+    enable = config.archerd.baseSystem != "nixos";
+    flake = "/home/archerd/repos/dotfiles/nixos";
   };
 }
