@@ -16,13 +16,76 @@ rec {
   */
 
   # kitty needs glx bindings, because its gpu accelerated...
-  home.packages = lib.optionals (config.archerd.baseSystem == "nixos") [
+  /* home.packages = lib.optionals (config.archerd.baseSystem == "nixos") [
     pkgs.kitty
-  ];
+  ]; */
   programs.kitty = {
-    # TODO: configure this.
-    enable = false;
+    enable = true;
+    # HACK: Can't really use the nix pkg on ubuntu, because it uses the gpu...
+    # TODO: look into wrapping kitty with nixgl instead of passing the empty file...
+    package =
+      if config.archerd.baseSystem == "nixos"
+        then pkgs.kitty
+      else pkgs.emptyDirectory;
+    # configured by stylix, will be overridden
+    font = lib.mkDefault { size = 12; name = "JetBrains Mono Nerd Font"; };
+    settings = {
+      enable_audio_bell = false;
+      visual_bell_duration = 1.0;
+      # command_on_bell = ...; # not sure what it would be...
+      # consider specifying what layouts to enable, maybe fat, grid, splits (not using horizontal, stack, tall, vertical)
+      # enabled_layouts = "*";
+
+      # tab bar
+      tab_bar_edge = "top";
+      tab_bar_style = "powerline";
+      # tab_powerline_style = "round";
+      tab_powerline_style = "slanted";
+      tab_bar_min_tabs = 1;
+
+      # Theming stuff, will be overridden by stylix, if enabled
+      # background_image = "/home/archerd/.dotfiles/images/nixos-dark-tiling.png";
+      color0 = "#000000";
+      color8 = "#7f7f7f";
+      #: black
+      color1 = "#cd0000";
+      color9 = "#ff0000";
+      #: red
+      color2 = "#00cd00";
+      color10 = "#00ff00";
+      #: green
+      color3 = "#cdcd00";
+      color11 = "#ffff00";
+      #: yellow
+      color4 = "#0000ee";
+      color12 = "#5c5cff";
+      #: blue
+      color5 = "#cd00cd";
+      color13 = "#ff00ff";
+      #: magenta
+      color6 = "#00cdcd";
+      color14 = "#00ffff";
+      #: cyan
+      color7 = "#e5e5e5";
+      color15 = "#ffffff";
+      #: white
+    };
+    keybindings = {
+      # use the same cwd when opening new window/tab
+      "kitty_mod+enter" = "launch --cwd=current";
+      "kitty_mod+t" = "new_tab_with_cwd";
+      # unmap some keybindings
+      "kitty_mod+w" = "no_op";
+      "kitty_mod+6" = "no_op";
+    };
   };
+  # stylix.targets.kitty.enable = false;
+  # stylix.targets.kitty.variant256Colors = true; # the template for 256 is borked.
+  warnings =
+    if config.archerd.baseSystem != "nixos" then
+      [ "Make sure to install kitty locally!" ]
+    else
+      [ ];
 
   # from the nix-index-database flake module.
   # provides nix-locate, comma, and hooks into the shell command not found hook

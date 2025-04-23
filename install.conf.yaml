@@ -20,7 +20,7 @@
     ~/.config/cmus/archerd.theme: cmus_archerd.theme
     ~/.config/autorandr/postswitch: autorandr_postswitch
     ~/.config/gnome-pie: gnome-pie
-    ~/.config/kitty/kitty.conf: kitty.conf
+    # ~/.config/kitty/kitty.conf: kitty.conf
     ~/.config/ranger/rc.conf: ranger.conf
     # ~/.config/starship.toml: starship.toml
     ~/.config/lsd/config.yaml: lsd.yaml
