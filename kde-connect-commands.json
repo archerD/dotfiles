@@ -1,0 +1,22 @@
+[
+    {
+        "command": "/run/current-system/sw/bin/loginctl lock-session",
+        "name": "Lock Screen"
+    },
+    {
+        "command": "/run/current-system/sw/bin/playerctl -p playerctld play-pause",
+        "name": "Play/Pause media"
+    },
+    {
+        "command": "/run/current-system/sw/bin/loginctl unlock-session",
+        "name": "Unlock Screen"
+    },
+    {
+        "command": "/run/current-system/sw/bin/systemctl suspend",
+        "name": "Z_Suspend"
+    },
+    {
+        "command": "",
+        "name": ""
+    }
+]
