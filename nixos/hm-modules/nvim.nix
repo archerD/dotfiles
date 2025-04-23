@@ -30,6 +30,9 @@ in
 # e.g. (fromFlakeInput "dirbuf" inputs.dirbuf), with the following in the inputs to the flake:
 # dirbuf = { flake = false; url = github:elihunter173/dirbuf.nvim; }
 {
+  # don't use stylix theming!
+  stylix.targets.neovim.enable = false;
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;

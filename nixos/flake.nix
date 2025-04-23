@@ -10,13 +10,17 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # flake checker
-    flake-checker.url = "github:DeterminateSystems/flake-checker";
-    flake-checker.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.url = "github:danth/stylix/release-24.11";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.home-manager.follows = "home-manager";
 
     # nix index, for comma.
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    # flake checker
+    flake-checker.url = "github:DeterminateSystems/flake-checker";
+    flake-checker.inputs.nixpkgs.follows = "nixpkgs";
 
     # clustergit
     clustergit.url = "github:mnagel/clustergit";
@@ -35,6 +39,7 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
+      stylix,
       nix-index-database,
       ...
     }@inputs:
@@ -71,6 +76,8 @@
           # > Our main nixos configuration file <
           modules = [
             ./nos-modules/configuration.nix
+            stylix.nixosModules.stylix
+            ./stylix-theme.nix
 
             /*
               # make home-manager as a module of nixos
@@ -105,6 +112,8 @@
           # > Our main home-manager configuration file <
           modules = [
             ./hm-modules/home.nix
+            stylix.homeManagerModules.stylix
+            ./stylix-theme.nix
             { archerd.baseSystem = "ubuntu"; }
           ];
         };
@@ -114,6 +123,8 @@
           # > Our main home-manager configuration file <
           modules = [
             ./hm-modules/home.nix
+            stylix.homeManagerModules.stylix
+            ./stylix-theme.nix
             {
               archerd.baseSystem = "nixos";
               archerd.highResolutionScreen = true;

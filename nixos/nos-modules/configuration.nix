@@ -293,6 +293,9 @@
   programs.nh.enable = true;
   programs.nh.flake = "/home/archerd/repos/dotfiles/nixos";
 
+  # may be needed for stylix... also might just be good to have around...
+  programs.dconf.enable = true;
+
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "archerd" ];
 
