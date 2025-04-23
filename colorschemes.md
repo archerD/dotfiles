@@ -1,6 +1,6 @@
 # general colorschemes
 some base16 colorschemes:
-atelier-seaside, cupertino, macintosh, google-dark, measured-light, oxocarbon-dark, papercolor-light, pico, pop, primer-dark, selenized-white, spacemacs, standarized-light, still-alive, tube, windows-10, windows-nt
+atelier-seaside, cupertino, everforest-dark-hard, macintosh, google-dark, measured-light, oxocarbon-dark, papercolor-dark, papercolor-light, pico, pop, primer-dark, selenized-white, spacemacs, standarized-light, still-alive, tube, tokyodark, windows-10, windows-nt
 base24 theme flat is interesting..., but uses blue background...
 
 Can use these in nvim, using the tinted-theming/tinted-vim plugin, and preface the theme with "base16-"
