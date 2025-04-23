@@ -101,10 +101,28 @@ return {
     -- need to explore and configure
     { 'gbprod/substitute.nvim', enabled=false },
 
+    -- better highlighting and stuff on TODO comments and similar (FIX, HACK, WARN, PERF, NOTE, TEST)
     { "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {}, enabled=false }, -- better highlighting and stuff on TODO comments and other similar comments
-                                    -- needs further investigation...
+        opts = {
+            signs = true,
+            highlight = {
+                pattern = {[[.*<(KEYWORDS):]], [[.*<(KEYWORDS)\(.+\):]]},
+                keyword = "bg",
+            },
+            search = { pattern = [[\b(KEYWORDS)(\(.+\))?:]] },
+        },
+        init = function ()
+            -- from todo-comments.nvim readme file.
+            vim.keymap.set("n", "]t", function()
+                require("todo-comments").jump_next()
+            end, { desc = "Next todo comment" })
+
+            vim.keymap.set("n", "[t", function()
+                require("todo-comments").jump_prev()
+            end, { desc = "Previous todo comment" })
+        end,
+        enabled=true },
 
     { "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },

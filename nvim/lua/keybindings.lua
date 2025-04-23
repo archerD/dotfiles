@@ -8,6 +8,9 @@ end
 local function nmap(k, v, d)
     map('n', k, v, d)
 end
+local function imap(k, v, d)
+    map('i', k, v, d)
+end
 
 -- set leader keys
 vim.g.mapleader = ' '
@@ -20,6 +23,7 @@ nmap(',', ';')
 -- Map <C-L> (redraw screen) to also turn off search highlighting until the
 -- next search, fix syntax highlighting, and update diffs
 nmap('<C-L>', ':nohl<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-L>')
+imap('<C-L>', '<c-g>u<Esc>[s1z=gi<c-g>u', "fix last spelling mistake")
 
 -- Changes K from open help to split line at cursor (mirrors J[oin])
 nmap('K', 'i<Cr><Esc>')
@@ -27,6 +31,16 @@ nmap('K', 'i<Cr><Esc>')
 vim.o.keywordprg = ':help'
 nmap('<leader>k', 'K', 'Open help menu')
 nmap('<leader>K', 'K', 'Open help menu')
+
+-- Automatically add semicolon or comma at the end of the line in INSERT and NORMAL modes
+imap(";;", "<ESC>A;")
+imap(",,", "<ESC>A,")
+nmap(";;", "A;<ESC>")
+nmap(",,", "A,<ESC>")
+-- yank count lines, comment them out, then paste them again below.
+vim.keymap.set("n", "ycc", function()
+    return 'yy' .. vim.v.count1 .. "gcc']p"
+end, { remap = true, expr = true, desc = "Duplicate and comment count lines" })
 
 -- gq and gw originally mapped to a reformatting keybind.
 -- gW wasn't mapped, and gQ was a special way to enter Ex mode.
