@@ -26,6 +26,10 @@
     clustergit.url = "github:mnagel/clustergit";
     clustergit.flake = false;
 
+    # nixGL, for non-nixos systems to use openGL
+    nixGL.url = "github:nix-community/nixGL";
+    nixGL.inputs.nixpkgs.follows = "nixpkgs";
+
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";
 

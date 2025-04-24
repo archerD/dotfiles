@@ -15,10 +15,16 @@ rec {
     some other path and variable things...
   */
 
+  # TODO: consider moving this into it's own module, which can be extended to include any number of packages...
+  nixGL = lib.mkIf (config.archerd.baseSystem == "ubuntu") {
+    packages = inputs.nixGL.packages;
+  };
+  nixpkgs.overlays = lib.optionals (config.archerd.baseSystem == "ubuntu")
+    [(self: super: {
+      kitty = config.lib.nixGL.wrap super.kitty;
+    })
+  ];
   # kitty needs glx bindings, because its gpu accelerated...
-  /* home.packages = lib.optionals (config.archerd.baseSystem == "nixos") [
-    pkgs.kitty
-  ]; */
   programs.kitty = {
     enable = true;
     # HACK: Can't really use the nix pkg on ubuntu, because it uses the gpu...
