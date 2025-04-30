@@ -10,6 +10,7 @@
     scope of this file:
     all things one could call the desktop environment...
     so: xmonad, xmobar, trayer (and contents), screen locker, rofi, compositor, ...
+    Adding in, but may move xresources
     maybe others things, but not sure yet...
   */
 
@@ -44,6 +45,25 @@
           );
         });
       })
+    ];
+
+    ### xresources (some monitor stuff)
+    #TODO: consider if this is the best place for this.
+    xresources.properties = lib.mkMerge [
+      (lib.mkIf config.archerd.highResolutionScreen {
+        "Xft.dpi" = 161; # manually calculated for my high res screen
+        # TODO: consider using xrandr to only scale the one monitor needed.
+        # probably by adding to an autorandr hook (something like `xrandr --output DP-2 --scale 1.5x1.5`)
+      })
+      {
+        # These might also be useful depending on your monitor and personal preference:
+        "Xft.autohint" = 0;
+        "Xft.lcdfilter" = "lcddefault";
+        "Xft.hintstyle" = "hintfull";
+        "Xft.hinting" = 1;
+        "Xft.antialias" = 1;
+        "Xft.rgba" = "rgb";
+      }
     ];
 
     ### XMonad & XMobar!
