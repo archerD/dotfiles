@@ -17,25 +17,12 @@
     ./hardware-configuration.nix
     ./windows-drives.nix
 
+    ./boot-loader.nix
+
     # services files
     ./open-home.nix
     ./tailscale.nix
   ];
-
-  # Bootloader.
-  boot.loader = {
-    #systemd-boot.enable = true;
-    #systemd-boot.extraEntries = { };
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
-    grub = {
-      devices = [ "nodev" ];
-      efiSupport = true;
-      enable = true;
-      useOSProber = true; # allows automatic detection of other OS's for booting
-    };
-    timeout = 10;
-  };
 
   # to have the system clock consistent between windows and nixos
   #time.hardwareClockInLocalTime = true;

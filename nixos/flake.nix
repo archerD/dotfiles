@@ -26,6 +26,10 @@
     clustergit.url = "github:mnagel/clustergit";
     clustergit.flake = false;
 
+    # lanzaboote, for secure boot
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";
 
@@ -41,6 +45,7 @@
       home-manager,
       stylix,
       nix-index-database,
+      lanzaboote,
       ...
     }@inputs:
     let
@@ -77,6 +82,7 @@
           modules = [
             ./nos-modules/configuration.nix
             stylix.nixosModules.stylix
+            lanzaboote.nixosModules.lanzaboote
             ./stylix-theme.nix
 
             /*
