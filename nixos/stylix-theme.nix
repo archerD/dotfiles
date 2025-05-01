@@ -22,6 +22,7 @@
   };
   # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/google-dark.yaml";
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/macintosh.yaml";
+  # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
   # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/windows-10.yaml";
   # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/primer-dark.yaml";
 }
