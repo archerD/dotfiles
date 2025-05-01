@@ -10,31 +10,31 @@
 - clean: ['~/.config', '~/.xmonad']
 
 - link:
-    ~/.tmux.conf: tmux.conf
-    # ~/.bashrc: bashrc
-    # ~/.bash_profile: bash_profile
-    #~/.bash_aliases: shell_aliases
+    ~/.tmux.conf: config-files/tmux.conf
+    # ~/.bashrc: config-files/bashrc
+    # ~/.bash_profile: config-files/bash_profile
+    #~/.bash_aliases: config-files/shell_aliases
     ~/.vim: vim
     # ~/.config/nvim/init.vim: nvim/vim/neovim_source_vim_config.vim
     ~/.config/nvim: nvim
-    ~/.config/cmus/archerd.theme: cmus_archerd.theme
-    ~/.config/autorandr/postswitch: autorandr_postswitch
-    ~/.config/gnome-pie: gnome-pie
-    # ~/.config/kitty/kitty.conf: kitty.conf
-    ~/.config/ranger/rc.conf: ranger.conf
-    # ~/.config/starship.toml: starship.toml
-    ~/.config/lsd/config.yaml: lsd.yaml
-    ~/.ssh/config: ssh_config
-    ~/.gitconfig: git_config
-    ~/.gitignore_global: global_git_ignore
-    ~/bin/light-control: philips-hue-control-lights.py
+    ~/.config/cmus/archerd.theme: config-files/cmus_archerd.theme
+    ~/.config/autorandr/postswitch: scripts/autorandr_postswitch
+    ~/.config/gnome-pie: config-files/gnome-pie
+    # ~/.config/kitty/kitty.conf: config-files/kitty.conf
+    ~/.config/ranger/rc.conf: config-files/ranger.conf
+    # ~/.config/starship.toml: config-files/starship.toml
+    ~/.config/lsd/config.yaml: config-files/lsd.yaml
+    ~/.ssh/config: config-files/ssh_config
+    ~/.gitconfig: config-files/git_config
+    ~/.gitignore_global: config-files/global_git_ignore
+    ~/bin/light-control: scripts/philips-hue-control-lights.py
 
     # self link
     ~/.dotfiles: .
 
 # can only be installed when the script is run with sudo
 - link:
-    /etc/logid.cfg: mxmaster3mouse.cfg
+    /etc/logid.cfg: config-files/mxmaster3mouse.cfg
     /etc/nixos: nixos
 - link:
     ~/.config/home-manager: nixos
@@ -50,4 +50,4 @@
     # ~/.config/xmonad/xmonad.hs: xmonad.hs
     ~/.xmonad/xmonad.hs: xmonad.hs
     ~/.config/xmobar/xmobar.hs: xmobar.hs
-    ~/.xscreensaver: xscreensaver
+    ~/.xscreensaver: config-files/xscreensaver

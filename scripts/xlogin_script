@@ -7,6 +7,6 @@ if [ "$(whoami)" == "archerd" ]; then
     #xscreensaver -no-splash &
     xsetroot -cursor_name left_ptr
 
-    /home/archerd/.dotfiles/tray.sh
+    /home/archerd/.dotfiles/scripts/tray.sh
 fi
 

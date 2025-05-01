@@ -32,7 +32,7 @@ config = defaultConfig
                     -- , Run   XMonadLog
                     , Run   UnsafeXMonadLog
                     , Run   Locks
-                    , Run $ Com "/home/archerd/.dotfiles/padding-icon.sh" ["panel"] "trayerpad" 10
+                    , Run $ Com "/home/archerd/.dotfiles/scripts/padding-icon.sh" ["panel"] "trayerpad" 10
                     , Run $ Alsa "default" "Master" ["-t", "V:<volume>%"]
                     , Run $ Mpris2 "playerctld" ["-T", "38", "-E", "…", "-M", "25", "-e", ">", "-t", "<artist>/<title>"] 10
                     -- , Run $ MarqueePipeReader "/tmp/.volume-pipe" (32, 5, "|") "playerinfo"

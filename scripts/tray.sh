@@ -10,7 +10,7 @@ if [ "$(whoami)" == "archerd" ]; then
     if type yubioath-desktop; then
         yubioath-desktop &
     else
-        $HOME/.dotfiles/yubico-icon-generator.sh &
+        $HOME/.dotfiles/scripts/yubico-icon-generator.sh &
     fi
 fi
 

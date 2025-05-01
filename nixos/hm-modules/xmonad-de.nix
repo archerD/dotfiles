@@ -72,7 +72,7 @@
       numlock.enable = true;
       # could also use multiline string ('' '') to put contents of the script here.
       # TODO: investigate why some programs aren't launching (notably, trayer).
-      initExtra = builtins.readFile ../../xlogin_script;
+      initExtra = builtins.readFile ../../scripts/xlogin_script;
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
@@ -88,7 +88,7 @@
         # either allow home-manager to manage xmonad directly (config is path),
         # or leave the file under dotbot control (config is null)
         # dotbot allows for self recompiling, hm means recompiling must be done via a hm switch
-        # config = ../xmonad.hs;
+        # config = ../../xmonad.hs;
         config = null;
         libFiles = let 
           kittyPath = if config.archerd.baseSystem == "nixos"
@@ -108,7 +108,7 @@
     };
     programs.xmobar = {
       enable = false;
-      extraConfig = builtins.readFile ../xmobar.hs;
+      extraConfig = builtins.readFile ../../xmobar.hs;
     };
     home.packages = [
       # for xmobar volume?
@@ -599,13 +599,13 @@
           # Icon for notifications with critical urgency, uncomment to enable
           #icon = /path/to/icon
           # Play an alert sound ~(nonfunctional)~
-          script = "/home/archerd/.dotfiles/play-alert.sh";
+          script = "/home/archerd/.dotfiles/scripts/play-alert.sh";
         };
 
         play-sound = {
           msg_urgency = "critical";
           # TODO: update play-alert script
-          script = "/home/archerd/.dotfiles/play-alert.sh";
+          script = "/home/archerd/.dotfiles/scripts/play-alert.sh";
         };
 
         xmonad = {
