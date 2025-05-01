@@ -90,7 +90,7 @@
     # TODO: package the install script somehow...
     home.activation = {
       # runDotBot = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      #     run ${builtins.toPath ../../install} --quiet $VERBOSE_ARG
+      #     run ${builtins.toPath ../install} --quiet $VERBOSE_ARG
       #   '';
     };
     # Home Manager is pretty good at managing dotfiles. The primary way to manage

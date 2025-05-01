@@ -6,9 +6,9 @@
 }:
 {
   stylix.enable = true;
-  # stylix.image = ../images/wallpapers/nix-wallpaper-stripes-logo.png;
-  # stylix.image = ../images/wallpapers/nix-wallpaper-hexagonal.png;
-  stylix.image = ../images/wallpapers/nix-wallpaper-gear.png;
+  # stylix.image = images/wallpapers/nix-wallpaper-stripes-logo.png;
+  # stylix.image = images/wallpapers/nix-wallpaper-hexagonal.png;
+  stylix.image = images/wallpapers/nix-wallpaper-gear.png;
   stylix.polarity = "dark";
   stylix.fonts.monospace = {
     package = pkgs.nerdfonts.override { fonts = [ "3270" "JetBrainsMono"]; };

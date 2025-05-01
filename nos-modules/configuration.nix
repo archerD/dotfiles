@@ -278,7 +278,7 @@
   programs.java.enable = true;
   programs.mosh.enable = true;
   programs.nh.enable = true;
-  programs.nh.flake = "/home/archerd/repos/dotfiles/nixos";
+  programs.nh.flake = "/home/archerd/repos/dotfiles";
 
   # may be needed for stylix... also might just be good to have around...
   programs.dconf.enable = true;

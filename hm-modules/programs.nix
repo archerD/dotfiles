@@ -76,6 +76,6 @@
 
   programs.nh = {
     enable = config.archerd.baseSystem != "nixos";
-    flake = "/home/archerd/repos/dotfiles/nixos";
+    flake = "/home/archerd/repos/dotfiles";
   };
 }
