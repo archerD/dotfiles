@@ -163,6 +163,12 @@
       ];
     };
 
+    ## the tray applets: redshift, kdeconnect, nm-applet, blueman-applet, pasystray
+    ## others started by the tray.sh script: xfce-power-manager, system-config-printer-applet, and a yubikey applet
+    services.pasystray.enable = true;
+    services.blueman-applet.enable = true;
+    services.network-manager-applet.enable = true;
+
     services.redshift = {
       enable = true;
       tray = true;
