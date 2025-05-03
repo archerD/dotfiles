@@ -10,6 +10,15 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # System manager
+    system-manager.url = "github:numtide/system-manager";
+    system-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # nix system graphics, to provide openGL compatibility on non-nixos systems
+    nix-system-graphics.url = "github:soupglasses/nix-system-graphics";
+    nix-system-graphics.inputs.nixpkgs.follows = "nixpkgs";
+
+    # stylix, for theming
     stylix.url = "github:danth/stylix/release-24.11";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
@@ -43,6 +52,8 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
+      system-manager,
+      nix-system-graphics,
       stylix,
       nix-index-database,
       lanzaboote,
@@ -106,6 +117,24 @@
             */
           ];
         };
+      };
+
+      systemConfigs."Ubuntu-X1-Yoga-4" = system-manager.lib.makeSystemConfig {
+        modules = [
+          nix-system-graphics.systemModules.default
+          {
+            config = {
+              nixpkgs.hostPlatform = system;
+              # system-manager.allowAnyDistro = true;
+              system-graphics.enable = true;
+
+              # can also add enviroment.systemPackages, environment.etc files, and systemd.services.
+              environment.systemPackages = [
+                inputs.system-manager.packages.${system}.system-manager
+              ];
+            };
+          }
+        ];
       };
 
       #/*

@@ -91,9 +91,7 @@
         # config = ../xmonad.hs;
         config = null;
         libFiles = let 
-          kittyPath = if config.archerd.targetGenericLinux
-            then "~/bin/kitty"
-          else "${pkgs.kitty}/bin/kitty";
+          kittyPath = "${pkgs.kitty}/bin/kitty";
         in 
           {
           "HomeManagerProvided.hs" = pkgs.writeText "HomeManagerProvided.hs" ''

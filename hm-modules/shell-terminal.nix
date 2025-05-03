@@ -15,18 +15,8 @@ rec {
     some other path and variable things...
   */
 
-  # kitty needs glx bindings, because its gpu accelerated...
-  /* home.packages = lib.optionals (!config.archerd.targetGenericLinux) [
-    pkgs.kitty
-  ]; */
   programs.kitty = {
     enable = true;
-    # HACK: Can't really use the nix pkg on ubuntu, because it uses the gpu...
-    # TODO: look into wrapping kitty with nixgl instead of passing the empty file...
-    package =
-      if config.archerd.genericLinux
-        then pkgs.emptyDirectory
-      else pkgs.kitty;
     # configured by stylix, will be overridden
     font = lib.mkDefault { size = 12; name = "JetBrains Mono Nerd Font"; };
     settings = {
@@ -81,11 +71,6 @@ rec {
   };
   # stylix.targets.kitty.enable = false;
   # stylix.targets.kitty.variant256Colors = true; # the template for 256 is borked.
-  warnings =
-    if config.archerd.targetGenericLinux then
-      [ "Make sure to install kitty locally!" ]
-    else
-      [ ];
 
   # from the nix-index-database flake module.
   # provides nix-locate, comma, and hooks into the shell command not found hook

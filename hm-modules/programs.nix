@@ -51,6 +51,7 @@
       ${pkgs.kitty}/bin/kitty  -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
     '')
   ] ++ lib.optionals config.archerd.targetGenericLinux [
+    inputs.system-manager.packages.${system}.system-manager
     nautilus
 
     # TODO: see if this can be removed? or move to xmonad-de.nix
