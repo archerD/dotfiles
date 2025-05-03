@@ -8,6 +8,8 @@
   stylix.enable = true;
   # stylix.image = images/wallpapers/nix-wallpaper-stripes-logo.png;
   # stylix.image = images/wallpapers/nix-wallpaper-hexagonal.png;
+  # stylix.image = images/nixos-dark-tiling.png;
+  # stylix.image = images/nixos-dark-tiling-think.png;
   stylix.image = images/wallpapers/nix-wallpaper-gear.png;
   stylix.polarity = "dark";
   stylix.fonts.monospace = {
