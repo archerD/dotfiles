@@ -50,7 +50,7 @@
     (writeShellScriptBin "overlay" ''
       ${pkgs.kitty}/bin/kitty  -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
     '')
-  ] ++ lib.optionals (config.archerd.baseSystem == "ubuntu") [
+  ] ++ lib.optionals config.archerd.targetGenericLinux [
     nautilus
 
     # TODO: see if this can be removed? or move to xmonad-de.nix
@@ -75,7 +75,7 @@
   };
 
   programs.nh = {
-    enable = config.archerd.baseSystem != "nixos";
+    enable = config.archerd.targetGenericLinux;
     flake = "/home/archerd/repos/dotfiles";
   };
 }

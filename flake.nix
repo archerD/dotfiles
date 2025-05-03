@@ -100,7 +100,7 @@
               }
               {
                 # also configure the home manager module!
-                home-manager.users.archerd.archerd.baseSystem = "nixos";
+                home-manager.users.archerd.archerd.targetGenericLinux = true;
                 home-manager.users.archerd.archerd.highResolutionScreen = true;
               }
             */
@@ -120,7 +120,7 @@
             ./hm-modules/home.nix
             stylix.homeManagerModules.stylix
             ./stylix-theme.nix
-            { archerd.baseSystem = "ubuntu"; }
+            { archerd.targetGenericLinux = true; }
           ];
         };
         "archerd@NixOS-Desktop" = home-manager.lib.homeManagerConfiguration {
@@ -132,7 +132,7 @@
             stylix.homeManagerModules.stylix
             ./stylix-theme.nix
             {
-              archerd.baseSystem = "nixos";
+              archerd.targetGenericLinux = false;
               archerd.highResolutionScreen = true;
             }
           ];

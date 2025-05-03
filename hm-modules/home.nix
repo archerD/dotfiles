@@ -21,18 +21,7 @@
   ];
 
   options.archerd = with lib; {
-    # TODO: consider making this an enable option or something, like targetUbuntu or something.
-    baseSystem = mkOption {
-      type = types.enum [
-        "ubuntu"
-        "nixos"
-      ];
-      description = ''
-        What the base system is, used to control things that depend on this, such as:
-          * setting targets.genericLinux.enable
-          * choosing the path for xsecurelock
-      '';
-    };
+    targetGenericLinux = mkEnableOption "settings for non nixos systems.";
   };
 
   config = {
@@ -57,8 +46,8 @@
       };
     };
 
-    targets.genericLinux = lib.mkIf (config.archerd.baseSystem != "nixos") { enable = true; };
-    archerd.useLocalScreenLocker = config.archerd.baseSystem == "ubuntu";
+    targets.genericLinux.enable = config.archerd.targetGenericLinux;
+    archerd.useLocalScreenLocker = config.archerd.targetGenericLinux;
 
     # Home Manager needs a bit of information about you and the
     # paths it should manage.

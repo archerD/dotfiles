@@ -91,9 +91,9 @@
         # config = ../xmonad.hs;
         config = null;
         libFiles = let 
-          kittyPath = if config.archerd.baseSystem == "nixos"
-            then "${pkgs.kitty}/bin/kitty"
-          else "~/bin/kitty";
+          kittyPath = if config.archerd.targetGenericLinux
+            then "~/bin/kitty"
+          else "${pkgs.kitty}/bin/kitty";
         in 
           {
           "HomeManagerProvided.hs" = pkgs.writeText "HomeManagerProvided.hs" ''
