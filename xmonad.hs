@@ -129,7 +129,7 @@ myKeysNamed c =
     , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
     ] ^++^
     subKeys "Layout Modifications"
-    [ ("M-f", addName "Go to fullscreen mode" $ sendSomeMessages [sm ToggleStruts, sm (Toggle NBFULL)])
+    [ ("M-f", addName "Go to fullscreen mode" $ sendSomeMessages [sm (Toggle NBFULL)])
     , ("M-S-f", addName "Toggle status line" $ sendMessage ToggleStruts)
     , ("M-r m", addName "rotation 90 degrees (mirror)" $ sendMessage $ Toggle MIRROR)
     , ("M-r h", addName "reflect horizontally" $ sendMessage $ Toggle REFLECTY)
@@ -270,10 +270,10 @@ myXmobarPP = clickablePP myBaseXmobarPP -- clickablePP requires xdotool is insta
 
 myBaseXmobarPP :: PP
 myBaseXmobarPP = def
-    { ppCurrent = yellow . wrap "[" "]"
-    , ppTitle = green . padTo 60 . shorten 60
-    , ppVisible = wrap "(" ")"
-    , ppUrgent  = xmobarColor "red" "yellow"
+    { ppCurrent = xmobarColor HMP.stylixFocusedColor "" . wrap "[" "]"
+    , ppTitle = xmobarColor HMP.stylixTitleTextColor "" . padTo 60 . shorten 60
+    , ppVisible = xmobarColor HMP.stylixUnfocusedColor "" . wrap "(" ")"
+    , ppUrgent  = xmobarColor HMP.stylixUrgentColor ""
     , ppTitleSanitize = xmobarStrip
     , ppRename = \workspaceName _ -> -- What is a WindowSpace, and what is it good for (the _ argument)
         if workspaceName == scratchpadWorkspaceTag
@@ -281,8 +281,6 @@ myBaseXmobarPP = def
         else xmobarRaw workspaceName
     }
   where
-    yellow = xmobarColor "yellow" ""
-    green = xmobarColor "green" ""
     padTo n s = s ++ replicate (60 - length s) ' '
 
 myUrgencyHandler =
@@ -336,7 +334,7 @@ myConfig = configModifiers def
             , handleEventHook = Hacks.windowedFullscreenFixEventHook <+> onTitleChange manageZoomHook
             , logHook = refocusLastLogHook >> nsHideOnFocusLoss scratchpads
             -- , terminal = "x-terminal-emulator"
-            , terminal = "kitty"
+            , terminal = HMP.kitty
             , focusFollowsMouse = True
             , borderWidth = 2
             -- , focusedBorderColor = "#ff0000"
@@ -345,8 +343,8 @@ myConfig = configModifiers def
             -- , normalBorderColor = "#33572c"
             -- , focusedBorderColor = "#680a7b"
             -- , normalBorderColor = "#1d7b0a"
-            , focusedBorderColor = HMP.focusedBorder
-            , normalBorderColor = HMP.normalBorder
+            , focusedBorderColor = HMP.stylixFocusedColor
+            , normalBorderColor = HMP.stylixUnfocusedColor
             }
             -- `removeKeys` [ (myModMask, xK_t)
             --              , (myModMask, xK_m)

@@ -94,12 +94,16 @@
           kittyPath = "${pkgs.kitty}/bin/kitty";
         in 
           {
-          "HomeManagerProvided.hs" = pkgs.writeText "HomeManagerProvided.hs" ''
+          "HomeManagerProvided.hs" = pkgs.writeText "HomeManagerProvided.hs" /*haskell*/''
             module HomeManagerProvided where
             screenshot = ""
             kitty = "${kittyPath} "
             focusedBorder = "#772388"
             normalBorder = "#348823"
+            stylixFocusedColor = "#${config.lib.stylix.colors.base0D}"
+            stylixUnfocusedColor = "#${config.lib.stylix.colors.base03}"
+            stylixUrgentColor = "#${config.lib.stylix.colors.base08}"
+            stylixTitleTextColor = "#${config.lib.stylix.colors.base05}"
           '';
         };
       };
@@ -118,7 +122,7 @@
         highResSwitch = high: low: toString (if config.archerd.highResolutionScreen then high else low);
       in
       {
-        text = ''
+        text = /*haskell*/''
           module HomeManagerProvided where
           fontSize = "${highResSwitch 18 11}"
           additionalFontSizes = ["${highResSwitch 16 12}"]
@@ -253,7 +257,7 @@
           pctl = "${pkgs.playerctl}/bin/playerctl";
           amixer = "${pkgs.alsa-utils}/bin/amixer";
         in
-        ''
+        /*bash*/''
           /usr/bin/env XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 \
                   XSECURELOCK_KEY_XF86AudioPlay_COMMAND="${pctl} -p playerctld play-pause" \
                   XSECURELOCK_KEY_XF86AudioPrev_COMMAND="${pctl} -p playerctld previous" \
