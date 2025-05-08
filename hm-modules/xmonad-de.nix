@@ -189,14 +189,15 @@
 
       theme = lib.mkForce "fancy"; # override the stylix theme.
       # font = "JetBrains Mono Nerd Font 16";
-      terminal = "kitty";
+      terminal = "${pkgs.kitty}/bin/kitty";
 
       plugins = [
         pkgs.rofi-calc
-        pkgs.rofi-power-menu
+        # power-menu does not have the relevant makefile to insert into the plugin dir
+        # pkgs.rofi-power-menu
       ];
       extraConfig = {
-        modi = "filebrowser,ssh,window,run,drun,calc,keys";
+        modi = "filebrowser,ssh,window,run,drun,calc,keys,power:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
         case-sensitive = false;
         ssh-client = "kitty +kitten ssh";
         #timeout = {

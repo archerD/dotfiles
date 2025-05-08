@@ -334,6 +334,7 @@
   # changed default at 24.11
   hardware.nvidia.open = false;
   hardware.graphics.enable32Bit = true; # to use wine on 32bit things
+  hardware.graphics.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh = {
