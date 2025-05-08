@@ -35,6 +35,7 @@ return {
                     "python",
                     "markdown",
                     "markdown_inline",
+                    "bash",
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
