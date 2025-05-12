@@ -45,7 +45,23 @@
           );
         });
       })
-    ];
+    ] ++ lib.optionals config.archerd.targetGenericLinux [
+        # override packages to use alsa-lib-with-plugins, so they can find the pulse plugins.
+        (final: prev: 
+          let alsa-lib-final = prev.alsa-lib-with-plugins.override
+            { plugins = [ prev.alsa-plugins prev.pulseaudio prev.pipewire ]; };
+          in {
+            alsa-utils = prev.alsa-utils.override { alsa-lib = alsa-lib-final; };
+            haskellPackages = prev.haskellPackages.override (old: {
+              overrides = final.lib.composeExtensions (old.overrides or (_: _: { })) (
+                hfinal: hprev: {
+                  alsa-mixer = hprev.alsa-mixer.override
+                    { alsa-lib = alsa-lib-final; };
+                }
+              );
+            });
+          })
+      ];
 
     ### xresources (some monitor stuff)
     #TODO: consider if this is the best place for this.
