@@ -88,7 +88,7 @@
             Home-Assistant = [
               {
                 abbr = "HA";
-                href = "http://nixos-desktop.tail80de.ts.net:8123";
+                href = "http://nixos-desktop.tail80def.ts.net:8123";
               }
             ];
           }
@@ -96,7 +96,7 @@
             Music-Assistant = [
               {
                 abbr = "MA";
-                href = "http://nixos-desktop.tail80de.ts.net:8095";
+                href = "http://nixos-desktop.tail80def.ts.net:8095";
               }
             ];
           }
