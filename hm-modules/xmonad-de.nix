@@ -33,7 +33,7 @@
     ### overlay! (to set xmonad to highest version, because I can...)
     nixpkgs.overlays = [
       # bump xmonad version to latest! is this necessary? no. but I can.
-      (self: super: {
+      /*(self: super: {
         haskellPackages = super.haskellPackages.override (old: {
           overrides = self.lib.composeExtensions (old.overrides or (_: _: { })) (
             hself: hsuper: {
@@ -44,7 +44,7 @@
             }
           );
         });
-      })
+      })*/
     ] ++ lib.optionals config.archerd.targetGenericLinux [
         # override packages to use alsa-lib-with-plugins, so they can find the pulse plugins.
         (final: prev: 

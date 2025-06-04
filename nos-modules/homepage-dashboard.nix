@@ -16,6 +16,7 @@
 
     openFirewall = false;
     environmentFile = "";
+    allowedHosts = "localhost:8082,nixos-desktop.tail80def.ts.net:8082";
     settings = {
       title = "DEF home";
       description = "Testing description";

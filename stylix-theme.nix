@@ -14,7 +14,7 @@
     image = images/wallpapers/nix-wallpaper-gear.png;
     polarity = "dark";
     fonts.monospace = {
-      package = pkgs.nerdfonts.override { fonts = [ "3270" "JetBrainsMono"]; };
+      package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrains Mono Nerd Font";
     };
     fonts.sizes = {

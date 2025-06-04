@@ -3,11 +3,11 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # System manager
@@ -19,7 +19,7 @@
     nix-system-graphics.inputs.nixpkgs.follows = "nixpkgs";
 
     # stylix, for theming
-    stylix.url = "github:danth/stylix/release-24.11";
+    stylix.url = "github:danth/stylix/release-25.05";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
 
@@ -158,7 +158,7 @@
           # > Our main home-manager configuration file <
           modules = [
             ./hm-modules/home.nix
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
             ./stylix-theme.nix
             {
               archerd.targetGenericLinux = false;
