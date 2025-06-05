@@ -40,12 +40,9 @@
 
     # useful cli tools
     pkgs-mine.clustergit
-    fd
-    ripgrep
     nix-inspect
 
     # misc packages/scripts
-    bat
     timer
     (writeShellScriptBin "overlay" ''
       ${pkgs.kitty}/bin/kitty  -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
@@ -53,16 +50,6 @@
   ] ++ lib.optionals config.archerd.targetGenericLinux [
     inputs.system-manager
     nautilus
-
-    # TODO: see if this can be removed? or move to xmonad-de.nix
-    (haskellPackages.ghcWithPackages (self : [
-      self.ghc
-      self.xmobar # this line is needed to rebuild xmobar?
-      self.xmonad
-      self.xmonad-contrib
-      self.xmonad-extras
-    ]))
-    xmobar.bin
   ];
 
   ### programs with customization
@@ -70,6 +57,10 @@
     enable = true;
     theme = "night";
   };
+
+  programs.ripgrep.enable = true;
+  programs.fd.enable = true;
+  programs.bat.enable = true;
 
   programs.fastfetch = {
     enable = true;

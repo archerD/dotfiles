@@ -131,6 +131,16 @@
     home.packages = [
       # for xmobar volume?
       pkgs.alsa-utils
+
+      # TODO: see if this can be removed?
+      (pkgs.haskellPackages.ghcWithPackages (self : [
+      self.ghc
+      self.xmobar # this line is needed to rebuild xmobar?
+      self.xmonad
+      self.xmonad-contrib
+      self.xmonad-extras
+      ]))
+      pkgs.xmobar.bin
     ];
     # a library file for xmobar!
     xdg.configFile."xmobar/lib/HomeManagerProvided.hs" =
