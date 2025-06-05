@@ -130,7 +130,7 @@
 
               # can also add enviroment.systemPackages, environment.etc files, and systemd.services.
               environment.systemPackages = [
-                inputs.system-manager.packages.${system}.system-manager
+                inputs.system-manager
               ];
             };
           }
@@ -147,7 +147,7 @@
           # > Our main home-manager configuration file <
           modules = [
             ./hm-modules/home.nix
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
             ./stylix-theme.nix
             { archerd.targetGenericLinux = true; }
           ];
