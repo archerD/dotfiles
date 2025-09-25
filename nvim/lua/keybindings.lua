@@ -32,11 +32,11 @@ vim.o.keywordprg = ':help'
 nmap('<leader>k', 'K', 'Open help menu')
 nmap('<leader>K', 'K', 'Open help menu')
 
--- Automatically add semicolon or comma at the end of the line in INSERT and NORMAL modes
+-- Automatically add semicolon or comma at the end of the line in INSERT and ~NORMAL~ modes
 imap(";;", "<ESC>A;")
 imap(",,", "<ESC>A,")
-nmap(";;", "A;<ESC>")
-nmap(",,", "A,<ESC>")
+-- nmap(";;", "A;<ESC>")
+-- nmap(",,", "A,<ESC>")
 -- yank count lines, comment them out, then paste them again below.
 vim.keymap.set("n", "ycc", function()
     return 'yy' .. vim.v.count1 .. "gcc']p"

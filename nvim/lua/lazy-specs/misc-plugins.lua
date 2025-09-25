@@ -42,6 +42,7 @@ return {
             })
         end,
         enabled=true },
+    { 'nvim-treesitter/nvim-treesitter-context', opts = {multiwindow=true,separator='=',max_lines=6, multiline_threshold=3,mode='topline',}, enabled=true },
 
     -- to set how many spaces a level of indentation is automatically.
     { 'NMAC427/guess-indent.nvim', opts = {}, enabled=true }, -- is faster
