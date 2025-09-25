@@ -42,6 +42,7 @@ import           XMonad.Layout.MultiToggle
 import           XMonad.Layout.MultiToggle.Instances
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Reflect
+import           XMonad.Layout.Renamed
 --import           XMonad.Layout.Tabbed
 import           XMonad.Layout.ThreeColumns
 import           XMonad.Layout.TwoPane
@@ -199,11 +200,12 @@ myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
 
 myLayoutHook = avoidStruts
         . mkToggle1 NBFULL . mkToggle1 MIRROR . mkToggle1 REFLECTX . mkToggle1 REFLECTY
-        $ tiled ||| trifold ||| TwoPanePersistent Nothing delta ratio
+        $ tiled ||| trifold ||| twopane
     where
         -- base layouts
         tiled   = smartBorders $ Tall nmaster delta ratio
         trifold = smartBorders $ ThreeColMid nmaster delta ratio
+        twopane = smartBorders $ named "TwoPane" $ TwoPanePersistent Nothing delta ratio
         -- someLayout = ( (layoutN 1 (relBox 0 0 0.5 1) (Just $ relBox 0 0 1 1) tiled ) $ layoutAll (relBox 0.5 0 1 1) $ simpleTabbed )
         -- settings
         nmaster = 1
