@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgs-mine,
   config,
   lib,
   ...
@@ -132,6 +133,12 @@
       # for xmobar volume?
       pkgs.alsa-utils
 
+      # provide the screensaver
+      pkgs.xscreensaver
+
+      # screen brightness control
+      pkgs.brightnessctl
+
       # TODO: see if this can be removed?
       (pkgs.haskellPackages.ghcWithPackages (self : [
       self.ghc
@@ -160,6 +167,27 @@
         # so that the date is current date, which is enough to tell xmobar to recompile itself
         onChange = "touch ${config.xdg.configHome}/xmobar/lib/recompileFlag.hs";
       };
+
+    # notify services
+    systemd.user.services.pa-notify = {
+      Unit = {
+        Description = "PulseAudio notifier";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+      Service.ExecStart = "${pkgs.pa-notify}/bin/pa-notify";
+    };
+    # TODO: condition this on being on the laptop
+    systemd.user.services.backlight-notify = {
+      Unit = {
+        Description = "Backlight notifier";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+      Service.ExecStart = "${pkgs-mine.acpi-backlight-notify}/bin/backlight-notify --backlight intel_backlight";
+    };
 
     ### The tray stuff!
     services.trayer = {
@@ -607,7 +635,7 @@
           # Otherwise the "#" and following would be interpreted as a comment.
           # background = "#222222"; # stylix defined
           # foreground = "#888888"; # stylix defined
-          timeout = 15;
+          timeout = 10;
           # Icon for notifications with low urgency, uncomment to enable
           #icon = /path/to/icon
         };
@@ -615,7 +643,7 @@
         urgency_normal = {
           # background = "#285577"; # stylix defined
           # foreground = "#ffffff"; # stylix defined
-          timeout = 30;
+          timeout = 20;
           # Icon for notifications with normal urgency, uncomment to enable
           #icon = /path/to/icon
         };

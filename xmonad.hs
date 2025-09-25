@@ -113,6 +113,8 @@ myKeysNamed c =
     , ("M-m M-m", addName "Change focused player" $ spawn "playerctld shift")
     , ("M-m S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
     , ("M-m <Space>", addName "Play/Pause focused player" $ spawn "playerctl -p playerctld play-pause")
+    , ("<XF86MonBrightnessUp>", addName "Increase screen brightness" $ spawn "brightnessctl s +5%")
+    , ("<XF86MonBrightnessDown>", addName "Decrease screen brightness" $ spawn "brightnessctl s 5%-")
     , ("M-m n", addName "Next track focused player" $ spawn "playerctl -p playerctld next")
     , ("M-m p", addName "Previous track focused player" $ spawn "playerctl -p playerctld previous")
     , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")

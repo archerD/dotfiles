@@ -48,7 +48,7 @@ rec {
       black
     ];
   };
-  # TODO: I don't like this way of packaging clustergitt, look into alternatives
+  # TODO: I don't like this way of packaging clustergit, look into alternatives
   clustergit-script =
     (pkgs.writeScriptBin "clustergit" (builtins.readFile "${inputs.clustergit}/clustergit"))
     .overrideAttrs
@@ -65,4 +65,28 @@ rec {
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = "wrapProgram $out/bin/clustergit --prefix PATH : $out/bin";
   };
+  acpi-backlight-notify = pkgs.stdenv.mkDerivation (finalAttrs: {
+    pname = "backlight-notify";
+    version = "1.0.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "ikrivosheev";
+      repo = "acpi-backlight-notify";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-SIy/GQMpTdub2zq6Ed9L4pyHzhlugkqSLSIJUMyJgmA=";
+    };
+
+    nativeBuildInputs = with pkgs; [
+      cmake
+      extra-cmake-modules
+      pkg-config
+    ];
+
+    buildInputs = with pkgs; [
+      glib
+      libnotify
+      xorg.libxcb
+      xorg.xcbutil
+    ];
+  });
 }
