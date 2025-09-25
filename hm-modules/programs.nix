@@ -24,12 +24,18 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    # (python3.withPackages (self: [
+    #   self.ipython
+    #   self.coreapi
+    # ]))
+
     sysz # systemctl tui
 
     # games!
     kobodeluxe
     tetrio-desktop
     bzflag
+    _4d-minesweeper
 
     # gui apps
     google-chrome
@@ -61,6 +67,7 @@
   programs.ripgrep.enable = true;
   programs.fd.enable = true;
   programs.bat.enable = true;
+  programs.watson.enable = true;
 
   programs.fastfetch = {
     enable = true;

@@ -135,7 +135,6 @@
     bat
     lsd
     scrcpy
-    watson # time tracking
     bashmount # tool to manage mounted media (like usb drives)
     # udiskie # alternative to bashmount which should be able to automount usb drives and display tray icon.
     nix-melt # inspect flake.lock files
