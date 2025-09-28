@@ -64,6 +64,44 @@
     theme = "night";
   };
 
+  programs.mpv = {
+    enable = true;
+    scripts = let
+      # uosc has better sample config
+      custom-osc = pkgs.mpvScripts.uosc;
+      # custom-osc = pkgs.mpvScripts.modernz;
+    in  [
+      pkgs.mpvScripts.mpv-playlistmanager
+      pkgs.mpvScripts.mpris
+      pkgs.mpvScripts.thumbfast
+      pkgs.mpvScripts.eisa01.undoredo
+      pkgs-mine.mpvScripts.toggle-shuffle
+      custom-osc
+    ];
+    bindings = {
+      # "s" = "script-binding toggle-shuffle";
+      ":" = "script-binding commands/open";
+      "GO_FORWARD" = "playlist-next";
+      "MBTN_LEFT" = "cycle pause";
+      "MBTN_RIGHT" = "script-binding menu";
+      "shift+tab" = "script-binding uosc/toggle-ui";
+      "tab" = "script-message-to uosc flash-ui";
+      "space" = "cycle pause; script-message-to uosc flash-ui";
+    };
+    config = {
+      osc = "no";
+      # border = "no";
+    };
+    # TODO: add the uosc and modernz config here and then enable stylix
+    /* script-opts = {
+      uosc = {
+      };
+      modernz = {
+      };
+    }; */
+  };
+  stylix.targets.mpv.enable = false;
+
   programs.ripgrep.enable = true;
   programs.fd.enable = true;
   programs.bat.enable = true;

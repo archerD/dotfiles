@@ -28,6 +28,8 @@
     ~/.gitconfig: config-files/git_config
     ~/.gitignore_global: config-files/global_git_ignore
     ~/bin/light-control: scripts/philips-hue-control-lights.py
+    ~/.config/mpv/script-opts/modernz.conf: config-files/mpv-modernz.conf
+    ~/.config/mpv/script-opts/uosc.conf: config-files/mpv-uosc.conf
 
     # self link
     ~/.dotfiles: .

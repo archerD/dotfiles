@@ -89,4 +89,19 @@ rec {
       xorg.xcbutil
     ];
   });
+  mpvScripts = {
+    toggle-shuffle = pkgs.mpvScripts.buildLua {
+      pname = "mpv-toggle-shuffle";
+      version = "0-unstable-2025-09-26";
+      src = pkgs.fetchFromGitHub {
+        owner = "NaiveInvestigator";
+        repo = "toggle-shuffle";
+        rev = "ee0be1d3eb9cf4ef0d669adcd83da733c2c53a54";
+        hash = "sha256-HDhPSSErRtH97BGi8VZc6Jyb0dGaDySfhS3R4Se1aOs=";
+      };
+
+      passthru.updateScript = pkgs.gitUpdater {};
+      passthru.scriptName = "toggle-shuffle.js";
+    };
+  };
 }
