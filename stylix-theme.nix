@@ -25,11 +25,10 @@
     };
 
     ### themes
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/google-dark.yaml";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/macintosh.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-latte.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/windows-10.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/primer-dark.yaml";
+    base16Scheme = let
+      lightSchemes = [ "cupertino" "measured-light" "papercolor-light" "selenized-white" ];
+      schemesNames = [ "macintosh" "tube" "google-dark" "primer-dark" "everforest-dark-hard" ];
+    in "${pkgs.base16-schemes}/share/themes/${builtins.elemAt schemesNames 0}.yaml";
 
     ### cursors and icons
     cursor = {

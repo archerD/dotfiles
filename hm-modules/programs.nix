@@ -39,6 +39,10 @@
 
     # gui apps
     google-chrome
+    tageditor # to edit mp3 file metadata
+    #TODO: integrate xeyes somewhere in config xmonad config? (keybind to display the program on screen briefly)
+    xorg.xeyes # displays eyes that follow the cursor...
+    cheese
 
     pkgs-mine.radio-active # tui radio player
     unison # file syncing
