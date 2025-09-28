@@ -130,7 +130,12 @@
 
               # can also add enviroment.systemPackages, environment.etc files, and systemd.services.
               environment.systemPackages = [
-                inputs.system-manager
+                inputs.system-manager.packages.${system}.default
+              ];
+
+              # for systemctl to find the agent...
+              systemd.tmpfiles.rules = [
+                "L+ /run/current-system/sw/bin/pkttyagent - - - - /usr/bin/pkttyagent"
               ];
             };
           }
