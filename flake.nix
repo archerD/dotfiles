@@ -21,7 +21,6 @@
     # stylix, for theming
     stylix.url = "github:danth/stylix/release-25.05";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.inputs.home-manager.follows = "home-manager";
 
     # nix index, for comma.
     nix-index-database.url = "github:Mic92/nix-index-database";
