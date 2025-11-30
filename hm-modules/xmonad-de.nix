@@ -264,6 +264,9 @@
         #};
       };
     };
+    programs.onagre = {
+      enable = true;
+    };
 
     ### compositor! (picom)
     services.picom = {

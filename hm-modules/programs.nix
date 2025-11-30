@@ -83,7 +83,7 @@
       custom-osc
     ];
     bindings = {
-      # "s" = "script-binding toggle-shuffle";
+      "s" = "script-binding toggle-shuffle";
       ":" = "script-binding commands/open";
       "GO_FORWARD" = "playlist-next";
       "MBTN_LEFT" = "cycle pause";
@@ -97,7 +97,7 @@
       # border = "no";
     };
     # TODO: add the uosc and modernz config here and then enable stylix
-    /* script-opts = {
+    /* scriptOpts = {
       uosc = {
       };
       modernz = {

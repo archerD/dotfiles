@@ -35,6 +35,7 @@ rec {
 
       # Theming stuff, will be overridden by stylix, if enabled
       # background_image = "/home/archerd/.dotfiles/images/nixos-dark-tiling.png";
+      # TODO: consider setting these colors using stylix...
       color0 = "#000000";
       color8 = "#7f7f7f";
       #: black

@@ -219,6 +219,9 @@
     cabal-install
     stack
 
+    # c++
+    gcc15
+
     ## rust
     cargo
     rust-analyzer
