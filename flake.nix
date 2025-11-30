@@ -84,7 +84,7 @@
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
         # the desktop setup...
-        NixOS-Desktop = nixpkgs.lib.nixosSystem {
+        fractal = nixpkgs.lib.nixosSystem {
           inherit system;
 
           specialArgs = args;
@@ -156,7 +156,7 @@
             { archerd.targetGenericLinux = true; }
           ];
         };
-        "archerd@NixOS-Desktop" = home-manager.lib.homeManagerConfiguration {
+        "archerd@fractal" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
