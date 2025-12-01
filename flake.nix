@@ -118,12 +118,33 @@
         };
       };
 
-      systemConfigs."Ubuntu-X1-Yoga-4" = system-manager.lib.makeSystemConfig {
+      # TODO: split the config out to it's own file.
+      systemConfigs."x1yoga4" = system-manager.lib.makeSystemConfig {
         modules = [
           nix-system-graphics.systemModules.default
           {
             config = {
               nixpkgs.hostPlatform = system;
+              /* differences in the nix.conf file.
+              <<<<<< current
+              allowed-users = *
+              require-sigs = true
+              sandbox = true
+              substituters = https://cache.nixos.org/
+              system-features = nixos-test benchmark big-parallel kvm
+              trusted-users = root
+              extra-sandbox-paths = 
+              ======
+              >>>>>> old
+              */
+              nix.settings = {
+                auto-optimise-store = true;
+                build-users-group = "nixbld";
+                experimental-features = [ "nix-command" "flakes" ];
+                extra-nix-path = "nixpkgs=flake:nixpkgs";
+                bash-prompt-prefix = "(nix:$name)\\040";
+              };
+
               # system-manager.allowAnyDistro = true;
               system-graphics.enable = true;
 
@@ -131,6 +152,17 @@
               environment.systemPackages = [
                 inputs.system-manager.packages.${system}.default
               ];
+
+              environment.etc = {
+                # work around the new apparmor settings in ubuntu 24.04
+                "apparmor.d/nix-chrome".text = ''
+                  abi <abi/4.0>,
+                  include <tunables/global>
+                  profile nix-chrome /nix/store/*-google-chrome-*/**/* flags=(default_allow) {
+                    userns,
+                  }
+                '';
+              };
 
               # for systemctl to find the agent...
               systemd.tmpfiles.rules = [
@@ -145,7 +177,7 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        "archerd@Ubuntu-X1-Yoga-4" = home-manager.lib.homeManagerConfiguration {
+        "archerd@x1yoga4" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
