@@ -139,6 +139,9 @@
       # screen brightness control
       pkgs.brightnessctl
 
+      # for the clickable xmobar workspaces
+      pkgs.xdotool
+
       # TODO: see if this can be removed?
       (pkgs.haskellPackages.ghcWithPackages (self : [
       self.ghc
@@ -251,7 +254,7 @@
         # pkgs.rofi-power-menu
       ];
       extraConfig = {
-        modi = "filebrowser,ssh,window,run,drun,calc,keys,power:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
+        modi = "filebrowser,window,calc,run,drun,power:${pkgs.rofi-power-menu}/bin/rofi-power-menu,keys";
         case-sensitive = false;
         ssh-client = "kitty +kitten ssh";
         #timeout = {

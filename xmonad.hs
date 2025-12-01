@@ -5,6 +5,7 @@
 import           XMonad
 import qualified XMonad.StackSet                as W
 -- xmonad-contrib imports
+import           XMonad.Actions.Commands
 import           XMonad.Actions.CycleWS
 import           XMonad.Actions.FindEmptyWorkspace
 import           XMonad.Actions.MessageFeedback
@@ -21,12 +22,14 @@ import           XMonad.Hooks.StatusBar.PP
 import           XMonad.Hooks.UrgencyHook
 import qualified XMonad.Prelude                 as Pre
 import           XMonad.Util.ClickableWorkspaces
+import           XMonad.Util.Dmenu
 import           XMonad.Util.Dzen
 import qualified XMonad.Util.ExtensibleState    as XS
 import           XMonad.Util.EZConfig
                     ( additionalKeys, removeKeys
                     , checkKeymap, mkNamedKeymap )
 import qualified XMonad.Util.Hacks              as Hacks
+import           XMonad.Util.Loggers
 import           XMonad.Util.NamedActions
 import           XMonad.Util.NamedScratchpad
 import           XMonad.Util.NamedWindows (getName)
@@ -73,10 +76,10 @@ numPadKeys = [ "<KP_End>",  "<KP_Down>",  "<KP_Page_Down>" -- 1, 2, 3
 myModMask = modMask def -- defaults to the alt key, mod1/3Mask.
 -- myModMask = mod4Mask -- set the mod key to the super/windows key
 
-defaultLauncher = spawn "rofi -show run"
+defaultLauncher mode = spawn $ "rofi -show " ++ mode
 secondaryLauncher = spawn "$(yeganesh -x -- -p \"y:\")"
 tertiaryLauncher = spawn "dmenu_run -p \"$\""
-calculatorLauncher = spawn "rofi -show calc -calc-command \"echo -n '{result}' | xclip -selection c\""
+calculatorLauncher = defaultLauncher "calc -calc-command \"echo -n '{result}' | xclip -selection c\""
 
 -- scratchpad stuff
 scratchpads =
@@ -121,15 +124,17 @@ myKeysNamed c =
     , ("<Print>", addName "Screenshot" $ spawn "gnome-screenshot --interactive")
     ] ^++^
     subKeys "Launchers"
-    [ ("M-u", addName "Open Launcher" defaultLauncher)
+    [ ("M-u", addName "Open Launcher" $ defaultLauncher "run")
     , ("M-= M-=", addName "Open Mini Calculator" calculatorLauncher)
     , ("M-= p", addName "Open python repl" $ namedScratchpadAction scratchpads "repl ipython")
     , ("M-= h", addName "Open ghci repl" $ namedScratchpadAction scratchpads "repl ghci")
     , ("M-= n", addName "Open neovide for notes" $ namedScratchpadAction scratchpads "neovide notes")
     , ("M-= c", addName "Open cmus window" $ namedScratchpadAction scratchpads "cmus window")
     , ("M-= t", addName "Open popup terminal" $ namedScratchpadAction scratchpads "popup terminal")
+    , ("M-= x", addName "xmonad commands" $ defaultCommands >>= runCommandConfig (menuArgs "rofi" ["-dmenu", "-mesg", "XMonad commands"]))
     , ("M-M4-u", addName "Open adaptive cmd line launcher" secondaryLauncher)
     , ("M-S-u", addName "Open cmd line launcher" tertiaryLauncher)
+    , ("M4-<Tab>", addName "Window switcher" $ defaultLauncher "window")
     ] ^++^
     subKeys "Layout Modifications"
     [ ("M-f", addName "Go to fullscreen mode" $ sendSomeMessages [sm (Toggle NBFULL)])
@@ -165,6 +170,9 @@ myKeysNamed c =
     [("M-" ++ m ++ key, addName (d ++ " screen "  ++ show sc) $ screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip ["v", "z"] [1..]
         , (f, m, d) <- [(W.view, "", "Change to"), (W.shift, "S-", "Move window to")]
+    ]
+    ^++^ subKeys "other screen stuff"
+    [ ("M4-n", addName "go to blank workspace" $ moveTo Next emptyWS)
     ]
 
 myMouse XConfig {XMonad.modMask = myModMask} = M.fromList
@@ -279,6 +287,15 @@ myBaseXmobarPP = def
     , ppVisible = xmobarColor HMP.stylixUnfocusedColor "" . wrap "(" ")"
     , ppUrgent  = xmobarColor HMP.stylixUrgentColor ""
     , ppTitleSanitize = xmobarStrip
+    , ppSep = xmobarColor "green" "" " | "
+    -- see XMonad.Util.Loggers
+    , ppExtras =
+        [ onLogger (xmobarAction "autorandr -c $(autorandr --list | rofi -mesg \"autorandr profiles\" -dmenu -no-custom)" "1")
+             $ logWhenActive 0 (logConst $ xmobarColor "blue" "" "*") .| logConst "-"
+        -- this causes slowdown, presumably because the command slows down the xmonad loop
+        -- , onLogger (xmobarAction "autorandr -c $(autorandr --list | rofi -mesg \"autorandr profiles\" -dmenu -no-custom)" "1") $ logCmd "autorandr --current"
+        ]
+    -- , ppExtras = [return $ Just "Hello", return Nothing, return $ Just "World"]
     , ppRename = \workspaceName _ -> -- What is a WindowSpace, and what is it good for (the _ argument)
         if workspaceName == scratchpadWorkspaceTag
         then xmobarColor "white" "" "=" -- change how the scratchpad workspace is displayed

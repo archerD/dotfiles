@@ -3,7 +3,7 @@ import HomeManagerProvided as HMP
 
 leftTemplate :: String
 -- leftTemplate = "<action=`gnome-pie -o 232` button=3>%XMonadLog%</action>"
-leftTemplate = "<action=`rofi -show drun` button=3>%UnsafeXMonadLog%</action>"
+leftTemplate = "<action=`rofi -show drun` button=3><action=`rofi -show window` button=2>%UnsafeXMonadLog%</action></action>"
 centerTemplate :: String
 centerTemplate = "<action=`gsimplecal`><fc=#ee9a00>%date%</fc></action>"
 rightTemplate :: String
@@ -31,7 +31,7 @@ config = defaultConfig
                     , Run $ Date "   (%a) %F T %T%z (%Z)" "date" 10
                     -- , Run   XMonadLog
                     , Run   UnsafeXMonadLog
-                    , Run   Locks
+                    , Run $ Locks' [("CAPS", ("C","")), ("NUM",("N","")), ("SCROLL",("S",""))]
                     , Run $ Com "/home/archerd/.dotfiles/scripts/padding-icon.sh" ["panel"] "trayerpad" 10
                     , Run $ Alsa "default" "Master" ["-t", "V:<volume>%"]
                     , Run $ Mpris2 "playerctld" ["-T", "38", "-E", "…", "-M", "25", "-e", ">", "-t", "<artist>/<title>"] 10
