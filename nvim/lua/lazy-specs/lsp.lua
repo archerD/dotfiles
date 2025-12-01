@@ -133,6 +133,7 @@ return {
         config = function ()
             require('luasnip.loaders.from_vscode').lazy_load()
         end,
+        -- build = "make install_jsregexp"
     },
     -- auto complete
     { 'hrsh7th/cmp-nvim-lsp', config = true, },

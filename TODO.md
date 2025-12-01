@@ -11,6 +11,7 @@
         - look at homer as alternative to homepage-dashboard.
     [ ] new things to look at home manager modules
         - onagre launcher
+* HIGH PRIORITY: Update neovim LSP configuration! (updating nvim-lspconfig no longer works do to breaking changes).
 ## fixes
 * investigate the xsecurelock path issue and why it will not launch the screensaver if the path is not set
     * another issue: failed parsing of the xscreensaver config file on laptop...

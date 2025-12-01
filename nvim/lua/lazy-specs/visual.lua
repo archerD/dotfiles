@@ -75,7 +75,7 @@ return {
         },
         config = function(_, opts)
             require("nightfox").setup(opts)
-            -- vim.cmd.colorscheme("carbonfox")
+            vim.cmd.colorscheme("carbonfox")
         end,
     }, -- :colorscheme carbonfox
     { "scottmckendry/cyberdream.nvim", lazy = false, priority = 1000,
@@ -89,7 +89,7 @@ return {
         },
         config = function(_, opts)
             require("cyberdream").setup(opts)
-            vim.cmd.colorscheme("cyberdream")
+            -- vim.cmd.colorscheme("cyberdream")
         end,
     }, -- :colorscheme cyberdream
     { "Mofiqul/vscode.nvim" }, -- :colorscheme vscode or require('vscode').load()

@@ -36,6 +36,7 @@ return {
                     "markdown",
                     "markdown_inline",
                     "bash",
+                    "html",
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
