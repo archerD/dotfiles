@@ -10,3 +10,6 @@
 	graph = log --graph --all
 [init]
 	defaultBranch = main
+[status]
+
+	showStash = true

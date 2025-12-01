@@ -155,6 +155,7 @@ rec {
       ${pkgs.fastfetch}/bin/fastfetch
     '';
   };
+  programs.uv.enable = true;
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
