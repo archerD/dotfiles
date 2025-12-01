@@ -11,11 +11,28 @@
         - look at homer as alternative to homepage-dashboard.
     [ ] new things to look at home manager modules
         - onagre launcher
+* Update flake inputs to 24.11->25.05
+    [ ] tailscale can be moved off of unstable.
+    [ ] move from pkgs.nixfmt-rfc-style to pkgs.nixfmt
+    [ ] possible backwards incompatibilites:
+        - services.nixseparateddebuginfod -> services.nixseparateddebuginfod2
+        - in lib: zip, map, defaultPriority removed, string type removed.
+        - buildPythonPackage/Application require format attribute... https://nixos.org/manual/nixpkgs/stable/release-notes#sec-nixpkgs-release-25.11-lib-breaking
+    [ ] secureboot support with limine bootloader.
+    [ ] new things to look at nixos modules
+        - argrr for gc root removal.
+        - LACT for gpu monitoring/control.
+        - pmount for mounting drives without sudo
+    [ ] new things to look at home manager modules
+        - numbat? calculator/PL with unit support. could replace the rofi calculator...
 * HIGH PRIORITY: Update neovim LSP configuration! (updating nvim-lspconfig no longer works do to breaking changes).
 ## fixes
 * investigate the xsecurelock path issue and why it will not launch the screensaver if the path is not set
     * another issue: failed parsing of the xscreensaver config file on laptop...
 ## new features
+* Hosting things:
+    + ersatsTV - tv thing of your video library.
+    + ente/immich - for photos (and videos?) (google alternative)
 * more stylix stuff! see (./style.md)
 * revisit the cl script (cd && ls) and enable it
 * make a script to mv file to file.bak and then cp file.bak to file.
