@@ -59,6 +59,7 @@ import qualified Data.Map                       as M
 import qualified Data.Monoid                    as DM
 import           Graphics.X11.ExtraTypes.XF86
 import           System.IO
+import qualified System.Posix.Signals           as Sig
 
 -- home manager provided library file
 import HomeManagerProvided as HMP
@@ -166,11 +167,12 @@ myKeysNamed c =
         , (f, m, d) <- [(W.greedyView, "", "Change to"), (W.shift, "S-", "Move window to"), (shiftAndView, "C-", "Follow window to")]
     ])
     ^++^ subKeys "Screen management"
+    (("M-s", addName "Swap screen workspaces" swapNextScreen) :
     -- add additional keybindings for moving between screens
     [("M-" ++ m ++ key, addName (d ++ " screen "  ++ show sc) $ screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip ["v", "z"] [1..]
         , (f, m, d) <- [(W.view, "", "Change to"), (W.shift, "S-", "Move window to")]
-    ]
+    ])
     ^++^ subKeys "other screen stuff"
     [ ("M4-n", addName "go to blank workspace" $ moveTo Next emptyWS)
     ]
@@ -373,6 +375,10 @@ myConfig = configModifiers def
             --              ]
             -- `additionalKeys` myKeys
 
+installMySignalHandlers = do
+    Sig.installHandler Sig.sigUSR1 (Sig.Catch (spawn "xmonad --recompile && xmonad --restart")) Nothing
 
-main = do xmonad myConfig
+main = do 
+    installMySignalHandlers
+    xmonad myConfig
 

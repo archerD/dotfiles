@@ -94,6 +94,19 @@
             stylix.nixosModules.stylix
             lanzaboote.nixosModules.lanzaboote
             ./stylix-theme.nix
+          ];
+        };
+        # new desktop/server!
+        lambda1 = nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          specialArgs = args;
+          # > Our main nixos configuration file <
+          modules = [
+            ./nos-modules/configuration.nix
+            stylix.nixosModules.stylix
+            lanzaboote.nixosModules.lanzaboote
+            ./stylix-theme.nix
 
             /*
               # make home-manager as a module of nixos
@@ -189,6 +202,20 @@
           ];
         };
         "archerd@fractal" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = args; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [
+            ./hm-modules/home.nix
+            stylix.homeModules.stylix
+            ./stylix-theme.nix
+            {
+              archerd.targetGenericLinux = false;
+              archerd.highResolutionScreen = true;
+            }
+          ];
+        };
+        "archerd@lambda1" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
