@@ -15,7 +15,7 @@
   imports = [
     # Hardware files
     ./hardware-configuration.nix
-    ./windows-drives.nix
+    #./windows-drives.nix
 
     ./boot-loader.nix
 
@@ -30,7 +30,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.hostName = "fractal"; # Define your hostname.
+  networking.hostName = "lambda1"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -266,7 +266,18 @@
     # remotePlay.openFirewall = true;
     # dedicatedServer.openFirewall = true;
     # do I want proton (windows compatability thing)?
+    localNetworkGameTransfers.openFirewall = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
+  };
+
+  services.postgresql = {
+    enable = true;
+    # WARN: allows tailnet access, but may not be the most secure.
+    # enableTCPIP = true;
+    # authentication = ''
+    #   # allow hosts in my tailnet to connect using passwords
+    #   host  all   all   .tail80def.ts.net   md5
+    #   '';
   };
 
   services.hardware.openrgb.enable = true;
@@ -335,6 +346,9 @@
   };
   # changed default at 24.11
   hardware.nvidia.open = false;
+  hardware.nvidia.powerManagement.enable = true; # allows proper resume after suspend.
+  # NOTE: may help with screen tearing
+  # hardware.nvidia.forceFullCompositionPipeline = true;
   hardware.graphics.enable32Bit = true; # to use wine on 32bit things
   hardware.graphics.enable = true;
 
