@@ -26,6 +26,8 @@
     [ ] new things to look at home manager modules
         - numbat? calculator/PL with unit support. could replace the rofi calculator...
 * HIGH PRIORITY: Update neovim LSP configuration! (updating nvim-lspconfig no longer works do to breaking changes).
+* update xmobar to differentiate between hosts
+    + could use host name, or a symbol (a lambda for lambda1, a laptop or the ubuntu logo, or maybe yoga for x1yoga4, for fractal... maybe one of the benzene chars? an electrical/vector intersection? crossing lanes? a snowflake? nixos+windows logo? turned capital y? ocr inverted fork? an axis variant? triforce?)
 ## fixes
 * investigate the xsecurelock path issue and why it will not launch the screensaver if the path is not set
     * another issue: failed parsing of the xscreensaver config file on laptop...
@@ -33,6 +35,7 @@
 * Hosting things:
     + ersatsTV - tv thing of your video library.
     + ente/immich - for photos (and videos?) (google alternative)
+* patch kitty to have more powerline options for the tabbar
 * more stylix stuff! see (./style.md)
 * revisit the cl script (cd && ls) and enable it
 * make a script to mv file to file.bak and then cp file.bak to file.
