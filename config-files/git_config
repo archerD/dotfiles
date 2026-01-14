@@ -13,3 +13,7 @@
 [status]
 
 	showStash = true
+[safe]
+        # https://github.blog/2022-04-12-git-security-vulnerability-announced/ , https://stackoverflow.com/a/71904131
+        # this is for git repositories in the shared windows drive.
+	directory = "/mnt/data/*"
