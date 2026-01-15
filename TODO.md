@@ -12,11 +12,12 @@
     [ ] new things to look at home manager modules
         - onagre launcher
 * Update flake inputs to 25.05->25.11
-    [ ] tailscale can be moved off of unstable.
-    [ ] move from pkgs.nixfmt-rfc-style to pkgs.nixfmt
-    [ ] possible backwards incompatibilites:
+    [x] tailscale can be moved off of unstable.
+    [x] move from pkgs.nixfmt-rfc-style to pkgs.nixfmt
+    [x] possible backwards incompatibilites:
         - services.nixseparateddebuginfod -> services.nixseparateddebuginfod2
         - in lib: zip, map, defaultPriority removed, string type removed.
+        - evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
         - buildPythonPackage/Application require format attribute... https://nixos.org/manual/nixpkgs/stable/release-notes#sec-nixpkgs-release-25.11-lib-breaking
     [ ] secureboot support with limine bootloader.
     [ ] new things to look at nixos modules
@@ -35,6 +36,7 @@
 * Hosting things:
     + ersatsTV - tv thing of your video library.
     + ente/immich - for photos (and videos?) (google alternative)
+    + jellyfin - media library
 * patch kitty to have more powerline options for the tabbar
 * more stylix stuff! see (./style.md)
 * revisit the cl script (cd && ls) and enable it

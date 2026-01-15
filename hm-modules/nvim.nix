@@ -63,7 +63,7 @@ in
           ghcPkg
           hlsPkg
           pkgs.nixd
-          pkgs.nixfmt-rfc-style
+          pkgs.nixfmt
           # the cpp lsp is better served by having clang-tools in the flake.
           pkgs.clang-tools
           pkgs.gopls

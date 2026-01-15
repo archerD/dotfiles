@@ -67,7 +67,7 @@
     # You can update Home Manager without changing this value. See
     # the Home Manager release notes for a list of state version
     # changes in each release.
-    home.stateVersion = "25.05"; # Please read the comment before changing.
+    home.stateVersion = "25.11"; # Please read the comment before changing.
 
     # Nicely reload system units when changing configs
     systemd.user.startServices = "sd-switch";

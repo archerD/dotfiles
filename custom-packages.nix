@@ -14,6 +14,7 @@ let
   };
 in
 rec {
+  #NOTE: packaging is kept more for remembering how to do this then for any usefulness, it's in nixpkgs now.
   zenlog = pkgs.python3Packages.buildPythonPackage rec {
     pname = "zenlog";
     version = "1.1";
@@ -22,22 +23,40 @@ rec {
       sha256 = "83460a85fa7249b8007c03681a6a0b575ce6fe044349389d3d3d43f58d4687de";
     };
     doCheck = false;
+    pyproject = true;
+    build-system = [ pkgs.python3Packages.setuptools ];
     propagatedBuildInputs = with pkgs.python3Packages; [ colorlog ];
   };
+  #NOTE: pyradios from https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/by-name/ra/radio-active/package.nix#L10
+  pyradios_1-0-2 = pkgs.python3Packages.pyradios.overrideAttrs (
+    finalAttrs: previousAttrs:
+    let
+      version = "1.0.2";
+    in {
+      inherit version;
+
+      src = previousAttrs.src.override {
+        inherit version;
+        hash = "sha256-O30ExmvWu4spwDytFVPWGjR8w3XSTaWd2Z0LGQibq9g=";
+      };
+    }
+  );
   radio-active = pkgs.python3Packages.buildPythonApplication rec {
     pname = "radio-active";
-    version = "2.8.0";
+    version = "2.9.1";
     src = pkgs.fetchPypi {
       inherit pname version;
-      sha256 = "7d01ce460cac3b57f421762c8943187ee3bd458e51985d9d15d37381b6fe265c";
+      sha256 = "ABdnGKauuwxMxVHEMIF7VwxTxcriUqs1XRwB1FYcYJY=";
     };
     doCheck = false;
+    pyproject = true;
+    build-system = [ pkgs.python3Packages.setuptools ];
     propagatedBuildInputs = with pkgs.python3Packages; [
       pkgs.ffmpeg_4-full
       requests
       urllib3
       psutil
-      pyradios
+      pyradios_1-0-2
       requests-cache
       rich
       pick
