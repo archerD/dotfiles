@@ -11,12 +11,13 @@
         - look at homer as alternative to homepage-dashboard.
     [ ] new things to look at home manager modules
         - onagre launcher
-* Update flake inputs to 24.11->25.05
-    [ ] tailscale can be moved off of unstable.
-    [ ] move from pkgs.nixfmt-rfc-style to pkgs.nixfmt
-    [ ] possible backwards incompatibilites:
+* Update flake inputs to 25.05->25.11
+    [x] tailscale can be moved off of unstable.
+    [x] move from pkgs.nixfmt-rfc-style to pkgs.nixfmt
+    [x] possible backwards incompatibilites:
         - services.nixseparateddebuginfod -> services.nixseparateddebuginfod2
         - in lib: zip, map, defaultPriority removed, string type removed.
+        - evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
         - buildPythonPackage/Application require format attribute... https://nixos.org/manual/nixpkgs/stable/release-notes#sec-nixpkgs-release-25.11-lib-breaking
     [ ] secureboot support with limine bootloader.
     [ ] new things to look at nixos modules
@@ -25,7 +26,7 @@
         - pmount for mounting drives without sudo
     [ ] new things to look at home manager modules
         - numbat? calculator/PL with unit support. could replace the rofi calculator...
-* HIGH PRIORITY: Update neovim LSP configuration! (updating nvim-lspconfig no longer works do to breaking changes).
+* HIGH PRIORITY: Update neovim LSP configuration! (updating nvim-lspconfig no longer works due to breaking changes).
 * update xmobar to differentiate between hosts
     + could use host name, or a symbol (a lambda for lambda1, a laptop or the ubuntu logo, or maybe yoga for x1yoga4, for fractal... maybe one of the benzene chars? an electrical/vector intersection? crossing lanes? a snowflake? nixos+windows logo? turned capital y? ocr inverted fork? an axis variant? triforce?)
 ## fixes
@@ -35,6 +36,7 @@
 * Hosting things:
     + ersatsTV - tv thing of your video library.
     + ente/immich - for photos (and videos?) (google alternative)
+    + jellyfin - media library
 * patch kitty to have more powerline options for the tabbar
 * more stylix stuff! see (./style.md)
 * revisit the cl script (cd && ls) and enable it

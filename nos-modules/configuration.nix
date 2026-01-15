@@ -142,10 +142,10 @@
     bashmount # tool to manage mounted media (like usb drives)
     # udiskie # alternative to bashmount which should be able to automount usb drives and display tray icon.
     nix-melt # inspect flake.lock files
-    inputs.flake-checker.packages.${system}.default
+    inputs.flake-checker.packages.${stdenv.hostPlatform.system}.default
     texlive.combined.scheme-full
     neofetch
-    poppler_utils # pdf utilities
+    poppler-utils # pdf utilities
     qmk
     unzip
     pandoc
@@ -168,7 +168,7 @@
     libreoffice
     discord
     vlc
-    jetbrains.idea-ultimate
+    jetbrains.idea
     burpsuite
     neovide
     baobab # a disk usage viewer
@@ -381,7 +381,7 @@
   #};
   services.avahi.enable = true;
 
-  services.nixseparatedebuginfod.enable = true;
+  services.nixseparatedebuginfod2.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -394,5 +394,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }
