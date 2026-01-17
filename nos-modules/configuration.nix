@@ -14,10 +14,7 @@
 {
   imports = [
     # services files
-    ./open-home.nix
     ./tailscale.nix
-    ./postgresql.nix
-    # ./homepage-dashboard.nix
   ];
 
   # to have the system clock consistent between windows and nixos
