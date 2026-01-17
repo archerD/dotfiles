@@ -68,6 +68,23 @@
     theme = "night";
   };
 
+  programs.ranger = {
+    enable = true;
+    settings = {
+      vcs_aware = true;
+
+      preview_images = true;
+      preview_images_method = "kitty";
+
+      preview_script = "/home/archerd/.dotfiles/config-files/ranger-preview.sh";
+    };
+
+    extraPackages = with pkgs; [
+      poppler-utils
+      ffmpegthumbnailer
+    ];
+  };
+
   programs.mpv = {
     enable = true;
     scripts = let

@@ -21,7 +21,7 @@
     ~/.config/autorandr/postswitch: scripts/autorandr_postswitch
     ~/.config/gnome-pie: config-files/gnome-pie
     # ~/.config/kitty/kitty.conf: config-files/kitty.conf
-    ~/.config/ranger/rc.conf: config-files/ranger.conf
+    # ~/.config/ranger/rc.conf: config-files/ranger.conf
     # ~/.config/starship.toml: config-files/starship.toml
     ~/.config/lsd/config.yaml: config-files/lsd.yaml
     ~/.ssh/config: config-files/ssh_config
