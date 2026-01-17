@@ -58,6 +58,9 @@
     (writeShellScriptBin "overlay" ''
       ${pkgs.kitty}/bin/kitty  -o background_opacity=0.5 -o font_size=20 -o enable_audio_bell=yes -o visual_bell_duration=1.5 --class kitty-overlay &
     '')
+    (writeShellScriptBin "bak" 
+      (builtins.readFile "${inputs.self}/scripts/bak.sh")
+    )
   ] ++ lib.optionals config.archerd.targetGenericLinux [
     inputs.system-manager.packages.${system}.default
     nautilus
