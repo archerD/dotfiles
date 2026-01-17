@@ -13,10 +13,6 @@
 
 {
   imports = [
-    # Hardware files
-    ./hardware-configuration.nix
-    #./windows-drives.nix
-
     ./boot-loader.nix
 
     # services files

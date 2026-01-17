@@ -90,6 +90,7 @@
           specialArgs = args;
           # > Our main nixos configuration file <
           modules = [
+            ./nos-modules/fractal
             ./nos-modules/configuration.nix
             stylix.nixosModules.stylix
             lanzaboote.nixosModules.lanzaboote
@@ -103,6 +104,7 @@
           specialArgs = args;
           # > Our main nixos configuration file <
           modules = [
+            ./nos-modules/lambda1
             ./nos-modules/configuration.nix
             stylix.nixosModules.stylix
             lanzaboote.nixosModules.lanzaboote
