@@ -13,8 +13,6 @@
 
 {
   imports = [
-    ./boot-loader.nix
-
     # services files
     ./open-home.nix
     ./tailscale.nix
