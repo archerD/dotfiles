@@ -277,6 +277,9 @@
       backend = "glx";
       # not that fade is actually enabled...
       fadeExclude = [ "class_g = 'xsecurelock'" ];
+      # NOTE: should help with screen tearing
+      vSync = true;
+      settings.unredir-if-possible = false;
     };
 
     ### the screen locker!
@@ -305,31 +308,34 @@
       # because security stuff..., and also the nix version of PAM can't handle imports that
       # ubuntu has in it's version of pam services.  Even if it could, the nix version of PAM
       # does not have the modules that the services seem to want.
+      lockCmdEnv =
+        let
+          pctl = "${pkgs.playerctl}/bin/playerctl";
+          amixer = "${pkgs.alsa-utils}/bin/amixer";
+        in [
+          "XSECURELOCK_SAVER=saver_xscreensaver"
+          "XSECURELOCK_AUTH_TIMEOUT=10"
+          "XSECURELOCK_KEY_XF86AudioPlay_COMMAND=\"${pctl} -p playerctld play-pause\""
+          "XSECURELOCK_KEY_XF86AudioPrev_COMMAND=\"${pctl} -p playerctld previous\""
+          "XSECURELOCK_KEY_XF86AudioNext_COMMAND=\"${pctl} -p playerctld next\""
+          "XSECURELOCK_KEY_XF86AudioStop_COMMAND=\"${pctl} -p playerctld stop\""
+          "XSECURELOCK_KEY_XF86AudioMute_COMMAND=\"${amixer} set Master toggle\""
+          "XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND=\"${amixer} set Master 2%-\""
+          "XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND=\"${amixer} set Master 2%+\""
+          "XSECURELOCK_PASSWORD_PROMPT=\"time\""
+          "XSECURELOCK_SHOW_DATETIME=1"
+          "XSECURELOCK_DATETIME_FORMAT=\"(%%a) %%F T %%R:%%S%%z (%%Z)\""
+        ];
       lockCmd =
         let # the base version, to be used on nixos only
           # the addition of the PATH variable is so the screensaver can be loaded...
           # TODO: figure out how to remove or narrow the scope of this path addition
-          xsecurelock-base = "PATH=\"/run/current-system/sw/bin\" ${pkgs.xsecurelock}/bin/xsecurelock";
+          xsecurelock-base = "/usr/bin/env PATH=\"/run/current-system/sw/bin\" ${pkgs.xsecurelock}/bin/xsecurelock";
           # to use the htpasswd, need to generate a file, `( umask 077; htpasswd -cB ~/.xsecurelock.pw "$USER" )`, see https://github.com/google/xsecurelock#authentication-protocol-modules
-          xsecurelock-htpasswd = "XSECURELOCK_AUTHPROTO=authproto_htpasswd " + xsecurelock-base;
+          xsecurelock-htpasswd = "/usr/bin/env XSECURELOCK_AUTHPROTO=authproto_htpasswd " + xsecurelock-base;
           # need to install xsecurelock outside of nixos if using this.
           xsecurelock-local = "/usr/local/bin/xsecurelock";
-          xsecurelock = if config.archerd.useLocalScreenLocker then xsecurelock-local else xsecurelock-base;
-          pctl = "${pkgs.playerctl}/bin/playerctl";
-          amixer = "${pkgs.alsa-utils}/bin/amixer";
-        in
-        /*bash*/''
-          /usr/bin/env XSECURELOCK_SAVER=saver_xscreensaver XSECURELOCK_AUTH_TIMEOUT=10 \
-                  XSECURELOCK_KEY_XF86AudioPlay_COMMAND="${pctl} -p playerctld play-pause" \
-                  XSECURELOCK_KEY_XF86AudioPrev_COMMAND="${pctl} -p playerctld previous" \
-                  XSECURELOCK_KEY_XF86AudioNext_COMMAND="${pctl} -p playerctld next" \
-                  XSECURELOCK_KEY_XF86AudioStop_COMMAND="${pctl} -p playerctld stop" \
-                  XSECURELOCK_KEY_XF86AudioMute_COMMAND="${amixer} set Master toggle" \
-                  XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND="${amixer} set Master 2%-" \
-                  XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND="${amixer} set Master 2%+" \
-                  XSECURELOCK_PASSWORD_PROMPT="time" XSECURELOCK_SHOW_DATETIME=1 \
-                  XSECURELOCK_DATETIME_FORMAT="(%%a) %%F T %%R:%%S%%z (%%Z)" ''
-        + xsecurelock;
+        in if config.archerd.useLocalScreenLocker then xsecurelock-local else xsecurelock-base;
     };
     warnings =
       if config.archerd.useLocalScreenLocker then
