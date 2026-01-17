@@ -146,7 +146,10 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     neovide
-    btop
+    # btop
+    # NOTE: these are for nvidia graphics cards
+    btop-cuda
+    nvtopPackages.nvidia
 
     # gui applications
     firefox
