@@ -16,6 +16,7 @@
     # services files
     ./open-home.nix
     ./tailscale.nix
+    ./postgresql.nix
     # ./homepage-dashboard.nix
   ];
 
@@ -261,16 +262,6 @@
     # do I want proton (windows compatability thing)?
     localNetworkGameTransfers.openFirewall = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
-  };
-
-  services.postgresql = {
-    enable = true;
-    # WARN: allows tailnet access, but may not be the most secure.
-    # enableTCPIP = true;
-    # authentication = ''
-    #   # allow hosts in my tailnet to connect using passwords
-    #   host  all   all   .tail80def.ts.net   md5
-    #   '';
   };
 
   services.hardware.openrgb.enable = true;
