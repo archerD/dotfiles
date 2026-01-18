@@ -6,7 +6,7 @@
 * investigate clustergit packaging.
 * consider creating a system-manager systemd services/tempfiles rule (like nix-system-graphics does), to link system-manager bin into a place the ubuntu sudo program considers part of the path.
 * Update flake inputs to 25.05->25.11
-    [ ] secureboot support with limine bootloader.
+    [/] secureboot support with limine bootloader.
         - actual support seems a bit limited at the moment, revisit later.
     [ ] new things to look at nixos modules
         - argrr for gc root removal.
@@ -27,10 +27,6 @@
     + homepage - options include homer (localhost), homepage (localhost:3567), dashy (localhost)
 * patch kitty to have more powerline options for the tabbar
 * more stylix stuff! see (./style.md)
-* revisit the cl script (cd && ls) and enable it
-* make a script to mv file to file.bak and then cp file.bak to file.
-    + optionally, add flag to swap file and file.bak, and flag to just mv file.bak to file
-    + optionally, make capable of detecting when file.bak exists and do reasonable thing (error out, add more .bak, try different suffix).
 * consider moving away from dotbot to home-manager for installing dotfiles.
 * investigate different nvim configuration frameworks.
 * investigate running dotbot from home-manager.

@@ -61,6 +61,9 @@
     (writeShellScriptBin "bak" 
       (builtins.readFile "${inputs.self}/scripts/bak.sh")
     )
+    (writeShellScriptBin "cl"
+      (builtins.readFile "${inputs.self}/scripts/cl.bash")
+    )
   ] ++ lib.optionals config.archerd.targetGenericLinux [
     inputs.system-manager.packages.${system}.default
     nautilus
