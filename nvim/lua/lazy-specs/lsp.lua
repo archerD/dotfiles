@@ -1,28 +1,35 @@
 local lsp_servers = function()
     -- Define the language servers.
-    local lspconfig = require('lspconfig')
 
-    --[[ -- set the completion capabilities for all servers
-    local lsp_defaults = lspconfig.util.default_config
-    lsp_defaults.capabilities = vim.tbl_deep_extend(
-      'force',
-      lsp_defaults.capabilities,
-      require('cmp_nvim_lsp').default_capabilities()
-    ) ]]
-    -- get the capabilities for completion, make sure to set in each lsp
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- get the capabilities for completion
+    local default_caps = vim.lsp.protocol.make_client_capabilities()
+    local provided_cap = require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = vim.tbl_deep_extend('force', default_caps, provided_cap)
+    --- wrapper for setting up and enabling language-server
+    ---@param ls_name string server name
+    ---@param config? vim.lsp.Config configuration overrides, capabilities are added as well
+    local lspconfig = function(ls_name, config)
+        -- could also change the config by making files in .dotfiles/nvim/after/lsp/
+        -- each file would return the config instead of passing it to this function. i.e.
+        --[[ ls_name.lua
+            return config
+        ]]
+        config = config or {}
+        -- there maybe other ways to do this, maybe by modifying vim.lsp.ClientConfig...
+        config.capabilities = capabilities
+        vim.lsp.config(ls_name, config)
+        vim.lsp.enable(ls_name)
+    end
 
-    lspconfig.clangd.setup { capabilities = capabilities }
-    lspconfig.hls.setup { capabilities = capabilities }
-    lspconfig.gopls.setup { capabilities = capabilities }
-    lspconfig.rust_analyzer.setup {
-        capabilities = capabilities,
+    lspconfig('clangd')
+    lspconfig('hls')
+    lspconfig('gopls')
+    lspconfig('rust_analyzer', {
         settings = {
             ['rust-analyzer'] = {},
         },
-    }
-    lspconfig.nixd.setup {
-        capabilities = capabilities,
+    })
+    lspconfig('nixd', {
         settings = {
             nixd = {
                 formatting = {
@@ -30,38 +37,55 @@ local lsp_servers = function()
                 },
             },
         },
-    }
-    lspconfig.lua_ls.setup {    -- recommended setup for neovim lua from nvim-lspconfig
-        capabilities = capabilities,
+    })
+    lspconfig('lua_ls', {
         on_init = function(client)
-            local path = client.workspace_folders[1].name
-            if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-                client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-                    Lua = {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using
-                            -- (most likely LuaJIT in the case of Neovim)
-                            version = 'LuaJIT'
-                        },
-                        -- Make the server aware of Neovim runtime files
-                        workspace = {
-                            checkThirdParty = false,
-                            library = {
-                                vim.env.VIMRUNTIME
-                                -- "${3rd}/luv/library"
-                                -- "${3rd}/busted/library",
-                            }
-                            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                            -- library = vim.api.nvim_get_runtime_file("", true)
-                        }
-                    }
-                })
-
-                client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+            if client.workspace_folders then
+                local path = client.workspace_folders[1].name
+                if
+                    path ~= vim.fn.stdpath('config')
+                    and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+                then
+                    return
+                end
             end
-            return true
-        end
-    }
+
+            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (most
+                    -- likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT',
+                    -- Tell the language server how to find Lua modules same way as Neovim
+                    -- (see `:h lua-module-load`)
+                    path = {
+                        'lua/?.lua',
+                        'lua/?/init.lua',
+                    },
+                },
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                    checkThirdParty = false,
+                    library = {
+                        vim.env.VIMRUNTIME
+                        -- Depending on the usage, you might want to add additional paths
+                        -- here.
+                        -- '${3rd}/luv/library'
+                        -- '${3rd}/busted/library'
+                    }
+                    -- Or pull in all of 'runtimepath'.
+                    -- NOTE: this is a lot slower and will cause issues when working on
+                    -- your own configuration.
+                    -- See https://github.com/neovim/nvim-lspconfig/issues/3189
+                    -- library = {
+                    --   vim.api.nvim_get_runtime_file('', true),
+                    -- }
+                }
+            })
+        end,
+        settings = {
+            Lua = {}
+        }
+    })
 end
 
 return {
@@ -101,6 +125,7 @@ return {
             vim.keymap.set('n', '<leader>wl', function()
               print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end, opts("list workspaces in lsp"))
+            vim.keymap.set('n', '<leader>o', vim.lsp.buf.document_symbol, opts("open document outline"))
             vim.keymap.set('n', '<leader>t', vim.lsp.buf.type_definition, opts("show type"))
             vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts("rename symbol"))
             vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts("list code actions"))
