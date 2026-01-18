@@ -74,8 +74,6 @@
     {
       # my custom packages not in nixpkgs...
       packages.${system} = import ./custom-packages.nix { inherit inputs system; };
-      # an (unused, untested) overlay to add the pkgs to the nixpkgs input...
-      # overlays.${system}.additions = final: _prev: import ./custom-packages.nix { pkgs = final; inherit inputs; };
 
       # formatter!
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
@@ -121,7 +119,7 @@
 
                 home-manager.extraSpecialArgs = args; # Pass flake inputs to our config
 
-                home-manager.users.archerd = import ./hm-modules/home.nix;
+                home-manager.users.archerd = ./hm-modules/home.nix;
               }
               {
                 # also configure the home manager module!

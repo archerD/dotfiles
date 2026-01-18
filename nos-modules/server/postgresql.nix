@@ -1,4 +1,4 @@
-{pkgs, ...} :
+{pkgs, config, ...} :
 { # NOTE: PostgreSQL version was at 17 at last upgrade.
   options = {
   };

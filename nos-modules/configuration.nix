@@ -13,6 +13,7 @@
 
 {
   imports = [
+    ./boot-loader.nix
     # services files
     ./tailscale.nix
   ];
