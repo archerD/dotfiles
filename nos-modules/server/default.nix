@@ -10,5 +10,6 @@
   };
 
   config = {
+    archerd.homepage-server = "homepage";
   };
 }
