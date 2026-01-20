@@ -153,6 +153,7 @@ rec {
 
     initExtra = ''
       ${pkgs.fastfetch}/bin/fastfetch
+      source ${inputs.self}/scripts/cl.bash
     '';
   };
   programs.uv.enable = true;

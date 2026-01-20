@@ -61,9 +61,11 @@
     (writeShellScriptBin "bak" 
       (builtins.readFile "${inputs.self}/scripts/bak.sh")
     )
-    (writeShellScriptBin "cl"
-      (builtins.readFile "${inputs.self}/scripts/cl.bash")
-    )
+    # This didn't work because cd in a script doesn't affect the calling shell.
+    # Now the script is a function, and the 'script' is sourced by the shell.
+    #(writeShellScriptBin "cl"
+    #  (builtins.readFile "${inputs.self}/scripts/cl.bash")
+    #)
   ] ++ lib.optionals config.archerd.targetGenericLinux [
     inputs.system-manager.packages.${system}.default
     nautilus
