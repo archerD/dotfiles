@@ -156,7 +156,7 @@ rec {
       source ${inputs.self}/scripts/cl.bash
     '';
   };
-  programs.uv.enable = true;
+  programs.uv.enable = false;
   programs.starship = {
     enable = true;
     enableBashIntegration = true;

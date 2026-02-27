@@ -4,6 +4,7 @@
     ./homepage-dashboard.nix
     ./open-home.nix
     ./postgresql.nix
+    ./video-server.nix
   ];
 
   options = {
