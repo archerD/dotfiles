@@ -113,7 +113,7 @@
               Home-Assistant = [
                 {
                   abbr = "HA";
-                  href = "http://nixos-desktop.tail80def.ts.net:8123";
+                  href = "http://lambda1.tail80def.ts.net:8123";
                 }
               ];
             }
@@ -121,7 +121,7 @@
               Music-Assistant = [
                 {
                   abbr = "MA";
-                  href = "http://nixos-desktop.tail80def.ts.net:8095";
+                  href = "http://lambda1.tail80def.ts.net:8095";
                 }
               ];
             }
@@ -130,6 +130,14 @@
                 {
                   abbr = "TS";
                   href = "https://login.tailscale.com/admin/machines";
+                }
+              ];
+            }
+            {
+              Jellyfin = [
+                {
+                  abbr = "JF";
+                  href = "http://lambda1.tail80def.ts.net:8096";
                 }
               ];
             }
