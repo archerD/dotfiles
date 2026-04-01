@@ -1,13 +1,33 @@
 return {
+    -- quickfix improvements
+    {'kevinhwang91/nvim-bqf', ft = 'qf',
+        opts = {
+            func_map = {
+                ptoggleitem = '<esc>',
+                ptoggleauto = 'p',
+            },
+        },
+    },
+
     -- set vim.ui.select to use telescope, e.g. code actions use telescope
     { 'nvim-telescope/telescope-ui-select.nvim', },
     { 'nvim-telescope/telescope.nvim', branch = '0.1.x',
       config = function()
-        require("telescope").setup({
-            extensions = {
-              ['ui-select'] = { require("telescope.themes").get_dropdown{} }
-            }
-        })
+            require("telescope").setup({
+                extensions = {
+                    ['ui-select'] = { require("telescope.themes").get_dropdown{} }
+                },
+                --[[ defaults = {
+                    vimgrep_arguments = {
+                        "rg",
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                    },
+                }, ]]
+            })
         -- telescope settings, many other searches possible.
         local builtin = require('telescope.builtin')
             -- TODO: add the desc key to all keymaps.

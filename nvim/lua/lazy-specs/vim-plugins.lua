@@ -57,4 +57,7 @@ return { -- handful of plugins from vim, mostly better keybindings.
             vim.g.vimtex_view_general_viewer = 'evince'
         end,
     },
+
+    -- edit the quickfix list
+    {"itchyny/vim-qfedit"},
 }

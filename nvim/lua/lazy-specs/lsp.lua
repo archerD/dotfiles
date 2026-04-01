@@ -21,6 +21,12 @@ local lsp_servers = function()
         vim.lsp.enable(ls_name)
     end
 
+    -- python lsp
+    lspconfig('ty')
+    lspconfig('ruff')
+    lspconfig('djls')
+    lspconfig('djlsp')
+
     lspconfig('clangd')
     lspconfig('hls')
     lspconfig('gopls')
@@ -35,6 +41,7 @@ local lsp_servers = function()
                 formatting = {
                     command = { "nixfmt" },
                 },
+                -- TODO: inform nixd about my flake options?
             },
         },
     })
@@ -82,9 +89,9 @@ local lsp_servers = function()
                 }
             })
         end,
-        settings = {
-            Lua = {}
-        }
+        -- settings = {
+        --     Lua = {}
+        -- }
     })
 end
 
@@ -200,7 +207,13 @@ return {
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
                     ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-                    ['<C-Space>'] = cmp.mapping.complete(), -- open the completion menu
+                    ['<C-Space>'] = cmp.mapping(function() -- toggle the completion menu
+                        if cmp.visible() then
+                            cmp.close()
+                        else
+                            cmp.complete()
+                        end
+                    end),
                     ['<C-e>'] = cmp.mapping.abort(),
                     ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
