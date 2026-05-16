@@ -285,8 +285,14 @@
   # may be needed for stylix... also might just be good to have around...
   programs.dconf.enable = true;
 
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "archerd" ];
+  virtualisation.docker = {
+    enable = false; # restating default
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 
   # enabling experimental features
   # (nix-command enables use of nix to run different things instead many nix-* commands)
@@ -317,6 +323,9 @@
   # qmk udev rules
   #services.udev.packages = [ pkgs.qmk-udev-rules ];
   hardware.keyboard.qmk.enable = true; # from nixos.wiki...
+
+  # for user disk mounting.
+  services.udisks2.enable = true;
 
   # enable pcscd (for yubioath-flutter)
   services.pcscd.enable = true;

@@ -15,7 +15,7 @@
     [ ] new things to look at home manager modules
         - numbat? calculator/PL with unit support. could replace the rofi calculator...
 * update xmobar to differentiate between hosts
-    + could use host name, or a symbol (a lambda for lambda1, a laptop or the ubuntu logo, or maybe yoga for x1yoga4, for fractal... maybe one of the benzene chars? an electrical/vector intersection? crossing lanes? a snowflake? nixos+windows logo? turned capital y? ocr inverted fork? an axis variant? triforce?)
+    + could use host name, or a symbol (a lambda for lambda1, a laptop or the ubuntu logo, or maybe yoga for x1yoga4, for fractal... maybe one of the benzene chars? an electrical/vector intersection? crossing lanes? a snowflake? nixos+windows logo? turned capital y? ocr inverted fork? an axis variant? triforce, unity? oshwa? graphQL? call split? spiderweb or webhook? fulcrum)
 ## fixes
 * investigate the xsecurelock path issue and why it will not launch the screensaver if the path is not set
     * another issue: failed parsing of the xscreensaver config file on laptop...

@@ -52,6 +52,8 @@
     # useful cli tools
     pkgs-mine.clustergit
     nix-inspect
+    zip
+    jellyfin-ffmpeg
 
     # misc packages/scripts
     timer
@@ -83,7 +85,8 @@
       vcs_aware = true;
 
       preview_images = true;
-      preview_images_method = "kitty";
+      # WARN: the kitty preview method seems slightly bugged at the moment, needs some sort of signal to force redrawing the image...
+      # preview_images_method = "kitty";
 
       preview_script = "/home/archerd/.dotfiles/config-files/ranger-preview.sh";
     };
@@ -91,6 +94,7 @@
     extraPackages = with pkgs; [
       poppler-utils
       ffmpegthumbnailer
+      imagemagick
     ];
   };
 
@@ -136,6 +140,7 @@
   programs.fd.enable = true;
   programs.bat.enable = true;
   programs.watson.enable = true;
+  programs.bashmount.enable = true;
 
   programs.fastfetch = {
     enable = true;

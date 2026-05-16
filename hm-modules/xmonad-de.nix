@@ -274,6 +274,7 @@
     ### compositor! (picom)
     services.picom = {
       enable = true;
+      # backend = "xrender";
       backend = "glx";
       # not that fade is actually enabled...
       fadeExclude = [ "class_g = 'xsecurelock'" ];
