@@ -3,14 +3,22 @@
   options = {
   };
   config = {
+    services.redis.servers."" = {
+      enable = true;
+      bind = "${config.archerd.server.host}.tail80def.ts.net localhost";
+      settings.protected-mode = "no";
+      openFirewall = true;
+      # maxclients = 3;
+    };
+
     services.postgresql = {
       enable = true;
       # WARN: allows tailnet access, but may not be the most secure.
-      # enableTCPIP = true;
-      # authentication = ''
-      #   # allow hosts in my tailnet to connect using passwords
-      #   host  all   all   .tail80def.ts.net   md5
-      #   '';
+      enableTCPIP = true;
+      authentication = ''
+        # allow hosts in my tailnet to connect using passwords
+        host  all   all   .tail80def.ts.net   md5
+        '';
     };
     services.pgadmin = {
       enable = true;

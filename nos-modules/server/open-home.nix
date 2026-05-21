@@ -54,21 +54,30 @@
       "aranet"
       "xiaomi_ble"
       "wiz"
-      # "music_assistant" # currently only in unstable.
+      "music_assistant"
+      "roomba"
+      "google_wifi"
+      "upnp"
+      "nest" # missing a grpc module...
     ];
     extraPackages =
       py3ps: with py3ps; [
         # pyqrcode # for 2fa
         # spotipy # (spotify api) for ?
+        # for faster something... (aio http?)
+        zlib-ng
+        isal
       ];
     openFirewall = true;
     configWritable = false;
     config = {
       default_config = { };
-      automation = "!include automations.yaml";
+      # automation = "!include automations.yaml";
       http = {
         use_x_forwarded_for = true;
-        trusted_proxies = [ "127.0.0.1" ];
+        trusted_proxies = [
+          "127.0.0.1"
+        ];
       };
       homeassistant = {
         auth_mfa_modules = {

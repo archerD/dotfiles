@@ -6,6 +6,6 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
-    user = "archerd";
+    # user = "archerd";
   };
 }

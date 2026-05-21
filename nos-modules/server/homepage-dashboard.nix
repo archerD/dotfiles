@@ -7,9 +7,11 @@
     };
     archerd.homepage-custom-image = lib.mkEnableOption "using custom image for homepage dashboard.  This does require a lot of recompilation.";
   };
+
   config = {
     services.homer = lib.mkIf (config.archerd.homepage-server == "homer") {
       enable = true;
+      # virtualHost.domain = config.server.host;
       virtualHost.domain = "localhost";
       virtualHost.caddy.enable = true;
 
@@ -19,6 +21,7 @@
     services.dashy = lib.mkIf (config.archerd.homepage-server == "dashy") {
       enable = true;
       virtualHost.enableNginx = true;
+      # virtualHost.domain = config.server.host;
       virtualHost.domain = "localhost";
       settings = {
       };
@@ -40,7 +43,13 @@
 
       openFirewall = false;
       environmentFile = "";
-      allowedHosts = "localhost:8082,nixos-desktop.tail80def.ts.net:8082";
+      allowedHosts = lib.strings.concatStringsSep "," [
+        "localhost:3567"
+        "${config.archerd.server.host}:3567"
+        "localhost"
+        "${config.archerd.server.host}"
+        "${config.archerd.server.host}.tail80def.ts.net"
+      ];
       settings = {
         title = "DEF home";
         description = "Testing description";
@@ -110,22 +119,6 @@
         {
           Utilities = [
             {
-              Home-Assistant = [
-                {
-                  abbr = "HA";
-                  href = "http://lambda1.tail80def.ts.net:8123";
-                }
-              ];
-            }
-            {
-              Music-Assistant = [
-                {
-                  abbr = "MA";
-                  href = "http://lambda1.tail80def.ts.net:8095";
-                }
-              ];
-            }
-            {
               Tailscale = [
                 {
                   abbr = "TS";
@@ -134,18 +127,46 @@
               ];
             }
             {
-              Jellyfin = [
-                {
-                  abbr = "JF";
-                  href = "http://lambda1.tail80def.ts.net:8096";
-                }
-              ];
-            }
-            {
               "Hue Control" = [
                 {
                   abbr = "HC";
                   href = "https://jakobjfl.github.io/Hue-Browser-Controller/";
+                }
+              ];
+            }
+          ];
+        }
+        {
+          "Self Host" = [
+            {
+              Home-Assistant = [
+                {
+                  abbr = "HA";
+                  href = "http://${config.archerd.server.host}:8123";
+                }
+              ];
+            }
+            {
+              Music-Assistant = [
+                {
+                  abbr = "MA";
+                  href = "http://${config.archerd.server.host}:8095";
+                }
+              ];
+            }
+            {
+              Jellyfin = [
+                {
+                  abbr = "JF";
+                  href = "http://${config.archerd.server.host}:8096";
+                }
+              ];
+            }
+            {
+              Immich = [
+                {
+                  abbr = "IM";
+                  href = "http://${config.archerd.server.host}:2283";
                 }
               ];
             }
@@ -188,7 +209,23 @@
           ];
         }
       ];
-      services = [];
+      services = [
+        {
+          "Services" = [
+            {
+              "Caddy" =
+                {
+                  description = "Serves homepage.";
+                  widget = {
+                    type = "caddy";
+                    url = "http://localhost:2019";
+                  };
+                };
+            }
+            # TODO: other widgets are immich, jellyfin, tailscale
+          ];
+        }
+      ];
       # widgets are at the top
       widgets = [
         {
