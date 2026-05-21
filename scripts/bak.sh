@@ -9,13 +9,13 @@ SCRIPT_NAME=$(basename "$0")
 usage() {
     echo "Usage: $SCRIPT_NAME SOURCE..."
     echo "Options:"
-    echo "  <none> : Backup (copy, incremental)"
-    echo "  -f     : Force backup (copy, overwrite latest)"
-    echo "  -m     : Use 'mv' instead of 'cp' for backup (consumes source file)"
-    echo "  -r     : Restore (move, consumes backup file)"
-    echo "  -s     : Swap current file with latest backup"
-    echo "  -d     : Delete only the latest backup file"
-    echo "  -D     : Delete all backup files"
+    echo "  <none>             : Backup (copy, incremental)"
+    echo "  -f, --force        : Force backup (copy, overwrite latest)"
+    echo "  -m, --move-backup  : Use 'mv' instead of 'cp' for backup (consumes source file)"
+    echo "  -r, --restore      : Restore (move, consumes backup file)"
+    echo "  -s, --swap         : Swap current file with latest backup"
+    echo "  -d, --delete-latest: Delete only the latest backup file"
+    echo "  -D, --delete-all   : Delete all backup files"
     echo " -f can also modify other operations (force deletes when source does not exist, force restore of existing source file)"
     exit 1
 }
