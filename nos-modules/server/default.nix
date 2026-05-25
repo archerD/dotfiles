@@ -46,6 +46,9 @@
     archerd.homepage-server = "homepage";
     archerd.homepage-custom-image = false;
     archerd.ai.enable = true;
+    archerd.proxy.enable = true;
+    archerd.proxy.public_ip = true;
+    archerd.immich.public-proxy.enable = true;
 
     archerd.server.mount.enable = true;
     fileSystems = lib.mkIf config.archerd.server.mount.enable (builtins.listToAttrs (

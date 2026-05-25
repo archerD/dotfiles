@@ -1,12 +1,25 @@
 { config, pkgs, ... }:
 {
   networking.firewall.allowedTCPPorts = [
+    # TODO: which of these ports needs to be opened?
     # for music-assistant?
-    8097
-    8098
+    #8097
+    #8098
     # for matter-server
-    5580
+    #5580
   ];
+  archerd.proxy.virtualHosts = {
+    "Music Assistant" = {
+      host.ts_subdomain = "mass";
+      proxy_to.local_port = 8095;
+      abbr = "MA";
+    };
+    "Home Assistant" = {
+      host.ts_subdomain = "hass";
+      proxy_to.local_port = 8123;
+      abbr = "HA";
+    };
+  };
   services.music-assistant = {
     enable = true;
     providers = [
@@ -77,6 +90,7 @@
         use_x_forwarded_for = true;
         trusted_proxies = [
           "127.0.0.1"
+          "::1"
         ];
       };
       homeassistant = {
@@ -90,6 +104,4 @@
   services.matter-server = {
     enable = true;
   };
-  # TODO: have a service to automatically run something like `sudo tailscale funnel --https=443 --set-path=/ "http://127.0.0.1:8123"`, or serve instead of funnel (serve is only accessible on the tailnet, funnel is publically availible).
-  # This makes home assistant available at the url nixos-desktop.tail80def.ts.net/
 }

@@ -27,6 +27,11 @@
       };
     };
     # archerd.homepage-custom-image = true;
+
+    archerd.proxy.virtualHosts."Homepage Dashboard" = lib.mkIf (config.archerd.homepage-server == "homepage") {
+      host.ts_subdomain = "lambda1";
+      proxy_to.local_port = config.services.homepage-dashboard.listenPort;
+    };
     services.homepage-dashboard = lib.mkIf (config.archerd.homepage-server == "homepage") {
       enable = true;
       listenPort = 3567;
@@ -44,6 +49,7 @@
       openFirewall = false;
       environmentFile = "";
       allowedHosts = lib.strings.concatStringsSep "," [
+        config.archerd.proxy."Homepage Dashboard".host.url
         "localhost:3567"
         "${config.archerd.server.host}:3567"
         "localhost"
@@ -137,7 +143,7 @@
           ];
         }
         {
-          "Self Host" = [
+          "Self Host" = [ # TODO: parse archerd.proxy.virtualHosts to create this list.
             {
               Home-Assistant = [
                 {
