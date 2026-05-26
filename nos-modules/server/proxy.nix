@@ -64,6 +64,7 @@ in { # This is a reverse proxy, but meh.
       type = lib.types.nullOr lib.types.path;
       default = "/home/archerd/.dotfiles/porkbun_api_keys.env";
     };
+    archerd.proxy.enable_test_subdomains = lib.mkEnableOption "a couple of testing subdomains.";
 
     archerd.proxy.virtualHosts = lib.mkOption {
       description = "The hosts, managed by caddy";
@@ -79,8 +80,9 @@ in { # This is a reverse proxy, but meh.
           };
           proxy_to = matcher_option "Where to send the request to.";
           abbr = lib.mkOption {
-            type = lib.types.str;
+            type = lib.types.nullOr lib.types.str;
             description = "Abbreviation for homepage dashboard stuff";
+            default = null;
           };
           # extraConfig = lib.mkOption {
           #   type = lib.types.lines;
@@ -107,8 +109,7 @@ in { # This is a reverse proxy, but meh.
         '';
     };
 
-    archerd.proxy.virtualHosts = {
-      # TODO: make these easily closable.
+    archerd.proxy.virtualHosts = lib.mkIf config.archerd.proxy.enable_test_subdomains {
       "Public Test" = {
         host.pub_subdomain = "public";
         proxy_to.local_port = 44300;

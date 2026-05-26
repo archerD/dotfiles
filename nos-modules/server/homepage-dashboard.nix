@@ -32,9 +32,17 @@
       host.ts_subdomain = "lambda1";
       proxy_to.local_port = config.services.homepage-dashboard.listenPort;
     };
+    archerd.proxy.virtualHosts."Homepage Internal" = lib.mkIf (config.archerd.homepage-server == "homepage") {
+      host.ts_port = 443;
+      extra_hosts = [
+        { host_port = 80; }
+        { local_port = 443; }
+      ];
+      proxy_to.local_port = config.services.homepage-dashboard.listenPort;
+    };
+
     services.homepage-dashboard = lib.mkIf (config.archerd.homepage-server == "homepage") {
       enable = true;
-      listenPort = 3567;
 
       # homepage expects the background to be in /app/public/images...
       # TODO: this forces homepage to be rebuilt everytime, see if we can optimize this...
@@ -48,14 +56,20 @@
 
       openFirewall = false;
       environmentFile = "";
-      allowedHosts = lib.strings.concatStringsSep "," [
-        config.archerd.proxy."Homepage Dashboard".host.url
-        "localhost:3567"
-        "${config.archerd.server.host}:3567"
-        "localhost"
-        "${config.archerd.server.host}"
-        "${config.archerd.server.host}.tail80def.ts.net"
-      ];
+      allowedHosts = let 
+        remove_port = url: lib.elemAt (lib.splitString ":" url) 0;
+      in lib.strings.concatStringsSep "," (
+          [
+            config.archerd.proxy.virtualHosts."Homepage Dashboard".host.url
+            (remove_port config.archerd.proxy.virtualHosts."Homepage Internal".host.url)
+          ] ++
+          (lib.map (h: remove_port h.url) config.archerd.proxy.virtualHosts."Homepage Internal".extra_hosts)
+        # [
+        #   "localhost"
+        #   "${config.archerd.server.host}"
+        #   "${config.archerd.server.host}.tail80def.ts.net"
+        # ]
+      );
       settings = {
         title = "DEF home";
         description = "Testing description";
@@ -143,40 +157,18 @@
           ];
         }
         {
-          "Self Host" = [ # TODO: parse archerd.proxy.virtualHosts to create this list.
-            {
-              Home-Assistant = [
+          "Self Host" = lib.mapAttrsToList
+            (name: vhost: {
+              ${name} = [
                 {
-                  abbr = "HA";
-                  href = "http://${config.archerd.server.host}:8123";
+                  abbr = vhost.abbr;
+                  href =
+                    (if vhost.host ? insecure && vhost.host.insecure
+                      then "http://" else "https://") + vhost.host.url;
                 }
               ];
-            }
-            {
-              Music-Assistant = [
-                {
-                  abbr = "MA";
-                  href = "http://${config.archerd.server.host}:8095";
-                }
-              ];
-            }
-            {
-              Jellyfin = [
-                {
-                  abbr = "JF";
-                  href = "http://${config.archerd.server.host}:8096";
-                }
-              ];
-            }
-            {
-              Immich = [
-                {
-                  abbr = "IM";
-                  href = "http://${config.archerd.server.host}:2283";
-                }
-              ];
-            }
-          ];
+            })
+            (lib.filterAttrs (_: vhost: vhost.abbr != null) config.archerd.proxy.virtualHosts);
         }
         {
           Entertainment = [
