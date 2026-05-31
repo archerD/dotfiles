@@ -44,7 +44,7 @@
 
   config = {
     archerd.homepage-server = "homepage";
-    archerd.homepage-custom-image = false;
+    # archerd.homepage-custom-image = true;
     archerd.ai.enable = true;
     archerd.proxy.enable = true;
     archerd.proxy.public_ip = true;

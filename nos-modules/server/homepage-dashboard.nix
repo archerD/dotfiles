@@ -49,8 +49,8 @@
       package = lib.mkIf config.archerd.homepage-custom-image (pkgs.homepage-dashboard.overrideAttrs (_: {
         postInstall = ''
         mkdir -p $out/share/homepage/public/images
-        ln -s ${inputs.self}/images/* $out/share/homepage/public/images
-        ln -s ${config.stylix.image} $out/share/homepage/public/stylix.png
+        cp -r --no-preserve=mode ${inputs.self}/images/. $out/share/homepage/public/images
+        cp -r --no-preserve=mode ${config.stylix.image} $out/share/homepage/public/stylix.png
         '';
       }));
 
@@ -75,6 +75,7 @@
         description = "Testing description";
         # set image above
         background = lib.mkIf config.archerd.homepage-custom-image "/images/nixos-dark-tiling.png";
+        # background = "https://raw.githubusercontent.com/archerD/dotfiles/refs/heads/main/images/nixos-dark-tiling.png";
         # background = "/stylix.png"
         theme = "dark";
         color = "stone";
@@ -127,6 +128,14 @@
               ];
             }
             {
+              "NixOS Wiki" = [
+                {
+                  abbr = "NW";
+                  href = "https://wiki.nixos.org/wiki/";
+                }
+              ];
+            }
+            {
               "Home Manager Options" = [
                 {
                   abbr = "HM";
@@ -154,24 +163,26 @@
                 }
               ];
             }
+            {
+              "World Clock" = [
+                {
+                  abbr = "WC";
+                  href = "https://www.worldtimebuddy.com/";
+                }
+              ];
+            }
           ];
         }
         {
-          "Self Host" = lib.mapAttrsToList
-            (name: vhost: {
-              ${name} = [
+          Entertainment = [
+            {
+              Cards = [
                 {
-                  abbr = vhost.abbr;
-                  href =
-                    (if vhost.host ? insecure && vhost.host.insecure
-                      then "http://" else "https://") + vhost.host.url;
+                  abbr = "HC";
+                  href = "https://cardgames.io/hearts/";
                 }
               ];
-            })
-            (lib.filterAttrs (_: vhost: vhost.abbr != null) config.archerd.proxy.virtualHosts);
-        }
-        {
-          Entertainment = [
+            }
             {
               YouTube = [
                 {
@@ -205,6 +216,20 @@
               ];
             }
           ];
+        }
+        {
+          "Self Host" = lib.mapAttrsToList
+            (name: vhost: {
+              ${name} = [
+                {
+                  abbr = vhost.abbr;
+                  href =
+                    (if vhost.host ? insecure && vhost.host.insecure
+                      then "http://" else "https://") + vhost.host.url;
+                }
+              ];
+            })
+            (lib.filterAttrs (_: vhost: vhost.abbr != null) config.archerd.proxy.virtualHosts);
         }
       ];
       services = [
