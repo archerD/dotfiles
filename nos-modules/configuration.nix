@@ -140,7 +140,7 @@
     nix-melt # inspect flake.lock files
     inputs.flake-checker.packages.${stdenv.hostPlatform.system}.default
     texlive.combined.scheme-full
-    neofetch
+    fastfetch
     poppler-utils # pdf utilities
     qmk
     unzip
@@ -184,7 +184,7 @@
     logiops
     blueman
     gxmessage
-    xfce.xfce4-power-manager
+    xfce4-power-manager
     system-config-printer
     numlockx
     find-cursor
@@ -192,7 +192,7 @@
     mission-center
     ##visual
     lxappearance
-    xorg.xsetroot
+    xsetroot
     autorandr
     arandr
     feh
@@ -203,6 +203,7 @@
     pavucontrol
 
     wine
+    android-tools
 
     # languages
     ## haskell configuration
@@ -274,7 +275,6 @@
   # programs.vim.defaultEditor = true;
   programs.nm-applet.enable = true;
   programs.nm-applet.indicator = true;
-  programs.adb.enable = true;
   # opens the firewall for kde connect, but does not start the service...
   programs.kdeconnect.enable = true;
   programs.java.enable = true;
@@ -391,5 +391,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 }

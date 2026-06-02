@@ -47,7 +47,7 @@
   } // lib.optionalAttrs (!(lib ? nixosSystem))
     {
       # HACK: this is only a home-manager option, consider moving into a hm module
-      iconTheme = lib.mkIf (builtins.hasAttr "archerd" config) {
+      icons = lib.mkIf (builtins.hasAttr "archerd" config) {
         enable = true;
         package = pkgs.vimix-icon-theme;
         dark = "Vimix-Doder-dark";

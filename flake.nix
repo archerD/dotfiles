@@ -3,11 +3,11 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # System manager
@@ -19,7 +19,7 @@
     nix-system-graphics.inputs.nixpkgs.follows = "nixpkgs";
 
     # stylix, for theming
-    stylix.url = "github:danth/stylix/release-25.11";
+    stylix.url = "github:danth/stylix/release-26.05";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     # nix index, for comma.
@@ -35,7 +35,7 @@
     clustergit.flake = false;
 
     # lanzaboote, for secure boot
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2"; # update to v1.0.0
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
     # TODO: Add any other flake you might need

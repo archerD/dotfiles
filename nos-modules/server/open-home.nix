@@ -30,7 +30,7 @@
       "hass"
       "hass_players"
       "radiobrowser"
-      "template_player_provider"
+      # "template_player_provider"
       "ytmusic"
     ];
     # 2025-04-15: type of provides is list of (one of "airplay", "apple_music", "builtin", "chromecast", "deezer", "dlna", "fanarttv", "filesystem_local", "filesystem_smb", "fully_kiosk", "hass", "hass_players", "jellyfin", "musicbrainz", "opensubsonic", "plex", "qobuz", "radiobrowser", "slimproto", "snapcast", "sonos", "soundcloud", "spotify", "template_player_provider", "test", "theaudiodb", "tidal", "tunein", "ugp", "ytmusic")

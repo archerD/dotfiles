@@ -347,8 +347,8 @@
     ### dunst (notification daemon)
     services.dunst = {
       enable = true;
-      iconTheme.package = pkgs.gnome-icon-theme;
-      iconTheme.name = "gnome";
+      # iconTheme.package = pkgs.gnome-icon-theme;
+      # iconTheme.name = "gnome";
       iconTheme.size = "32x32";
       # so many settings!
       settings = {

@@ -39,6 +39,8 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
+    withPython3 = true;
+    sideloadInitLua = true;
     extraPackages =
       let
         # ripgrep and fd for telescope, gcc for treesitter.

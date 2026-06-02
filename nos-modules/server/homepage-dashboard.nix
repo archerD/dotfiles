@@ -55,7 +55,7 @@
       }));
 
       openFirewall = false;
-      environmentFile = "";
+      environmentFiles = [];
       allowedHosts = let 
         remove_port = url: lib.elemAt (lib.splitString ":" url) 0;
       in lib.strings.concatStringsSep "," (

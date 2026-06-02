@@ -97,15 +97,15 @@ rec {
 
     nativeBuildInputs = with pkgs; [
       cmake
-      extra-cmake-modules
+      kdePackages.extra-cmake-modules
       pkg-config
     ];
 
     buildInputs = with pkgs; [
       glib
       libnotify
-      xorg.libxcb
-      xorg.xcbutil
+      libxcb
+      xcbutil
     ];
   });
   mpvScripts = {

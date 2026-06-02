@@ -8,27 +8,30 @@
 * Update flake inputs to 25.05->25.11
     [/] secureboot support with limine bootloader.
         - actual support seems a bit limited at the moment, revisit later.
-    [ ] new things to look at nixos modules
-        - argrr for gc root removal.
-        - LACT for gpu monitoring/control.
-        - pmount for mounting drives without sudo
+    [/] new things to look at nixos modules
+        - angrr for gc root removal.
+        - ~LACT for gpu monitoring/control.~
+        - ~pmount for mounting drives without sudo~
     [ ] new things to look at home manager modules
         - numbat? calculator/PL with unit support. could replace the rofi calculator...
+* Update flake inputs to 25.11->26.06
+    [ ] new things to look at nixos modules
+        - ImmichFrame photo frame viewer for immich library.
+        - bentopdf for pdf tools web interface
+        - LogiOps, a new module! (consider fragmentation of config for nixos and non nixos devices)
 * update xmobar to differentiate between hosts
     + could use host name, or a symbol (a lambda for lambda1, a laptop or the ubuntu logo, or maybe yoga for x1yoga4, for fractal... maybe one of the benzene chars? an electrical/vector intersection? crossing lanes? a snowflake? nixos+windows logo? turned capital y? ocr inverted fork? an axis variant? triforce, unity? oshwa? graphQL? call split? spiderweb or webhook? fulcrum)
 ## fixes
 * investigate the xsecurelock path issue and why it will not launch the screensaver if the path is not set
     * another issue: failed parsing of the xscreensaver config file on laptop...
 ## new features
+* incorporate secret management tool (like agenix or sops-nix)
+* integrate a rofi powermenu, and the ability to launch it from xmobar with the mouse.
 * Hosting things:
     + ersatsTV - tv thing of your video library.
-    + ente/immich - for photos (and videos?) (google alternative)
-    + jellyfin - media library
     + homepage - options include homer (localhost), homepage (localhost:3567), dashy (localhost)
 * patch kitty to have more powerline options for the tabbar
 * more stylix stuff! see (./style.md)
 * consider moving away from dotbot to home-manager for installing dotfiles.
 * investigate different nvim configuration frameworks.
 * investigate running dotbot from home-manager.
-* incorporate secret management tool (like agenix or sops-nix)
-* integrate a rofi powermenu, and the ability to launch it from xmobar with the mouse.
