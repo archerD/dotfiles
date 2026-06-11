@@ -121,6 +121,8 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  # enable cuda/nvidia support where applicable (forces a lot of recompilation!)
+  nixpkgs.config.cudaSupport = true;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [

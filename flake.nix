@@ -35,7 +35,7 @@
     clustergit.flake = false;
 
     # lanzaboote, for secure boot
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2"; # update to v1.0.0
+    lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0"; # update to v1.0.0
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
     # TODO: Add any other flake you might need
