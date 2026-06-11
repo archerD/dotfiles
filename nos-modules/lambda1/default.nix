@@ -12,6 +12,8 @@
         "tailscale0" = ["lambda1"];
     };
 
+    archerd.proxy.enable_test_subdomains = true;
+
     networking.hostName = "lambda1";
 
     archerd.secure-boot = false;

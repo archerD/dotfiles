@@ -43,6 +43,8 @@
       config = {
         # Disable if you don't want unfree packages
         allowUnfree = true;
+        # TODO: make a proper flag for cudaSupport?
+        cudaSupport = !config.archerd.targetGenericLinux;
       };
     };
 

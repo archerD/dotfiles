@@ -26,6 +26,10 @@ rec {
       # consider specifying what layouts to enable, maybe fat, grid, splits (not using horizontal, stack, tall, vertical)
       # enabled_layouts = "*";
 
+      # increase scrollback size:
+      scrollback_lines = 5000; # was default of 2000
+      scrollback_pager_history_size = 2; # size in MB, 1 MB ~ 10_000 lines (100chars, only ascii)
+
       # tab bar
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
