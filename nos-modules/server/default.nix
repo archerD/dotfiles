@@ -8,6 +8,7 @@
     ./photos-server.nix
     ./video-server.nix
     ./ai.nix
+    ./binary-cache.nix
   ];
 
   options = {
@@ -49,6 +50,8 @@
     archerd.proxy.enable = true;
     archerd.proxy.public_ip = true;
     archerd.immich.public-proxy.enable = true;
+
+    archerd.binary-cache.enable = true;
 
     archerd.server.mount.enable = true;
     fileSystems = lib.mkIf config.archerd.server.mount.enable (builtins.listToAttrs (

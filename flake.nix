@@ -156,6 +156,13 @@
                 experimental-features = [ "nix-command" "flakes" ];
                 extra-nix-path = "nixpkgs=flake:nixpkgs";
                 bash-prompt-prefix = "(nix:$name)\\040";
+                substituters = [
+                  "https://binarycache.ts.archerdef.dev"
+                  "https://cache.nixos.org"
+                ];
+                trusted-public-keys = [
+                  "binarycache.ts.archerdef.dev:AGQ4JzvGYZA3YoBh9xJjTtRKJ6Fy1rKhH+WMU5NoFZA="
+                ];
               };
 
               # system-manager.allowAnyDistro = true;

@@ -14,6 +14,7 @@
 {
   imports = [
     ./boot-loader.nix
+    ./nix-config.nix
     # services files
     ./tailscale.nix
   ];
@@ -295,16 +296,6 @@
       setSocketVariable = true;
     };
   };
-
-  # enabling experimental features
-  # (nix-command enables use of nix to run different things instead many nix-* commands)
-  # (flakes enables flakes, which I don't really understand...)
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  # use newer version of nix?
-  #nix.package = pkgs-unstable.nixVersions.nix_2_18; # 2.18 is the default on 23.11
 
   # add the systemd service for logiops (logitech mouse support)
   systemd.packages = [ pkgs.logiops ]; # this provides the systemd unit somewhere
