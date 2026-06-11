@@ -19,7 +19,7 @@
       };
 
       archerd.proxy.virtualHosts."binary-cache" = {
-        host.ts_subdomain = "binarycache";
+        host.ts_subdomain = "cache";
         proxy_to.local_port = config.services.nix-serve.port;
       };
     })
