@@ -28,7 +28,7 @@ return {
                     "lua",
                     "haskell",
                     "ocaml",
-                    "latex",
+                    -- "latex",
                     "vimdoc",
                     "vim",
                     "nix",

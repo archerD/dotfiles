@@ -69,6 +69,7 @@ in
           pkgs.gopls
           pkgs.go
           # pkgs.texlab
+          pkgs.pyright
         ];
       in
       pluginPkgs ++ lspPkgs;

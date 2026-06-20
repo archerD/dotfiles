@@ -21,6 +21,7 @@ local lsp_servers = function()
             ['rust-analyzer'] = {},
         },
     }
+    lspconfig.pyright.setup { capabilities = capabilities }
     lspconfig.nixd.setup {
         capabilities = capabilities,
         settings = {

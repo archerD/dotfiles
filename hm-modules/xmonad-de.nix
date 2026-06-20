@@ -27,9 +27,14 @@
       '';
     };
     archerd.highResolutionScreen = mkEnableOption "settings for high resolutions screens (larger fonts, etc.)";
+    archerd.noDE = mkOption {
+      type = types.bool;
+      default = false;
+      description = "disable the xmonad based desktop environment";
+    };
   };
 
-  config = {
+  config = lib.mkIf (!config.archerd.noDE) {
     ### overlay! (to set xmonad to highest version, because I can...)
     nixpkgs.overlays = [
       # bump xmonad version to latest! is this necessary? no. but I can.

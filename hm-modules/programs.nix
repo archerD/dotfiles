@@ -41,6 +41,7 @@
     # useful cli tools
     pkgs-mine.clustergit
     nix-inspect
+    watson
 
     # misc packages/scripts
     timer

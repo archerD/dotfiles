@@ -141,6 +141,21 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
+        "archerd@windows-desktop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = args; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [
+            ./hm-modules/home.nix
+            stylix.homeModules.stylix
+            ./stylix-theme.nix
+            {
+              archerd.targetGenericLinux = true;
+              #TODO: see if any other changes should be made to this config...
+              archerd.noDE = true;
+            }
+          ];
+        };
         "archerd@Ubuntu-X1-Yoga-4" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
