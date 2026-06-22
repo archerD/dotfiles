@@ -5,6 +5,7 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-26.05";
@@ -50,6 +51,7 @@
     {
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-old,
       home-manager,
       system-manager,
       nix-system-graphics,
@@ -65,6 +67,11 @@
         inherit inputs;
         pkgs-unstable = import nixpkgs-unstable {
           # configure the unstable inputs...
+          inherit system;
+          # config.allowUnfree = true;
+        };
+        pkgs-old = import nixpkgs-old {
+          # configure the old (deprecated) inputs...
           inherit system;
           # config.allowUnfree = true;
         };

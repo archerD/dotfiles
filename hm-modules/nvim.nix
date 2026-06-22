@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgs-old,
   lib,
   ...
 }:
@@ -35,6 +36,7 @@ in
 
   programs.neovim = {
     enable = true;
+    package = pkgs-old.neovim-unwrapped;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
