@@ -323,6 +323,8 @@
           "XSECURELOCK_KEY_XF86AudioMute_COMMAND=\"${amixer} set Master toggle\""
           "XSECURELOCK_KEY_XF86AudioLowerVolume_COMMAND=\"${amixer} set Master 2%-\""
           "XSECURELOCK_KEY_XF86AudioRaiseVolume_COMMAND=\"${amixer} set Master 2%+\""
+          "XSECURELOCK_KEY_Pause_COMMAND=\"${pkgs.autorandr}/bin/autorandr --change --force\""
+          "XSECURELOCK_SWITCH_USER_COMMAND=\"${pkgs.lightdm}/bin/dm-tool switch-to-greeter\""
           "XSECURELOCK_PASSWORD_PROMPT=\"time\""
           "XSECURELOCK_SHOW_DATETIME=1"
           "XSECURELOCK_DATETIME_FORMAT=\"(%%a) %%F T %%R:%%S%%z (%%Z)\""

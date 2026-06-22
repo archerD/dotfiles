@@ -115,6 +115,7 @@ myKeysNamed c =
     , ("<XF86AudioPrev>", addName "Previous" $ spawn "playerctl -p playerctld previous")
     , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl -p playerctld next")
     , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl -p playerctld stop")
+    , ("<Pause>", addName "Reload monitors" $ spawn "autorandr --change --force")
     , ("M-m M-m", addName "Change focused player" $ spawn "playerctld shift")
     , ("M-m S-m", addName "Change focused player (reverse)" $ spawn "playerctld unshift")
     , ("M-m <Space>", addName "Play/Pause focused player" $ spawn "playerctl -p playerctld play-pause")

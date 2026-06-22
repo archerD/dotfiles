@@ -2,9 +2,6 @@
 let use_private_cache = !(config.archerd ? binary-cache && config.archerd.binary-cache.enable);
 in {
   nix = {
-    # enabling experimental features
-    # (nix-command enables use of nix to run different things instead many nix-* commands)
-    # (flakes enables flakes, which I don't really understand...)
     settings = {
       experimental-features = [
         "nix-command"

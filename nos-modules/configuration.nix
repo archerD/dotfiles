@@ -202,7 +202,7 @@
     feh
     ##audio
     playerctl
-    pasystray
+    # pasystray # provided by home manager
     paprefs
     pavucontrol
 
