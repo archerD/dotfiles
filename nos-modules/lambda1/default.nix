@@ -3,6 +3,7 @@
     # lambda1 specific configuration.
     imports = [
         ./hardware-configuration.nix
+        ./windows-drives.nix
         ../server
     ];
 
