@@ -16,6 +16,7 @@
         enable = true;
         secretKeyFile = "/home/archerd/repos/dotfiles/nixserve-private-key.pem"; # TODO: create a key
         package = pkgs.nix-serve-ng;
+        extraParams = "--priority 60"; # after cache.nixos.org (40) and cache.nixos-cuda.org (50)
       };
 
       archerd.proxy.virtualHosts."binary-cache" = {

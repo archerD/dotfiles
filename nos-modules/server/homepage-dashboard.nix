@@ -139,7 +139,7 @@
               "Home Manager Options" = [
                 {
                   abbr = "HM";
-                  href = "https://nix-community.github.io/home-manager/options.xhtml";
+                  href = "https://nix-community.github.io/home-manager/options/home-manager/index.html";
                 }
               ];
             }
