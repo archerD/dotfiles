@@ -5,6 +5,7 @@
   pkgs,
   pkgs-unstable,
   pkgs-mine,
+  pkgs-old,
   ...
 }:
 {
@@ -43,7 +44,7 @@
     #TODO: integrate xeyes somewhere in config xmonad config? (keybind to display the program on screen briefly)
     xeyes # displays eyes that follow the cursor...
     cheese
-    simplescreenrecorder
+    # pkgs-old.simplescreenrecorder # It's crashing my DE...
 
     pkgs-mine.radio-active # tui radio player
     unison # file syncing

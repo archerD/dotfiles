@@ -43,6 +43,7 @@ rec {
   );
   radio-active = pkgs.python3Packages.buildPythonApplication rec {
     pname = "radio-active";
+    meta.mainProgram = "radio";
     version = "2.9.1";
     src = pkgs.fetchPypi {
       inherit pname version;

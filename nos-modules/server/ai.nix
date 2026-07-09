@@ -15,7 +15,8 @@ in {
             loadModels = [
                 "qwen3:8b"
                 "qwen3-vl:8b"
-                # "qwen3-coder:7b"
+                "qwen3-coder:7b"
+                "qwen3.5:9b"
                 "codeqwen"
                 "deepseek-coder:6.7b"
                 # "gpt-oss:20b"
@@ -30,6 +31,7 @@ in {
         environment.systemPackages = [
             pkgs.oterm
             pkgs.lsp-ai
+            pkgs.qwen-code
         ];
     };
 }

@@ -24,6 +24,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  # NOTE: to avoid tdls, which is crashing wifi in 26.05. Should be patched by 26.11...
+  networking.networkmanager.wifi.backend = "iwd";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

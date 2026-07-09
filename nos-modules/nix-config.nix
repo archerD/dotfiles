@@ -1,4 +1,4 @@
-{lib, config, pkgs-unstable,...}:
+{self, lib, config, pkgs-unstable, inputs,...}:
 let use_private_cache = !(config.archerd ? binary-cache && config.archerd.binary-cache.enable);
 in {
   nix = {
@@ -20,6 +20,11 @@ in {
       ] ++ lib.optional use_private_cache "cache.ts.archerdef.dev:XCmNx437xEW1aU2mJ+5oq6svPdnQfjTWcIvMqvXlZ6U=";
     };
 
+    registry = rec {
+      nixpkgs.flake = inputs.nixpkgs; # nixpkgs is the same as this flake's nixpkgs
+      np = nixpkgs; # shortcut for nixpkgs#
+      def.flake = inputs.self; # for my packages I guess...
+    };
 
     # use newer version of nix?
     #package = pkgs-unstable.nixVersions.nix_2_18; # 2.18 is the default on 23.11
