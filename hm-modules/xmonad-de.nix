@@ -171,6 +171,28 @@
         onChange = "touch ${config.xdg.configHome}/xmobar/lib/recompileFlag.hs";
       };
 
+    programs.yazi = {
+      enable = true;
+    };
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-termfilechooser
+        # pkgs.xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          "org.freedesktop.impl.portal.FileChooser" = [
+            "termfilechooser"
+          ];
+          # preferred = [
+          #   org.freedesktop.impl.portal.FileChooser="termfilechooser";
+          # ];
+        };
+      };
+    };
+
     # notify services
     systemd.user.services.pa-notify = {
       Unit = {

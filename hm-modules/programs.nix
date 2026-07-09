@@ -79,6 +79,10 @@
     theme = "night";
   };
 
+  programs.numbat = {
+    enable = true;
+  };
+
   programs.ranger = {
     enable = true;
     settings = {

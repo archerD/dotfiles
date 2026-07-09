@@ -30,6 +30,7 @@
     ~/bin/light-control: scripts/philips-hue-control-lights.py
     ~/.config/mpv/script-opts/modernz.conf: config-files/mpv-modernz.conf
     ~/.config/mpv/script-opts/uosc.conf: config-files/mpv-uosc.conf
+    ~/.config/xdg-desktop-portal-termfilechooser: config-files/xdg-desktop-portal-termfilechooser
 
     # self link
     ~/.dotfiles: .

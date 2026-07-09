@@ -92,6 +92,10 @@ scratchpads =
                 (className =? "nsp-neovide-notes") defaultFloating
     , NS "cmus window" "kitty --class nsp-cmus cmus"
                 (className =? "nsp-cmus") defaultFloating
+    , NS "numbat calculator" "kitty --class nsp-numbat numbat"
+                (className =? "nsp-numbat") defaultFloating
+    , NS "file explorer" "kitty --class nsp-yazi yazi"
+                (className =? "nsp-yazi") defaultFloating
     , NS "popup terminal" "kitty --class nsp-kitty"
                 (className =? "nsp-kitty") defaultFloating
     ]
@@ -128,9 +132,11 @@ myKeysNamed c =
     subKeys "Launchers"
     [ ("M-u", addName "Open Launcher" $ defaultLauncher "run")
     , ("M-= M-=", addName "Open Mini Calculator" calculatorLauncher)
+    , ("M-= =", addName "Open Numbat Calculator" $ namedScratchpadAction scratchpads "numbat calculator")
     , ("M-= p", addName "Open python repl" $ namedScratchpadAction scratchpads "repl ipython")
     , ("M-= h", addName "Open ghci repl" $ namedScratchpadAction scratchpads "repl ghci")
-    , ("M-= n", addName "Open neovide for notes" $ namedScratchpadAction scratchpads "neovide notes")
+    , ("M-= n", addName "Open neovide text editor" $ namedScratchpadAction scratchpads "neovide notes")
+    , ("M-= f", addName "Open File explorer (yazi)" $ namedScratchpadAction scratchpads "file explorer")
     , ("M-= c", addName "Open cmus window" $ namedScratchpadAction scratchpads "cmus window")
     , ("M-= t", addName "Open popup terminal" $ namedScratchpadAction scratchpads "popup terminal")
     , ("M-= x", addName "xmonad commands" $ defaultCommands >>= runCommandConfig (menuArgs "rofi" ["-dmenu", "-mesg", "XMonad commands"]))
