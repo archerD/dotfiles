@@ -37,16 +37,16 @@ return {
         opts = {
             specs = {
                 carbonfox = {
-                    -- brightening the visual selection slightly for better visibility
-                    --sel0 = "#303030", -- defaults to #2a2a2a, this had insufficent contrast for me.
-                    -- changing the selections for better visibility of visual mode selection (using values from terafox)
-                    --sel0 = "#293e40", -- defaults to #2a2a2a, this had insufficent contrast for me.
-                    --sel1 = "#425e5e", -- defaults to #525253
                     -- inverting bg0 and bg1
                     -- bg1  = "#0c0c0c", --default bg
                     -- bg0  = "#161616", -- statusline and float
                     bg1  = "bg0", --default bg
                     bg0  = "bg1", -- statusline and float
+                    -- brightening the visual selection slightly for better visibility
+                    --sel0 = "#303030", -- defaults to #2a2a2a, this had insufficent contrast for me.
+                    -- changing the selections for better visibility of visual mode selection (using values from terafox)
+                    --sel0 = "#293e40", -- defaults to #2a2a2a, this had insufficent contrast for me.
+                    --sel1 = "#425e5e", -- defaults to #525253
                     syntax = { -- experiment with making comments yellow instead of gray
                         -- comment = "#f5e8aa" -- butter
                         -- comment = "#ffed5f" -- canary yellow
@@ -55,11 +55,26 @@ return {
                         comment = "#f8de7e" -- mellow yellow
                     },
                 },
+                dayfox = {
+                    bg1 = "bg0",
+                    bg0 = "bg1",
+                    syntax = { -- experiment with making comments yellow instead of gray
+                        -- comment = "#f5e8aa" -- butter
+                        -- comment = "#ffed5f" -- canary yellow
+                        comment = "#d2b55b" -- trombone
+                        -- comment = "#e2ca76" -- sand
+                        -- comment = "#f8de7e" -- mellow yellow
+                    },
+                },
             },
             groups = {
-                all = {
+                carbonfox = {
                     -- to show the end of file more cleanly.
-                    EndOfBuffer = { fg = "bg4", bg = "black" },
+                    endofbuffer = { fg = "bg4", bg = "black" },
+                },
+                dayfox = {
+                    -- to show the end of file more cleanly.
+                    endofbuffer = { fg = "bg4", bg = "white" },
                 },
             },
             options = {
