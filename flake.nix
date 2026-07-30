@@ -39,6 +39,9 @@
     lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0"; # update to v1.0.0
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
+    llm-agents.url = "github:numtide/llm-agents.nix";
+    llm-agents.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";
 
@@ -57,6 +60,7 @@
       nix-system-graphics,
       stylix,
       nix-index-database,
+      llm-agents,
       lanzaboote,
       ...
     }@inputs:
@@ -76,6 +80,7 @@
           # config.allowUnfree = true;
         };
         pkgs-mine = inputs.self.packages.${system};
+        llm-pkgs = inputs.llm-agents.packages.${system};
       };
     in
     {
