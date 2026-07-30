@@ -50,11 +50,6 @@ let
         matcher // { url = matcher.direct; }
       else throw "Unexpected error: no matching url builder for this matcher type!";
   extract_url = matcher: matcher.url;
-  matcher_option = description: lib.mkOption {
-    description = description + " (read the resulting url at the url attribute of this option)";
-    type = matcher_type;
-    apply = add_url_attr;
-  };
 in { # This is a reverse proxy, but meh.
   options = {
     archerd.proxy.enable = lib.mkEnableOption "proxy support with caddy (porkbun.com for domains)";
@@ -71,14 +66,22 @@ in { # This is a reverse proxy, but meh.
       default = { };
       type = lib.types.attrsOf (lib.types.submodule {
         options = {
-          host = matcher_option "The host matcher to proxy";
+          host = lib.mkOption {
+              description = "The host matcher to proxy (read the resulting url at the url attribute of this option, i.e., to pass to another module to configure the handling of this module).";
+              type = matcher_type;
+              apply = add_url_attr;
+            };
           extra_hosts = lib.mkOption {
             description = "Other server aliases to add.";
             type = lib.types.listOf matcher_type;
             default = [];
             apply = map add_url_attr;
           };
-          proxy_to = matcher_option "Where to send the request to.";
+          proxy_to = lib.mkOption {
+              description = "Where to send the request to (leave null to let some other module configure this). (read the resulting url at the url attribute of this option)";
+              type = lib.types.nullOr matcher_type;
+              apply = p: (if p == null then null else add_url_attr p);
+            };
           abbr = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
             description = "Abbreviation for homepage dashboard stuff";
@@ -141,15 +144,12 @@ in { # This is a reverse proxy, but meh.
       # compile my virtual hosts into caddy virtual hosts
       virtualHosts = lib.attrsets.mapAttrs
         (name: vhost: {
-          hostName = vhost.host.url;
+          hostName = lib.mkOverride 40 vhost.host.url; # override mkForce.
           serverAliases = lib.map extract_url vhost.extra_hosts;
           extraConfig = lib.concatLines
             (
               (lib.optional (vhost.host ? porkbun && vhost.host.porkbun) "import porkbun") ++
-              [ 
-                # vhost.extraConfig
-                "reverse_proxy ${vhost.proxy_to.url}"
-              ]
+              (lib.optional (vhost.proxy_to != null) "reverse_proxy ${vhost.proxy_to.url}")
             );
         })
         config.archerd.proxy.virtualHosts;
