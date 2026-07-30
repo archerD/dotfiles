@@ -173,6 +173,13 @@
 
     programs.yazi = {
       enable = true;
+      settings = {
+        preview = {
+          # double the defaults
+          max_width  = 1200;
+          max_height = 1800;
+        };
+      };
     };
 
     xdg.portal = {
@@ -306,6 +313,7 @@
     };
 
     ### the screen locker!
+    xsession.importedVariables = [ "XDG_SEAT_PATH" ]; # import the seat path for switching to the greeter.
     services.screen-locker = {
       enable = true;
       inactiveInterval = 15;

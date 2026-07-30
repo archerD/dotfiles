@@ -8,6 +8,7 @@
 	excludesfile = /home/archerd/.gitignore_global
 [alias]
 	graph = log --graph --all
+	ff = merge --ff-only
 [init]
 	defaultBranch = main
 [status]

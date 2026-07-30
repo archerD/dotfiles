@@ -22,6 +22,7 @@ in {
 
     registry = rec {
       nixpkgs.flake = inputs.nixpkgs; # nixpkgs is the same as this flake's nixpkgs
+      nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
       np = nixpkgs; # shortcut for nixpkgs#
       def.flake = inputs.self; # for my packages I guess...
     };

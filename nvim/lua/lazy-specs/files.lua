@@ -14,6 +14,10 @@ return { -- TODO: remove one of the file trees
                 filtered_items = {
                     visible = true,
                 },
+                follow_current_file = {
+                    enabled = true,
+                },
+                hijack_netrw_behavior = "disabled",
                 -- for immediate refresh
                 use_libuv_file_watcher = true,
             },

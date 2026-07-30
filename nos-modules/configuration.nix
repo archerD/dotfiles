@@ -343,6 +343,7 @@
   # X server:
   services.xserver = {
     enable = true;
+    exportConfiguration = true;
     desktopManager.xterm.enable = true;
     videoDrivers = [ "nvidia" ];
     # letting home-manager handle the window manager for now.

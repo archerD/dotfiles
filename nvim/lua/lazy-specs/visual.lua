@@ -61,7 +61,11 @@ return {
                     syntax = { -- experiment with making comments yellow instead of gray
                         -- comment = "#f5e8aa" -- butter
                         -- comment = "#ffed5f" -- canary yellow
-                        comment = "#d2b55b" -- trombone
+                        -- comment = "#d2b55b" -- trombone
+                        -- comment ="#daa520" -- golden rod
+                        -- comment = "#e49b0f" -- gamboge
+                        -- comment ="#b8860b" -- dark golden rod
+                        comment ="#d2691e" -- chocolate
                         -- comment = "#e2ca76" -- sand
                         -- comment = "#f8de7e" -- mellow yellow
                     },
