@@ -4,7 +4,16 @@
   lib,
   ...
 }:
-{
+let isHomeManager = lib.optionalAttrs (!(lib ? nixosSystem));
+in {
+  specialisation = {
+    light.configuration = {
+      stylix.polarity = "light";
+    };
+    dark.configuration = {
+      stylix.polarity = "light";
+    };
+  };
   stylix = { 
     enable = true;
     # image = images/wallpapers/nix-wallpaper-stripes-logo.png;
@@ -12,7 +21,7 @@
     # image = images/nixos-dark-tiling.png;
     # image = images/nixos-dark-tiling-think.png;
     image = images/wallpapers/nix-wallpaper-gear.png;
-    polarity = "dark";
+    polarity = lib.mkDefault "dark";
     fonts.monospace = {
       package = pkgs.nerd-fonts.jetbrains-mono;
       name = "JetBrains Mono Nerd Font";
@@ -26,9 +35,12 @@
 
     ### themes
     base16Scheme = let
-      lightSchemes = [ "cupertino" "measured-light" "papercolor-light" "selenized-white" ];
-      schemesNames = [ "macintosh" "tube" "google-dark" "primer-dark" "everforest-dark-hard" ];
-    in "${pkgs.base16-schemes}/share/themes/${builtins.elemAt schemesNames 0}.yaml";
+      lightSchemes = [ "papercolor-light" "measured-light" "selenized-white" "cupertino" ];
+      darkSchemes = [ "macintosh" "tube" "google-dark" "primer-dark" "everforest-dark-hard" ];
+      isDark = config.stylix.polarity == "dark";
+      dark = "${pkgs.base16-schemes}/share/themes/${builtins.elemAt darkSchemes 0}.yaml";
+      light = "${pkgs.base16-schemes}/share/themes/${builtins.elemAt lightSchemes 0}.yaml";
+    in (if isDark then dark else light);
 
     ### cursors and icons
     cursor = {
@@ -44,7 +56,7 @@
       package = pkgs.whitesur-cursors;
       size = 32;
     };
-  } // lib.optionalAttrs (!(lib ? nixosSystem))
+  } // isHomeManager
     {
       # HACK: this is only a home-manager option, consider moving into a hm module
       icons = lib.mkIf (builtins.hasAttr "archerd" config) {
@@ -60,4 +72,10 @@
         # light = "Tela-green";
       };
     };
+} // isHomeManager {
+  home.activation = {
+    restoreXresources = lib.hm.dag.entryAfter ["stylixLookAndFeel"] ''
+      run ${lib.getExe pkgs.xrdb} -merge ${config.xresources.path}
+    '';
+  };
 }
