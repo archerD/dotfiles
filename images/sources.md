@@ -1,8 +1,10 @@
 # Contents
 images/
 ├── wallpapers/
+│   ├── abstract-bird-digital-art_3840x2160_xtrafondos.com.jpg
 │   ├── git-commit.png
 │   ├── haskell-wallpaper.png
+│   ├── MilkandBlankWallpaper.png
 │   ├── nix-wallpaper-gear.png
 │   ├── nix-wallpaper-hexagonal.png
 │   ├── nix-wallpaper-nineish-dark-gray.png
@@ -33,11 +35,17 @@ yubico-icon.png
 : copied from yubioath-flutter package in nixos
 
 ### wallpapers sources
+abstract-bird-digital-art....
+: actually not sure, might have been from zsa... or android wallpaper...
+
 git-commit.png
 : Thomas Godden... not published?
 
 haskell-walpaper.png
 : (https://imgur.com/9MQHuZx), linked from (https://xmonad.org/TUTORIAL.html)
+
+MilkAndBlankWallpaper.png
+: from Magus circle game.
 
 nix-wallpaper-gear.png nix-wallpaper-nineish-dark-gray.png
 nix-wallpaper-simple-dark-gray.png nix-wallpaper-stripes-logo.png
