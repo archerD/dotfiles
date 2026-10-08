@@ -29,10 +29,10 @@ let
       description = "A port of localhost.";
       type = port;
     };
-    # direct = lib.mkOption {
-    #   description = "The exact matcher/url to use";
-    #   type = str;
-    # };
+    direct = lib.mkOption {
+      description = "The exact matcher/url to use";
+      type = str;
+    };
   };
   add_url_attr = matcher: 
       if matcher ? ts_subdomain then

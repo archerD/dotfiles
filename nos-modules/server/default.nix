@@ -29,7 +29,7 @@
       };
       mount.data_dir_path = lib.mkOption {
         type = lib.types.str;
-        default = "/home/archerd/data";
+        default = "/mnt/hdd/data";
       };
       mount.data_dirs = lib.mkOption {
         type = lib.types.listOf lib.types.str;

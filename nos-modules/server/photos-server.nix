@@ -1,4 +1,4 @@
-{lib, pkgs, config, ...}:
+{lib, pkgs, pkgs-unstable, config, ...}:
 {
   options = {
     archerd.immich.public-proxy.enable = lib.mkEnableOption "immich public proxy and corresponding configuration.";
@@ -44,6 +44,8 @@
     };
     services.immich = {
       enable = true;
+      # TODO: remove after upgrading to NixOS 26.11
+      package = pkgs-unstable.immich;
 
       # This is the tailscale address for lambda1!
       host = config.archerd.server.ip_addr;
@@ -72,6 +74,8 @@
     };
     services.immich-public-proxy = {
       enable = config.archerd.immich.public-proxy.enable;
+      # TODO: remove after upgrading to NixOS 26.11
+      package = pkgs-unstable.immich-public-proxy;
       immichUrl = "http://${config.services.immich.host}:${builtins.toString config.services.immich.port}";
       settings.ipp = {
         singleImageGallery = true;
