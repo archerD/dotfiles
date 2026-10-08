@@ -128,7 +128,7 @@ in { # This is a reverse proxy, but meh.
       # Adds support for using porkbun certificates.
       package = pkgs.caddy.withPlugins {
         plugins = [ "github.com/caddy-dns/porkbun@v0.3.1" ];
-        hash = "sha256-MlKX2obWac+jP4j9UHFMxsY/DRaqw9JCVAdI7erhFwo=";
+        hash = "sha256-YmKKk5sSOVtv3fwF3kLZtxGL8YpQmHLR59eOcFnhfUo=";
       };
       environmentFile = config.archerd.proxy.porkbunEnvironmentFile;
       extraConfig = ''
