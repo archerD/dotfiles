@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgs-unstable,
   pkgs-mine,
   config,
   lib,
@@ -173,6 +174,8 @@
 
     programs.yazi = {
       enable = true;
+      # for the drag and drop functionality in 26.11
+      package = pkgs-unstable.yazi;
       settings = {
         preview = {
           # double the defaults

@@ -57,6 +57,8 @@ import           XMonad.Actions.Volume
 import           Control.Monad (void)
 import qualified Data.Map                       as M
 import qualified Data.Monoid                    as DM
+import           Data.Functor
+import           Data.Maybe
 import           Graphics.X11.ExtraTypes.XF86
 import           System.IO
 import qualified System.Posix.Signals           as Sig
@@ -150,6 +152,14 @@ myKeysNamed c =
     , ("M-r m", addName "rotation 90 degrees (mirror)" $ sendMessage $ Toggle MIRROR)
     , ("M-r h", addName "reflect horizontally" $ sendMessage $ Toggle REFLECTY)
     , ("M-r v", addName "reflect vertically" $ sendMessage $ Toggle REFLECTX)
+    , ("M-r M-r", addName "reset layout modifications" $
+           sendMessage (SetStruts [minBound .. maxBound] [])
+        -- TODO: See if there is a way to reduce the complexity of this... maybe some type that can encompass all four toggle inputs.
+        >> (withWindowSet (isToggleActive (NBFULL) . W.workspace . W.current) <&> (fromMaybe False)) `whenX` (sendMessage $ Toggle NBFULL)
+        >> (withWindowSet (isToggleActive (MIRROR) . W.workspace . W.current) <&> (fromMaybe False)) `whenX` (sendMessage $ Toggle MIRROR)
+        >> (withWindowSet (isToggleActive (REFLECTX) . W.workspace . W.current) <&> (fromMaybe False)) `whenX` (sendMessage $ Toggle REFLECTX)
+        >> (withWindowSet (isToggleActive (REFLECTY) . W.workspace . W.current) <&> (fromMaybe False)) `whenX` (sendMessage $ Toggle REFLECTY)
+    )
     -- , ("M-S-m", addName "Focus master window" $ windows W.focusMaster) -- Move focus to the master window, changing from the default mod-m
     -- , ("M-S-f", addName "Send the forward keystroke" $ sendKey noModMask xF86XK_Forward)
     , ("M-S-h", addName "Go to previous workspace" prevWS)
