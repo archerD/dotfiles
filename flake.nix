@@ -208,45 +208,30 @@
       #/*
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
-      homeConfigurations = {
-        "archerd@x1yoga4" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations = let 
+        hmConfig = configModule: home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = args; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
           modules = [
             ./hm-modules/home.nix
             stylix.homeModules.stylix
             ./stylix-theme.nix
-            { archerd.targetGenericLinux = true; }
+            configModule
           ];
         };
-        "archerd@fractal" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = args; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
-          modules = [
-            ./hm-modules/home.nix
-            stylix.homeModules.stylix
-            ./stylix-theme.nix
-            {
-              archerd.targetGenericLinux = false;
-              archerd.highResolutionScreen = true;
-            }
-          ];
+      in {
+        "archerd@x1yoga4" = hmConfig { archerd.targetGenericLinux = true; };
+        "archerd@fractal" = hmConfig {
+          archerd.targetGenericLinux = false;
+          archerd.highResolutionScreen = true;
         };
-        "archerd@lambda1" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system}; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = args; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
-          modules = [
-            ./hm-modules/home.nix
-            stylix.homeModules.stylix
-            ./stylix-theme.nix
-            {
-              archerd.targetGenericLinux = false;
-              archerd.highResolutionScreen = true;
-            }
-          ];
+        "archerd@lambda1" = hmConfig {
+          archerd.targetGenericLinux = false;
+          archerd.highResolutionScreen = true;
+        };
+        "archerd@ubuntu-pool" = hmConfig { # lambda2 on tailscale
+          archerd.targetGenericLinux = true;
+          archerd.highResolutionScreen = true;
         };
       };
       #*/
